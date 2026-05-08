@@ -437,14 +437,14 @@ a:hover {
 }
 
 .search-suggest__item {
-  padding: 0.55rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.45rem 0.85rem;
   font-size: 0.875rem;
   color: var(--text-body);
   cursor: pointer;
   line-height: 1.4;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   transition: background 0.12s;
 }
 
@@ -458,6 +458,33 @@ a:hover {
   font-weight: 700;
   color: var(--accent-gold-deep);
   font-style: normal;
+}
+
+.ss-thumb {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  flex-shrink: 0;
+  background: var(--page-bg);
+  border: 1px solid var(--card-border);
+}
+
+.ss-thumb--placeholder {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: var(--radius);
+  background: var(--page-bg);
+  border: 1px solid var(--card-border);
+}
+
+.ss-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .header-wa {

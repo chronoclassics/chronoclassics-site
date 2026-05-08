@@ -1215,12 +1215,18 @@
     function show(query) {
       if (!query || query.length < 2) { hide(); return; }
       var q = query.toLowerCase();
-      var matches = suggestTitles.filter(function (t) {
-        return t.toLowerCase().indexOf(q) !== -1;
+      var matches = suggestTitles.filter(function (obj) {
+        return obj.title.toLowerCase().indexOf(q) !== -1;
       }).slice(0, 5);
       if (!matches.length) { hide(); return; }
-      suggest.innerHTML = matches.map(function (title) {
-        return '<li class="search-suggest__item" role="option">' + boldMatch(title, query) + '</li>';
+      suggest.innerHTML = matches.map(function (obj) {
+        var imgHtml = obj.image
+          ? '<img class="ss-thumb" src="' + obj.image + '" alt="" aria-hidden="true" />'
+          : '<div class="ss-thumb ss-thumb--placeholder"></div>';
+        return '<li class="search-suggest__item" role="option">'
+          + imgHtml
+          + '<span class="ss-title">' + boldMatch(obj.title, query) + '</span>'
+          + '</li>';
       }).join('');
       suggest.hidden = false;
       activeIdx = -1;
@@ -1253,7 +1259,7 @@
         setActive(Math.max(activeIdx - 1, 0));
       } else if (e.key === 'Enter' && activeIdx >= 0) {
         e.preventDefault();
-        input.value = items[activeIdx].textContent;
+        input.value = items[activeIdx].querySelector('.ss-title').textContent;
         hide();
         runSearch(input.value.trim());
       } else if (e.key === 'Escape') {
@@ -1266,7 +1272,7 @@
       var item = e.target.closest('.search-suggest__item');
       if (!item) return;
       e.preventDefault();  // keep focus on input
-      input.value = item.textContent;
+      input.value = item.querySelector('.ss-title').textContent;
       hide();
       runSearch(input.value.trim());
     });
@@ -1385,9 +1391,18 @@
       .then(function (data) {
         if (skeleton) skeleton.style.display = 'none';
         var items = (data.itemSummaries) ? data.itemSummaries : [];
-        // cache unique cleaned titles for autosuggest
-        suggestTitles = items.map(function (it) { return cleanTitle(it.title); })
-          .filter(function (t, i, arr) { return t && arr.indexOf(t) === i; });
+        // cache unique listings {title, image} for autosuggest
+        var _seen = {};
+        suggestTitles = items.map(function (it) {
+          var thumb = (it.image && it.image.imageUrl)
+            ? it.image.imageUrl.replace(/s-l\d+(\.\w+)$/, 's-l64$1')
+            : '';
+          return { title: cleanTitle(it.title), image: thumb };
+        }).filter(function (obj) {
+          if (!obj.title || _seen[obj.title]) return false;
+          _seen[obj.title] = true;
+          return true;
+        });
         if (items.length === 0) {
           if (empty) empty.hidden = false;
         } else {
