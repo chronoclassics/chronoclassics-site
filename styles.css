@@ -4200,76 +4200,86 @@ main {
   top: 50%;
   transform: translateY(-50%);
   z-index: 400;
-  /* hide until JS runs (avoids flash) */
 }
 
 .quicknav__track {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 4px;
-  background: rgba(255, 255, 255, 0.92);
+  gap: 3px;
+  background: rgba(255, 255, 255, 0.93);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(0, 0, 0, 0.09);
-  border-radius: 999px;
-  padding: 12px 10px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.10);
-  width: 32px;
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  border-radius: 14px;
+  padding: 10px 9px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.11);
+  width: 36px;
   overflow: hidden;
   transition:
-    width      0.38s cubic-bezier(0.4, 0, 0.2, 1),
-    border-radius 0.38s cubic-bezier(0.4, 0, 0.2, 1),
-    padding    0.38s cubic-bezier(0.4, 0, 0.2, 1),
+    width   0.38s cubic-bezier(0.4, 0, 0.2, 1),
+    padding 0.38s cubic-bezier(0.4, 0, 0.2, 1),
     box-shadow 0.25s ease;
 }
 
 .quicknav:hover .quicknav__track {
-  width: 200px;
-  border-radius: 18px;
-  padding: 12px 14px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.14);
+  width: 204px;
+  padding: 10px 13px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
 .quicknav__item {
   display: flex;
   align-items: center;
   gap: 10px;
-  width: 100%;
   background: none;
   border: none;
-  padding: 4px 2px;
+  padding: 3px 0;
   cursor: pointer;
   text-align: left;
-  flex-shrink: 0;
-  min-width: 0;
-  border-radius: 6px;
+  border-radius: 5px;
   transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+.quicknav:hover .quicknav__item {
+  width: 100%;
+  padding: 3px 4px;
 }
 
 .quicknav__item:hover {
-  background: rgba(166, 139, 58, 0.09);
+  background: rgba(166, 139, 58, 0.10);
 }
 
 .quicknav__dot {
   --fill: 0;
-  width: 12px;
-  height: 12px;
-  min-width: 12px;
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
   border-radius: 50%;
-  border: 1.5px solid var(--accent-gold);
+  border: 1.5px solid #b8a070;
   background: linear-gradient(
     to top,
-    var(--accent-gold) calc(var(--fill) * 100%),
-    #efe8d8 0%
+    #e8b820 calc(var(--fill) * 100%),
+    #6b6258 0%
   );
   box-sizing: border-box;
   flex-shrink: 0;
   transition: transform 0.25s ease;
 }
 
+/* First dot — flatten top corners to follow strip edge */
+.quicknav__item:first-child .quicknav__dot {
+  border-radius: 4px 4px 50% 50%;
+}
+
+/* Last dot — flatten bottom corners to follow strip edge */
+.quicknav__item:last-child .quicknav__dot {
+  border-radius: 50% 50% 4px 4px;
+}
+
 .quicknav:hover .quicknav__dot {
-  transform: scale(1.15);
+  transform: scale(1.12);
 }
 
 .quicknav__label {
@@ -4280,9 +4290,9 @@ main {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 148px;
+  max-width: 152px;
   opacity: 0;
-  transition: opacity 0.2s ease 0.12s;
+  transition: opacity 0.2s ease 0.14s;
   line-height: 1.3;
   pointer-events: none;
 }
@@ -4291,7 +4301,7 @@ main {
   opacity: 1;
 }
 
-/* Hide on narrow screens where there's no room on the left */
+/* Hide on screens too narrow to have left-edge room */
 @media (max-width: 1024px) {
   .quicknav {
     display: none;
