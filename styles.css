@@ -236,6 +236,7 @@ a:hover {
   width: 68px;
   height: 68px;
   object-fit: contain;
+  transform: scale(1.25);
 }
 
 .brand__text {
