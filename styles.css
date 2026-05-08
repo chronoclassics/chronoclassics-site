@@ -1583,6 +1583,115 @@ main {
   font-weight: 600;
 }
 
+/* ── Newsletter section ──────────────────────────────────────────── */
+.newsletter-section {
+  background: #0f0f0f;
+  padding: 5rem 1.5rem;
+}
+
+.newsletter-section__inner {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.newsletter-eyebrow {
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  margin: 0 0 1rem;
+}
+
+.newsletter-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.15;
+  margin: 0 0 1rem;
+}
+
+.newsletter-sub {
+  font-size: 1rem;
+  color: #a0a0a0;
+  line-height: 1.65;
+  margin: 0 0 2rem;
+}
+
+.newsletter-form__row {
+  display: flex;
+  gap: 0.6rem;
+  max-width: 480px;
+  margin: 0 auto 0.85rem;
+}
+
+.newsletter-form__input {
+  flex: 1;
+  padding: 0.75rem 1.1rem;
+  border: 1px solid #333;
+  border-radius: var(--radius-sm);
+  background: #1a1a1a;
+  color: #fff;
+  font-family: var(--font-ui);
+  font-size: 0.925rem;
+  outline: none;
+  transition: border-color 0.15s;
+  -webkit-appearance: none;
+}
+
+.newsletter-form__input::placeholder { color: #555; }
+
+.newsletter-form__input:focus {
+  border-color: var(--accent-gold);
+}
+
+.newsletter-form__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.4rem;
+  background: var(--accent-gold);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.18s, opacity 0.18s;
+}
+
+.newsletter-form__btn:hover  { background: var(--accent-gold-deep); }
+.newsletter-form__btn:disabled { opacity: 0.65; cursor: default; }
+
+.newsletter-form__status {
+  font-size: 0.875rem;
+  margin: 0.5rem 0 0;
+  min-height: 1.25em;
+}
+
+.newsletter-form__status--ok    { color: #6fcf97; }
+.newsletter-form__status--error { color: #eb5757; }
+
+.newsletter-privacy {
+  font-size: 0.78rem;
+  color: #555;
+  margin: 1rem 0 0;
+}
+
+@media (max-width: 480px) {
+  .newsletter-form__row {
+    flex-direction: column;
+  }
+  .newsletter-form__btn {
+    justify-content: center;
+  }
+}
+
 /* Location section */
 .location-section {
   background: var(--card-bg);

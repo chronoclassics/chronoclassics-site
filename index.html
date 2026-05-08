@@ -882,6 +882,34 @@
       </div>
     </section>
 
+    <!-- Newsletter -->
+    <section class="newsletter-section" id="newsletter" aria-labelledby="newsletter-heading">
+      <div class="newsletter-section__inner">
+        <p class="newsletter-eyebrow">Newsletter</p>
+        <h2 id="newsletter-heading" class="newsletter-title">Never miss a rare timepiece.</h2>
+        <p class="newsletter-sub">Be the first to know when a new watch arrives in our collection — delivered straight to your inbox.</p>
+        <form class="newsletter-form" id="newsletterForm" novalidate>
+          <div class="newsletter-form__row">
+            <input
+              class="newsletter-form__input"
+              id="newsletterEmail"
+              type="email"
+              placeholder="Your email address"
+              autocomplete="email"
+              required
+              aria-label="Email address"
+            />
+            <button class="newsletter-form__btn" type="submit">
+              Notify Me
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+          <p class="newsletter-form__status" id="newsletterStatus" hidden></p>
+        </form>
+        <p class="newsletter-privacy">No spam. Unsubscribe anytime.</p>
+      </div>
+    </section>
+
     <!-- Location -->
     <section class="location-section" id="location" aria-labelledby="location-heading">
       <div class="location-section__inner">
@@ -1743,7 +1771,17 @@
         <span class="quicknav__label">Return Policy</span>
       </button>
 
-      <!-- 9. Location — map pin -->
+      <!-- 9. Newsletter — envelope -->
+      <button class="quicknav__item" data-target="newsletter" aria-label="Newsletter">
+        <span class="quicknav__icon">
+          <svg class="qn-base" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <svg class="qn-active" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </span>
+        <span class="quicknav__label">Newsletter</span>
+      </button>
+
+      <!-- 10. Location — map pin -->
+
       <button class="quicknav__item" data-target="location" aria-label="Our Location">
         <span class="quicknav__icon">
           <svg class="qn-base" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -1804,6 +1842,57 @@
     window.addEventListener('scroll', updateFills, { passive: true });
     window.addEventListener('resize', updateFills, { passive: true });
     updateFills();
+  })();
+
+  // ── Newsletter signup ─────────────────────────────────────────────
+  (function () {
+    var form   = document.getElementById('newsletterForm');
+    var input  = document.getElementById('newsletterEmail');
+    var status = document.getElementById('newsletterStatus');
+    if (!form) return;
+
+    function setStatus(msg, isError) {
+      status.textContent = msg;
+      status.className   = 'newsletter-form__status' + (isError ? ' newsletter-form__status--error' : ' newsletter-form__status--ok');
+      status.hidden      = false;
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = input.value.trim();
+      if (!email) return;
+
+      var btn = form.querySelector('.newsletter-form__btn');
+      btn.disabled    = true;
+      btn.textContent = 'Subscribing…';
+      status.hidden   = true;
+
+      fetch('/api/subscribe', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ email: email }),
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          if (data.success) {
+            input.value  = '';
+            btn.textContent = 'Subscribed ✓';
+            setStatus(data.already
+              ? 'You\'re already on the list — we\'ll keep you posted!'
+              : 'You\'re in! We\'ll notify you when new watches arrive.', false);
+          } else {
+            btn.disabled    = false;
+            btn.textContent = 'Notify Me';
+            btn.innerHTML   = 'Notify Me <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+            setStatus(data.error || 'Something went wrong. Please try again.', true);
+          }
+        })
+        .catch(function () {
+          btn.disabled  = false;
+          btn.innerHTML = 'Notify Me <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+          setStatus('Network error. Please try again.', true);
+        });
+    });
   })();
   </script>
 
