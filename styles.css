@@ -206,9 +206,9 @@ a:hover {
 }
 
 .site-header__grid {
-  max-width: 100%;
+  max-width: var(--max-content);
   margin: 0 auto;
-  padding: 0.4rem 2rem;
+  padding: 0.4rem 1rem;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
