@@ -67,12 +67,11 @@
         <nav class="site-nav" aria-label="Primary">
           <a href="#listings">Luxury Watches</a>
           <a href="#services">Services</a>
-          <a href="/blog/">Guides</a>
         </nav>
       </div>
 
       <a class="brand" href="/">
-        <img class="brand__logo" src="assets/logo-clean.PNG" alt="ChronoClassics" decoding="async" />
+        <img class="brand__logo" src="assets/new-logo.PNG" alt="ChronoClassics" decoding="async" />
         <span class="brand__text">
           <span class="brand__name">ChronoClassics</span>
           <span class="brand__tag">Luxury Timepieces</span>
@@ -1250,15 +1249,8 @@
   }
 
   function condPills(cond) {
-    // Split on em-dash, en-dash, or hyphen surrounded by spaces
-    var parts = cond.split(/\s*[—–-]\s*/);
-    var html = '<div class="watch-card__condition">';
-    parts.forEach(function (p, i) {
-      if (p.trim()) {
-        html += '<span class="watch-card__cond-pill' + (i > 0 ? ' watch-card__cond-pill--grade' : '') + '">' + p.trim() + '</span>';
-      }
-    });
-    return html + '</div>';
+    if (!cond) return '';
+    return '<div class="watch-card__condition"><span class="watch-card__cond-pill">' + cond + '</span></div>';
   }
 
   function renderCard(item) {
@@ -1360,7 +1352,7 @@
     document.querySelectorAll('.lf-pill').forEach(function (p) { p.classList.remove('active'); });
     var allPill = document.querySelector('.lf-pill[data-brand=""]');
     if (allPill) allPill.classList.add('active');
-    currentParams = { q: 'watch', sort: 'newlyListed', limit: 24 };
+    currentParams = { q: 'watch', sort: 'newlyListed', limit: 24, fieldgroups: 'EXTENDED' };
     fetchListings(currentParams);
   });
 
