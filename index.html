@@ -1391,18 +1391,6 @@
       .then(function (data) {
         if (skeleton) skeleton.style.display = 'none';
         var items = (data.itemSummaries) ? data.itemSummaries : [];
-        // cache unique listings {title, image} for autosuggest
-        var _seen = {};
-        suggestTitles = items.map(function (it) {
-          var thumb = (it.image && it.image.imageUrl)
-            ? it.image.imageUrl.replace(/s-l\d+(\.\w+)$/, 's-l64$1')
-            : '';
-          return { title: cleanTitle(it.title), image: thumb };
-        }).filter(function (obj) {
-          if (!obj.title || _seen[obj.title]) return false;
-          _seen[obj.title] = true;
-          return true;
-        });
         if (items.length === 0) {
           if (empty) empty.hidden = false;
         } else {
@@ -1501,6 +1489,25 @@
       if (dy > threshold) fetchListings(currentParams);
     });
   })();
+
+  // ── Autosuggest catalogue cache ───────────────────────────────────
+  // Fetches a broad set of listings once; never overwritten by specific searches.
+  fetch('/api/ebay-listings?q=watch&limit=100&fieldgroups=EXTENDED')
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      var _seen = {};
+      suggestTitles = (data.itemSummaries || []).map(function (it) {
+        var thumb = (it.image && it.image.imageUrl)
+          ? it.image.imageUrl.replace(/s-l\d+(\.\w+)$/, 's-l64$1')
+          : '';
+        return { title: cleanTitle(it.title), image: thumb };
+      }).filter(function (obj) {
+        if (!obj.title || _seen[obj.title]) return false;
+        _seen[obj.title] = true;
+        return true;
+      });
+    })
+    .catch(function () {});
 
   // ── eBay feedback stats ───────────────────────────────────────────
   fetch('/api/ebay-listings?q=watch&limit=1&fieldgroups=EXTENDED')
