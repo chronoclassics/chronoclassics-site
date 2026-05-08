@@ -186,8 +186,8 @@ a:hover {
 }
 
 .site-header.scrolled .brand__logo {
-  width: 63px;
-  height: 63px;
+  width: 66px;
+  height: 66px;
 }
 
 .site-header.scrolled .brand__tag {
@@ -233,8 +233,8 @@ a:hover {
 
 .brand__logo {
   flex-shrink: 0;
-  width: 147px;
-  height: 147px;
+  width: 154px;
+  height: 154px;
   object-fit: contain;
 }
 
@@ -276,8 +276,8 @@ a:hover {
   }
 
   .brand__logo {
-    width: 77px;
-    height: 77px;
+    width: 81px;
+    height: 81px;
   }
 }
 
@@ -1847,8 +1847,8 @@ main {
   }
 
   .brand__logo {
-    width: 74px;
-    height: 74px;
+    width: 78px;
+    height: 78px;
   }
 
   .brand__name {
