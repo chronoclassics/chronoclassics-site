@@ -283,6 +283,7 @@
                   aria-label="Search watches"
                   autocomplete="off"
                 />
+                <ul class="search-suggest" id="listingSuggest" role="listbox" aria-label="Search suggestions" hidden></ul>
               </div>
             </div>
           </div>
@@ -1179,37 +1180,20 @@
     input.addEventListener('keydown', function (e) { if (e.key === 'Enter') doSearch(); });
   })();
 
-  // ── Header autosuggest ───────────────────────────────────────────
-  (function () {
-    var input   = document.getElementById('searchInput');
-    var suggest = document.getElementById('searchSuggest');
-    if (!input || !suggest) return;
+  // ── Autosuggest shared factory ────────────────────────────────────
+  function attachAutosuggest(inputEl, suggestEl, onSelect) {
+    if (!inputEl || !suggestEl) return;
 
     var activeIdx = -1;
 
     function escHtml(s) {
-      return String(s)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     }
 
     function boldMatch(title, query) {
       var safe  = escHtml(title);
       var safeQ = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       return safe.replace(new RegExp('(' + safeQ + ')', 'gi'), '<strong>$1</strong>');
-    }
-
-    function runSearch(q) {
-      if (!q) return;
-      document.querySelectorAll('.lf-pill').forEach(function (c) { c.classList.remove('active'); });
-      var allPill = document.querySelector('.lf-pill[data-brand=""]');
-      if (allPill) allPill.classList.add('active');
-      document.getElementById('minPrice').value = '';
-      document.getElementById('maxPrice').value = '';
-      currentParams = { q: q, sort: 'newlyListed', limit: 24, fieldgroups: 'EXTENDED' };
-      fetchListings(currentParams);
-      document.getElementById('listings').scrollIntoView({ behavior: 'smooth' });
     }
 
     function show(query) {
@@ -1219,7 +1203,7 @@
         return obj.title.toLowerCase().indexOf(q) !== -1;
       }).slice(0, 5);
       if (!matches.length) { hide(); return; }
-      suggest.innerHTML = matches.map(function (obj) {
+      suggestEl.innerHTML = matches.map(function (obj) {
         var imgHtml = obj.image
           ? '<img class="ss-thumb" src="' + obj.image + '" alt="" aria-hidden="true" />'
           : '<div class="ss-thumb ss-thumb--placeholder"></div>';
@@ -1228,28 +1212,33 @@
           + '<span class="ss-title">' + boldMatch(obj.title, query) + '</span>'
           + '</li>';
       }).join('');
-      suggest.hidden = false;
+      suggestEl.hidden = false;
       activeIdx = -1;
     }
 
     function hide() {
-      suggest.hidden = true;
-      suggest.innerHTML = '';
+      suggestEl.hidden = true;
+      suggestEl.innerHTML = '';
       activeIdx = -1;
     }
 
     function setActive(idx) {
-      var items = suggest.querySelectorAll('.search-suggest__item');
+      var items = suggestEl.querySelectorAll('.search-suggest__item');
       items.forEach(function (el, i) { el.classList.toggle('ss-active', i === idx); });
       activeIdx = idx;
     }
 
-    input.addEventListener('input', function () {
-      show(input.value.trim());
-    });
+    function selectItem(el) {
+      var title = el.querySelector('.ss-title').textContent;
+      inputEl.value = title;
+      hide();
+      onSelect(title);
+    }
 
-    input.addEventListener('keydown', function (e) {
-      var items = suggest.querySelectorAll('.search-suggest__item');
+    inputEl.addEventListener('input', function () { show(inputEl.value.trim()); });
+
+    inputEl.addEventListener('keydown', function (e) {
+      var items = suggestEl.querySelectorAll('.search-suggest__item');
       if (!items.length) return;
       if (e.key === 'ArrowDown') {
         e.preventDefault();
@@ -1259,28 +1248,50 @@
         setActive(Math.max(activeIdx - 1, 0));
       } else if (e.key === 'Enter' && activeIdx >= 0) {
         e.preventDefault();
-        input.value = items[activeIdx].querySelector('.ss-title').textContent;
-        hide();
-        runSearch(input.value.trim());
+        selectItem(items[activeIdx]);
       } else if (e.key === 'Escape') {
         hide();
-        input.blur();
+        inputEl.blur();
       }
     });
 
-    suggest.addEventListener('mousedown', function (e) {
+    suggestEl.addEventListener('mousedown', function (e) {
       var item = e.target.closest('.search-suggest__item');
       if (!item) return;
-      e.preventDefault();  // keep focus on input
-      input.value = item.querySelector('.ss-title').textContent;
-      hide();
-      runSearch(input.value.trim());
+      e.preventDefault();
+      selectItem(item);
     });
 
     document.addEventListener('click', function (e) {
-      if (!input.contains(e.target) && !suggest.contains(e.target)) hide();
+      if (!inputEl.contains(e.target) && !suggestEl.contains(e.target)) hide();
     });
-  })();
+  }
+
+  // ── Header search autosuggest ─────────────────────────────────────
+  attachAutosuggest(
+    document.getElementById('searchInput'),
+    document.getElementById('searchSuggest'),
+    function (title) {
+      document.querySelectorAll('.lf-pill').forEach(function (c) { c.classList.remove('active'); });
+      var allPill = document.querySelector('.lf-pill[data-brand=""]');
+      if (allPill) allPill.classList.add('active');
+      document.getElementById('minPrice').value = '';
+      document.getElementById('maxPrice').value = '';
+      currentParams = { q: title, sort: 'newlyListed', limit: 24, fieldgroups: 'EXTENDED' };
+      fetchListings(currentParams);
+      document.getElementById('listings').scrollIntoView({ behavior: 'smooth' });
+    }
+  );
+
+  // ── Catalogue search autosuggest ──────────────────────────────────
+  attachAutosuggest(
+    document.getElementById('listingsSearchInput'),
+    document.getElementById('listingSuggest'),
+    function (title) {
+      currentParams = buildQuery();
+      fetchListings(currentParams);
+    }
+  );
 
   // ── Nav search (hamburger menu) ───────────────────────────────────
   (function () {
