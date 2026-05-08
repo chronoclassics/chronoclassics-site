@@ -1683,7 +1683,82 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   })();
+
+  // ── QuickNav Sidebar ──────────────────────────────────────────────
+  (function () {
+    var navItems = document.querySelectorAll('.quicknav__item');
+    if (!navItems.length) return;
+
+    // Click → smooth scroll to section
+    navItems.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var el = document.getElementById(btn.dataset.target);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // Update dot fill proportional to how much of the viewport each section covers
+    function updateFills() {
+      var vh = window.innerHeight;
+      navItems.forEach(function (btn) {
+        var el = document.getElementById(btn.dataset.target);
+        var dot = btn.querySelector('.quicknav__dot');
+        if (!el || !dot) return;
+        var rect = el.getBoundingClientRect();
+        var visTop    = Math.max(0, rect.top);
+        var visBottom = Math.min(vh, rect.bottom);
+        var fill = visBottom > visTop ? (visBottom - visTop) / vh : 0;
+        dot.style.setProperty('--fill', Math.min(1, Math.max(0, fill)));
+      });
+    }
+
+    window.addEventListener('scroll', updateFills, { passive: true });
+    window.addEventListener('resize', updateFills, { passive: true });
+    updateFills();
+  })();
   </script>
+
+  <!-- QuickNav Sidebar -->
+  <nav class="quicknav" id="quickNav" aria-label="Jump to section">
+    <div class="quicknav__track">
+      <button class="quicknav__item" data-target="hero" aria-label="Exceptional watches, handled with precision.">
+        <span class="quicknav__dot"></span>
+        <span class="quicknav__label">Exceptional watches…</span>
+      </button>
+      <button class="quicknav__item" data-target="services" aria-label="Our Services">
+        <span class="quicknav__dot"></span>
+        <span class="quicknav__label">Our Services</span>
+      </button>
+      <button class="quicknav__item" data-target="listings" aria-label="Luxury Watches">
+        <span class="quicknav__dot"></span>
+        <span class="quicknav__label">Luxury Watches</span>
+      </button>
+      <button class="quicknav__item" data-target="reviews" aria-label="What Our Buyers Say">
+        <span class="quicknav__dot"></span>
+        <span class="quicknav__label">What Our Buyers Say</span>
+      </button>
+      <button class="quicknav__item" data-target="guides" aria-label="Watch Buying Guides">
+        <span class="quicknav__dot"></span>
+        <span class="quicknav__label">Watch Buying Guides</span>
+      </button>
+      <button class="quicknav__item" data-target="sold" aria-label="Recently Sold">
+        <span class="quicknav__dot"></span>
+        <span class="quicknav__label">Recently Sold</span>
+      </button>
+      <button class="quicknav__item" data-target="sell" aria-label="Sell Your Watch">
+        <span class="quicknav__dot"></span>
+        <span class="quicknav__label">Sell Your Watch</span>
+      </button>
+      <button class="quicknav__item" data-target="returns" aria-label="Return Policy">
+        <span class="quicknav__dot"></span>
+        <span class="quicknav__label">Return Policy</span>
+      </button>
+      <button class="quicknav__item" data-target="location" aria-label="Our Location">
+        <span class="quicknav__dot"></span>
+        <span class="quicknav__label">Our Location</span>
+      </button>
+    </div>
+  </nav>
 
 </body>
 </html>
