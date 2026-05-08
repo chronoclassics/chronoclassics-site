@@ -419,6 +419,47 @@ a:hover {
   color: #999;
 }
 
+/* ── Autosuggest dropdown ────────────────────────────────────────── */
+.search-suggest {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid var(--header-border);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.13);
+  list-style: none;
+  margin: 0;
+  padding: 0.3rem 0;
+  z-index: 300;
+  overflow: hidden;
+}
+
+.search-suggest__item {
+  padding: 0.55rem 1rem;
+  font-size: 0.875rem;
+  color: var(--text-body);
+  cursor: pointer;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: background 0.12s;
+}
+
+.search-suggest__item:hover,
+.search-suggest__item.ss-active {
+  background: var(--page-bg);
+  color: var(--accent-gold);
+}
+
+.search-suggest__item strong {
+  font-weight: 700;
+  color: var(--accent-gold-deep);
+  font-style: normal;
+}
+
 .header-wa {
   display: inline-flex;
   align-items: center;
