@@ -842,6 +842,18 @@ a:hover {
   margin-bottom: 0.75rem;
 }
 
+.service-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  line-height: 0;   /* kill the inline descender gap */
+}
+
+.service-card__icon svg {
+  display: block;   /* remove inline baseline offset */
+}
+
 .service-card__title {
   margin: 0;
   font-family: var(--font-heading);
