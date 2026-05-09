@@ -833,8 +833,17 @@ a:hover {
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
 }
 
+.service-card__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  margin-bottom: 0.75rem;
+}
+
 .service-card__title {
-  margin: 0 0 0.5rem;
+  margin: 0;
   font-family: var(--font-heading);
   font-size: 1.5rem;
   font-weight: 700;
@@ -3001,6 +3010,10 @@ main {
   font-weight: 700;
   color: var(--header-text);
   line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .sold-card__condition {
@@ -3025,6 +3038,11 @@ main {
   gap: 1.25rem;
   width: max-content;
   animation: sold-marquee 48s linear infinite;
+}
+
+/* Don't animate while empty (before JS populates it) */
+.sold-grid__track:empty {
+  animation: none;
 }
 
 .sold-grid__track:hover {
