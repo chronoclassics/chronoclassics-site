@@ -571,9 +571,130 @@
           <h2 id="sold-heading" class="sold-title">Recently Sold</h2>
           <p class="sold-sub">A sample of timepieces that have passed through our hands.</p>
         </div>
-        <div class="sold-grid" id="soldGrid">
-          <div class="sold-grid__track" id="soldTrack">
-            <!-- Populated dynamically from eBay completed listings -->
+        <div class="sold-grid">
+          <div class="sold-grid__track">
+            <!-- ── Recently sold watches (update as new pieces sell) ── -->
+            <div class="sold-card">
+              <div class="sold-card__brand">Rolex</div>
+              <div class="sold-card__model">Daytona · Ref. 16520 Zenith</div>
+              <div class="sold-card__condition">Excellent — Box &amp; Papers</div>
+              <div class="sold-card__price">Sold · $36,995</div>
+            </div>
+            <div class="sold-card">
+              <div class="sold-card__brand">Rolex</div>
+              <div class="sold-card__model">Datejust II · Ref. 116333 Wimbledon</div>
+              <div class="sold-card__condition">Excellent — Full Set</div>
+              <div class="sold-card__price">Sold · $13,995</div>
+            </div>
+            <div class="sold-card">
+              <div class="sold-card__brand">Rolex</div>
+              <div class="sold-card__model">Datejust II · Ref. 116333 Ivory Diamond</div>
+              <div class="sold-card__condition">Excellent — Full Set</div>
+              <div class="sold-card__price">Sold · $13,995</div>
+            </div>
+            <div class="sold-card">
+              <div class="sold-card__brand">Omega</div>
+              <div class="sold-card__model">De Ville Hour Vision · 18K Rose Gold</div>
+              <div class="sold-card__condition">Excellent — Box &amp; Papers</div>
+              <div class="sold-card__price">Sold · $12,950</div>
+            </div>
+            <div class="sold-card">
+              <div class="sold-card__brand">Piaget</div>
+              <div class="sold-card__model">Diamond Heart · Ladies</div>
+              <div class="sold-card__condition">Excellent — Box &amp; Papers</div>
+              <div class="sold-card__price">Sold · $11,995</div>
+            </div>
+            <div class="sold-card">
+              <div class="sold-card__brand">Rolex</div>
+              <div class="sold-card__model">Datejust II · Ref. 116334</div>
+              <div class="sold-card__condition">Excellent — Full Set</div>
+              <div class="sold-card__price">Sold · $10,995</div>
+            </div>
+            <div class="sold-card">
+              <div class="sold-card__brand">Rolex</div>
+              <div class="sold-card__model">Milgauss · Ref. 116400</div>
+              <div class="sold-card__condition">Excellent — Box &amp; Papers</div>
+              <div class="sold-card__price">Sold · $9,500</div>
+            </div>
+            <div class="sold-card">
+              <div class="sold-card__brand">Rolex</div>
+              <div class="sold-card__model">Datejust · Ref. 16233</div>
+              <div class="sold-card__condition">Very Good — Full Set</div>
+              <div class="sold-card__price">Sold · $8,095</div>
+            </div>
+            <div class="sold-card">
+              <div class="sold-card__brand">Rolex</div>
+              <div class="sold-card__model">Explorer II · Ref. 16570</div>
+              <div class="sold-card__condition">Excellent — Box &amp; Papers</div>
+              <div class="sold-card__price">Sold · $7,895</div>
+            </div>
+            <div class="sold-card">
+              <div class="sold-card__brand">Cartier</div>
+              <div class="sold-card__model">Ballon Bleu · Diamond Set</div>
+              <div class="sold-card__condition">Excellent — Full Set</div>
+              <div class="sold-card__price">Sold · $6,900</div>
+            </div>
+            <!-- Duplicate set for seamless marquee loop (aria-hidden) -->
+            <div class="sold-card" aria-hidden="true">
+              <div class="sold-card__brand">Rolex</div>
+              <div class="sold-card__model">Daytona · Ref. 16520 Zenith</div>
+              <div class="sold-card__condition">Excellent — Box &amp; Papers</div>
+              <div class="sold-card__price">Sold · $36,995</div>
+            </div>
+            <div class="sold-card" aria-hidden="true">
+              <div class="sold-card__brand">Rolex</div>
+              <div class="sold-card__model">Datejust II · Ref. 116333 Wimbledon</div>
+              <div class="sold-card__condition">Excellent — Full Set</div>
+              <div class="sold-card__price">Sold · $13,995</div>
+            </div>
+            <div class="sold-card" aria-hidden="true">
+              <div class="sold-card__brand">Rolex</div>
+              <div class="sold-card__model">Datejust II · Ref. 116333 Ivory Diamond</div>
+              <div class="sold-card__condition">Excellent — Full Set</div>
+              <div class="sold-card__price">Sold · $13,995</div>
+            </div>
+            <div class="sold-card" aria-hidden="true">
+              <div class="sold-card__brand">Omega</div>
+              <div class="sold-card__model">De Ville Hour Vision · 18K Rose Gold</div>
+              <div class="sold-card__condition">Excellent — Box &amp; Papers</div>
+              <div class="sold-card__price">Sold · $12,950</div>
+            </div>
+            <div class="sold-card" aria-hidden="true">
+              <div class="sold-card__brand">Piaget</div>
+              <div class="sold-card__model">Diamond Heart · Ladies</div>
+              <div class="sold-card__condition">Excellent — Box &amp; Papers</div>
+              <div class="sold-card__price">Sold · $11,995</div>
+            </div>
+            <div class="sold-card" aria-hidden="true">
+              <div class="sold-card__brand">Rolex</div>
+              <div class="sold-card__model">Datejust II · Ref. 116334</div>
+              <div class="sold-card__condition">Excellent — Full Set</div>
+              <div class="sold-card__price">Sold · $10,995</div>
+            </div>
+            <div class="sold-card" aria-hidden="true">
+              <div class="sold-card__brand">Rolex</div>
+              <div class="sold-card__model">Milgauss · Ref. 116400</div>
+              <div class="sold-card__condition">Excellent — Box &amp; Papers</div>
+              <div class="sold-card__price">Sold · $9,500</div>
+            </div>
+            <div class="sold-card" aria-hidden="true">
+              <div class="sold-card__brand">Rolex</div>
+              <div class="sold-card__model">Datejust · Ref. 16233</div>
+              <div class="sold-card__condition">Very Good — Full Set</div>
+              <div class="sold-card__price">Sold · $8,095</div>
+            </div>
+            <div class="sold-card" aria-hidden="true">
+              <div class="sold-card__brand">Rolex</div>
+              <div class="sold-card__model">Explorer II · Ref. 16570</div>
+              <div class="sold-card__condition">Excellent — Box &amp; Papers</div>
+              <div class="sold-card__price">Sold · $7,895</div>
+            </div>
+            <div class="sold-card" aria-hidden="true">
+              <div class="sold-card__brand">Cartier</div>
+              <div class="sold-card__model">Ballon Bleu · Diamond Set</div>
+              <div class="sold-card__condition">Excellent — Full Set</div>
+              <div class="sold-card__price">Sold · $6,900</div>
+            </div>
           </div>
         </div>
       </div>
@@ -1781,54 +1902,7 @@
     });
   })();
 
-  // ── Recently Sold — live data from eBay ───────────────────────────
-  (function () {
-    function esc(s) {
-      return String(s)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;');
-    }
-
-    function buildCard(item, hidden) {
-      var d = document.createElement('div');
-      d.className = 'sold-card';
-      if (hidden) d.setAttribute('aria-hidden', 'true');
-      d.innerHTML =
-        '<div class="sold-card__brand">'     + esc(item.brand)     + '</div>' +
-        '<div class="sold-card__model">'     + esc(item.model)     + '</div>' +
-        '<div class="sold-card__condition">' + esc(item.condition) + '</div>' +
-        '<div class="sold-card__price">Sold &middot; ' + esc(item.price) + '</div>';
-      if (item.url) {
-        d.style.cursor = 'pointer';
-        d.setAttribute('role', 'link');
-        d.addEventListener('click', function () {
-          window.open(item.url, '_blank', 'noopener,noreferrer');
-        });
-      }
-      return d;
-    }
-
-    var track = document.getElementById('soldTrack');
-    if (!track) return;
-
-    fetch('/api/ebay-sold?limit=20')
-      .then(function (r) { return r.json(); })
-      .then(function (data) {
-        var items = data.listings;
-        if (!items || !items.length) return;
-
-        // Clear track (removes the HTML comment placeholder)
-        track.innerHTML = '';
-
-        // First pass — real cards
-        items.forEach(function (item) { track.appendChild(buildCard(item, false)); });
-        // Duplicate pass — aria-hidden clones for seamless marquee loop
-        items.forEach(function (item) { track.appendChild(buildCard(item, true)); });
-      })
-      .catch(function () { /* silent fail — empty track stays hidden */ });
-  })();
+  // Recently Sold — cards are hardcoded in HTML (update manually as watches sell)
   </script>
 
 </body>
