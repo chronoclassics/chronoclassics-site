@@ -3007,6 +3007,27 @@ main {
   box-shadow: 0 4px 16px rgba(0,0,0,0.07);
 }
 
+.sold-card__img-wrap {
+  margin: -1.25rem -1.35rem 0.85rem;
+  height: 170px;
+  overflow: hidden;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  background: #f0efe9;
+  flex-shrink: 0;
+}
+
+.sold-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.sold-card:hover .sold-card__img {
+  transform: scale(1.04);
+}
+
 .sold-card__brand {
   font-family: var(--font-ui);
   font-size: 0.6rem;
