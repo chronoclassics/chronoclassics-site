@@ -74,46 +74,30 @@ module.exports = async (req, res) => {
   const limit = Math.min(parseInt((req.query || {}).limit) || 20, 50);
 
   try {
-    // Step 1 — OAuth token (same flow as ebay-listings.js)
-    const tokenData = await getToken(APP_ID, CERT_ID);
-    if (!tokenData.access_token) {
-      return res.status(500).json({ error: 'Token error', detail: tokenData });
-    }
+    // Finding API — findCompletedItems with SoldItemsOnly
+    // Only needs APP_ID (no OAuth)
+    const qs = [
+      'OPERATION-NAME=findCompletedItems',
+      'SERVICE-VERSION=1.0.0',
+      'SECURITY-APPNAME=' + encodeURIComponent(APP_ID),
+      'RESPONSE-DATA-FORMAT=JSON',
+      'REST-PAYLOAD',
+      'keywords=watch',
+      'itemFilter(0).name=Seller',
+      'itemFilter(0).value=chronoclassics',
+      'itemFilter(1).name=SoldItemsOnly',
+      'itemFilter(1).value=true',
+      'sortOrder=EndTimeSoonest',
+      'paginationInput.entriesPerPage=' + limit,
+    ].join('&');
 
-    // Step 2 — Browse API: seller's completed (sold) listings
-    // completedItems:true returns listings that have ended
-    const filter = `sellers%3A%7Bchronoclassics%7D%2CcompletedItems%3Atrue`;
-    const qs     = `q=watch&filter=${filter}&limit=${limit}&fieldgroups=EXTENDED`;
-
-    const data = await httpsGet(
-      'api.ebay.com',
-      `/buy/browse/v1/item_summary/search?${qs}`,
-      {
-        'Authorization':            `Bearer ${tokenData.access_token}`,
-        'X-EBAY-C-MARKETPLACE-ID': 'EBAY_US',
-        'Content-Type':             'application/json',
-      }
+    const raw = await httpsGet(
+      'svcs.ebay.com',
+      '/services/search/FindingService/v1?' + qs
     );
 
-    // Step 3 — Parse items (same structure as active listings)
-    const items = data.itemSummaries || [];
-
-    const listings = items
-      .map(item => {
-        const title    = item.title || '';
-        const rawPrice = parseFloat(item.price?.value || '0');
-        if (!rawPrice) return null;
-
-        const price     = '$' + rawPrice.toLocaleString('en-US', { maximumFractionDigits: 0 });
-        const condition = item.condition || 'Pre-Owned';
-        const url       = item.itemWebUrl || null;
-        const brand     = extractBrand(title);
-
-        return { brand, model: title, condition, price, url };
-      })
-      .filter(Boolean);
-
-    return res.status(200).json({ listings, _debug: { total: data.total, warnings: data.warnings, itemCount: items.length } });
+    // Return full raw response so we can inspect it
+    return res.status(200).json({ _raw: raw });
 
   } catch (err) {
     return res.status(500).json({ error: err.message });
