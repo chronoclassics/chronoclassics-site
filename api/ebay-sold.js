@@ -113,7 +113,7 @@ module.exports = async (req, res) => {
       })
       .filter(Boolean);
 
-    return res.status(200).json({ listings });
+    return res.status(200).json({ listings, _debug: { total: data.total, warnings: data.warnings, itemCount: items.length } });
 
   } catch (err) {
     return res.status(500).json({ error: err.message });
