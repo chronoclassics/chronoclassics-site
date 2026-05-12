@@ -609,10 +609,8 @@
             <table class="serial-table" aria-label="Rolex serial number to production year reference">
               <thead>
                 <tr>
-                  <th>Serial / Range</th>
-                  <th>Production Year</th>
-                  <th>Era</th>
-                  <th>Notes</th>
+                  <th>Serial Number</th>
+                  <th>Year</th>
                 </tr>
               </thead>
               <tbody id="serialTableBody"></tbody>
@@ -1894,26 +1892,26 @@
   // ── Rolex Serial Number Lookup ────────────────────────────────
   (function () {
     var LETTER_MAP = {
-      'G': { year: '~2010',      note: 'Last letter-prefix series before randomization' },
-      'V': { year: '~2008–2009', note: '' },
-      'M': { year: '~2007–2008', note: '' },
-      'Z': { year: '~2006–2007', note: '' },
-      'D': { year: '~2004–2006', note: '' },
-      'F': { year: '~2002–2004', note: '' },
-      'Y': { year: '~2001–2002', note: '' },
-      'K': { year: '~2000–2001', note: '' },
-      'P': { year: '~1999–2000', note: '' },
-      'A': { year: '~1998–1999', note: '' },
-      'U': { year: '~1996–1998', note: '' },
-      'T': { year: '~1995–1996', note: '' },
-      'W': { year: '~1994–1995', note: '' },
-      'S': { year: '~1992–1994', note: '' },
-      'C': { year: '~1991–1992', note: '' },
-      'N': { year: '~1990–1991', note: '' },
-      'X': { year: '~1990–1991', note: '' },
-      'E': { year: '~1989–1990', note: '' },
-      'L': { year: '~1988–1989', note: '' },
-      'R': { year: '~1987–1988', note: 'First letter-prefix series' },
+      'G': '2010',
+      'V': '2008–2009',
+      'M': '2007–2008',
+      'Z': '2006–2007',
+      'D': '2004–2006',
+      'F': '2002–2004',
+      'Y': '2001–2002',
+      'K': '2000–2001',
+      'P': '1999–2000',
+      'A': '1998–1999',
+      'U': '1996–1998',
+      'T': '1995–1996',
+      'W': '1994–1995',
+      'S': '1992–1994',
+      'C': '1991–1992',
+      'N': '1990–1991',
+      'X': '1990–1991',
+      'E': '1989–1990',
+      'L': '1988–1989',
+      'R': '1987–1988',
     };
     var NUMERIC = [
       { from: 9400000, to: 9999999, year: '1987' },
@@ -1955,22 +1953,30 @@
     function lookup(raw) {
       var s = raw.trim().toUpperCase().replace(/[\s,.']/g, '');
       if (!s) return null;
+      // Pure numeric
       if (/^\d+$/.test(s)) {
         var n = parseInt(s, 10);
         for (var i = 0; i < NUMERIC.length; i++) {
           if (n >= NUMERIC[i].from && n <= NUMERIC[i].to) {
-            return { year: NUMERIC[i].year, era: 'Numeric Era', note: '' };
+            return { year: NUMERIC[i].year, era: 'Numeric Era (pre-1987)' };
           }
         }
         return null;
       }
-      var m = s.match(/^([A-Z])(\d{1,6})$/);
+      // Single letter only (e.g. just "V")
+      if (/^[A-Z]$/.test(s)) {
+        if (LETTER_MAP[s]) return { year: LETTER_MAP[s], era: 'Letter-Prefix Series' };
+        return { year: '2011 or later', era: 'Random Serial Era' };
+      }
+      // Letter + digits (e.g. V123456)
+      var m = s.match(/^([A-Z])(\d+)$/);
       if (m) {
         var letter = m[1];
-        if (LETTER_MAP[letter]) return { year: LETTER_MAP[letter].year, era: 'Letter-Prefix Era', note: LETTER_MAP[letter].note };
-        return { year: '2011 or later', era: 'Random Serial Era', note: 'Rolex switched to randomized serials in 2011' };
+        if (LETTER_MAP[letter]) return { year: LETTER_MAP[letter], era: 'Letter-Prefix Series' };
+        return { year: '2011 or later', era: 'Random Serial Era' };
       }
-      if (/^[A-Z0-9]+$/.test(s)) return { year: '2011 or later', era: 'Random Serial Era', note: 'Rolex switched to randomized serials in 2011' };
+      // Any other alphanumeric = random era
+      if (/^[A-Z0-9]+$/.test(s)) return { year: '2011 or later', era: 'Random Serial Era' };
       return null;
     }
 
@@ -1986,10 +1992,14 @@
       document.querySelectorAll('.serial-table__row--active').forEach(function (el) { el.classList.remove('serial-table__row--active'); });
       if (!r) {
         out.className += ' serial-result--error';
-        out.innerHTML = '<p class="serial-result__label">Not Recognized</p><p class="serial-result__year" style="font-size:1.1rem;color:#b94040;">Could not identify this serial number.</p><p class="serial-result__note">Try entering just the digits or letter + digits, without spaces.</p>';
+        out.innerHTML = '<p class="serial-result__label">Not Recognized</p>'
+          + '<p class="serial-result__year" style="font-size:1.2rem;color:#b94040;">Serial not found in database</p>'
+          + '<p class="serial-result__note">Enter the serial as digits only (e.g. <strong>5237899</strong>) or a letter + digits (e.g. <strong>V123456</strong>).</p>';
         return;
       }
-      out.innerHTML = '<p class="serial-result__label">Estimated Production Year</p><p class="serial-result__year">' + r.year + '</p><p class="serial-result__note">' + r.era + (r.note ? ' &mdash; ' + r.note : '') + '</p>';
+      out.innerHTML = '<p class="serial-result__label">Estimated Production Year</p>'
+        + '<p class="serial-result__year">' + r.year + '</p>'
+        + '<p class="serial-result__note">' + r.era + '</p>';
       var row = document.querySelector('[data-serial-year="' + r.year + '"]');
       if (row) { row.classList.add('serial-table__row--active'); row.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
     }
@@ -1998,21 +2008,24 @@
       var tbody = document.getElementById('serialTableBody');
       if (!tbody) return;
       var rows = [];
-      rows.push({ serial: 'Random Format', year: '2011–Present', era: 'Random Era', note: 'No sequential order — any letter/number combination', cls: 'serial-table__badge--random' });
-      var letters = ['G','V','M','Z','D','F','Y','K','P','A','U','T','W','S','C','N','X','E','L','R'];
-      letters.forEach(function (l) {
-        rows.push({ serial: l + ' xxxxxxx', year: LETTER_MAP[l].year, era: 'Letter-Prefix', note: LETTER_MAP[l].note, cls: '' });
+      // Random era — individual years like BobsWatches
+      var yr = new Date().getFullYear();
+      for (var y = yr; y >= 2011; y--) {
+        rows.push({ serial: 'Random', year: String(y) });
+      }
+      // Letter-prefix era
+      ['G','V','M','Z','D','F','Y','K','P','A','U','T','W','S','C','N','X','E','L','R'].forEach(function (l) {
+        rows.push({ serial: l, year: LETTER_MAP[l] });
       });
+      // Numeric era
       NUMERIC.forEach(function (r) {
-        rows.push({ serial: r.from.toLocaleString('en-US') + ' – ' + r.to.toLocaleString('en-US'), year: r.year, era: 'Numeric', note: '', cls: 'serial-table__badge--numeric' });
+        rows.push({ serial: r.from.toLocaleString('en-US'), year: r.year });
       });
       rows.forEach(function (row) {
         var tr = document.createElement('tr');
         tr.setAttribute('data-serial-year', row.year);
-        tr.innerHTML = '<td><span class="serial-table__serial">' + row.serial + '</span></td>' +
-          '<td><strong class="serial-table__year">' + row.year + '</strong></td>' +
-          '<td><span class="serial-table__badge ' + row.cls + '">' + row.era + '</span></td>' +
-          '<td class="serial-table__note">' + row.note + '</td>';
+        tr.innerHTML = '<td><span class="serial-table__serial">' + row.serial + '</span></td>'
+          + '<td class="serial-table__year">' + row.year + '</td>';
         tbody.appendChild(tr);
       });
     }
