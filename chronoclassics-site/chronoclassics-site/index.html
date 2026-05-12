@@ -156,10 +156,6 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
         Recently Sold
       </a>
-      <a href="/serial-lookup.html" class="mobile-nav__link">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        Serial Lookup
-      </a>
       <a href="#reviews" class="mobile-nav__link">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         Reviews
@@ -579,28 +575,6 @@
           <div class="sold-grid__track" id="soldTrack">
             <!-- populated by JS fetch below -->
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Serial Lookup Widget -->
-    <section class="serial-widget-section" aria-label="Rolex Serial Number Lookup">
-      <div class="serial-widget__inner">
-        <div class="serial-widget__header">
-          <p class="serial-widget__eyebrow">Free Tool</p>
-          <h2 class="serial-widget__title">Rolex Serial Number Lookup</h2>
-          <p class="serial-widget__sub">Enter any Rolex serial number to find its approximate production year.</p>
-        </div>
-        <div class="serial-widget__form-wrap">
-          <div class="serial-widget__form">
-            <input class="serial-widget__input" id="swInput" type="text"
-                   placeholder="e.g. V123456 or 5,237,899"
-                   autocomplete="off" spellcheck="false"
-                   aria-label="Enter Rolex serial number" />
-            <button class="serial-widget__btn" id="swBtn" type="button">Look Up Year</button>
-          </div>
-          <div class="serial-widget__result" id="swResult" hidden aria-live="polite"></div>
-          <a class="serial-widget__link" href="/serial-lookup.html">View full reference table &amp; model number guide →</a>
         </div>
       </div>
     </section>
@@ -1862,64 +1836,6 @@
       })
       .catch(function () { render(FALLBACK); });
   })();
-
-  // ── Serial Lookup Widget ──────────────────────────────────────
-  (function () {
-    var LM = { G:'2010',V:'2008–2009',M:'2007–2008',Z:'2006–2007',D:'2004–2006',
-      F:'2002–2004',Y:'2001–2002',K:'2000–2001',P:'1999–2000',A:'1998–1999',
-      U:'1996–1998',T:'1995–1996',W:'1994–1995',S:'1992–1994',C:'1991–1992',
-      N:'1990–1991',X:'1990–1991',E:'1989–1990',L:'1988–1989',R:'1987–1988' };
-    var NR = [
-      {f:9400000,t:9999999,y:'1987'},{f:8900000,t:9399999,y:'1986'},
-      {f:8614000,t:8899999,y:'1985'},{f:8070022,t:8613999,y:'1984'},
-      {f:7400000,t:8070021,y:'1983'},{f:7100000,t:7399999,y:'1982'},
-      {f:6520870,t:7099999,y:'1981'},{f:6434000,t:6520869,y:'1980'},
-      {f:5737030,t:6433999,y:'1979'},{f:5000000,t:5737029,y:'1977–1978'},
-      {f:4115299,t:4999999,y:'1976'},{f:3862196,t:4115298,y:'1975'},
-      {f:3567927,t:3862195,y:'1974'},{f:3200268,t:3567926,y:'1973'},
-      {f:2890459,t:3200267,y:'1972'},{f:2589295,t:2890458,y:'1971'},
-      {f:2241882,t:2589294,y:'1970'},{f:1900000,t:2241881,y:'1969'},
-      {f:1752000,t:1899999,y:'1968'},{f:1538435,t:1751999,y:'1967'},
-      {f:1200000,t:1538434,y:'1966'},{f:1100000,t:1199999,y:'1965'},
-      {f:1008889,t:1099999,y:'1964'},{f:824000,t:1008888,y:'1963'},
-      {f:744000,t:823999,y:'1962'},{f:643153,t:743999,y:'1961'},
-      {f:516000,t:643152,y:'1960'},{f:399453,t:515999,y:'1959'},
-      {f:328000,t:399452,y:'1958'},{f:224000,t:327999,y:'1957'},
-      {f:133061,t:223999,y:'1956'},{f:97000,t:133060,y:'1955'},
-      {f:23000,t:96999,y:'1954'},{f:1,t:22999,y:'1926–1953'}
-    ];
-    function lookup(raw) {
-      var s = raw.trim().toUpperCase().replace(/[\s,.']/g,'');
-      if (!s) return null;
-      if (/^\d+$/.test(s)) {
-        var n = parseInt(s,10);
-        for (var i=0;i<NR.length;i++) if (n>=NR[i].f&&n<=NR[i].t) return {year:NR[i].y,era:'Numeric Era'};
-        return null;
-      }
-      if (/^[A-Z]$/.test(s)) return LM[s] ? {year:LM[s],era:'Letter-Prefix Series'} : {year:'2011–2026',era:'Random Serial Era'};
-      var m=s.match(/^([A-Z])(\d+)$/);
-      if (m) return LM[m[1]] ? {year:LM[m[1]],era:'Letter-Prefix Series'} : {year:'2011–2026',era:'Random Serial Era'};
-      if (/^[A-Z0-9]+$/.test(s)) return {year:'2011–2026',era:'Random Serial Era'};
-      return null;
-    }
-    function run() {
-      var inp=document.getElementById('swInput'), out=document.getElementById('swResult');
-      if (!inp||!out) return;
-      var val=inp.value.trim();
-      if (!val){out.hidden=true;return;}
-      var r=lookup(val);
-      out.hidden=false;
-      if (!r) {
-        out.innerHTML='<span class="sw-result__error">Serial not recognized — try digits only or letter + digits</span>';
-      } else {
-        out.innerHTML='<span class="sw-result__label">Estimated Year</span><span class="sw-result__year">'+r.year+'</span><span class="sw-result__era">'+r.era+'</span>';
-      }
-    }
-    var btn=document.getElementById('swBtn'), inp=document.getElementById('swInput');
-    if (btn) btn.addEventListener('click',run);
-    if (inp) inp.addEventListener('keydown',function(e){if(e.key==='Enter')run();});
-  })();
-
   </script>
 
 </body>
