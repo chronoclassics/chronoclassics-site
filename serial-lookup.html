@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rolex Serial Number Lookup — ChronoClassics</title>
+  <meta name="description" content="Free Rolex serial number lookup tool. Enter any Rolex serial number to find the approximate production year — covering 1926 to present." />
+  <link rel="canonical" href="https://chronoclassics.vercel.app/serial-lookup" />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .sl-page { min-height: 100vh; background: #fff; }
+    .sl-topbar {
+      background: #fff;
+      border-bottom: 1px solid var(--card-border);
+      padding: 0 var(--space-md);
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .sl-topbar__back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: var(--font-ui);
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .sl-topbar__back:hover { color: var(--text-body); }
+    .sl-topbar__logo {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-body);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+    .sl-topbar__spacer { width: 80px; }
+    .sl-footer {
+      text-align: center;
+      padding: var(--space-lg) var(--space-md);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--card-border);
+    }
+    .sl-footer a { color: var(--accent-gold); text-decoration: none; }
+    .sl-footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<div class="sl-page">
+
+  <!-- Top bar -->
+  <div class="sl-topbar">
+    <a class="sl-topbar__back" href="/">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to ChronoClassics
+    </a>
+    <a class="sl-topbar__logo" href="/">ChronoClassics</a>
+    <div class="sl-topbar__spacer"></div>
+  </div>
+
+  <!-- Serial Lookup Section -->
+  <section class="serial-section" id="serial" aria-labelledby="serial-heading">
+    <div class="serial-section__inner">
+      <div class="serial-header">
+        <p class="serial-eyebrow">Authentication Tool</p>
+        <h1 id="serial-heading" class="serial-title">Rolex Serial Number Lookup</h1>
+        <p class="serial-sub">Enter your Rolex serial number to identify its approximate production year. Serial numbers are engraved between the lugs at the 6 o'clock position of the case.</p>
+      </div>
+
+      <div class="serial-lookup">
+        <div class="serial-lookup__form">
+          <input class="serial-lookup__input" id="serialInput" type="text"
+                 placeholder="e.g. V123456 or 5,237,899"
+                 autocomplete="off" spellcheck="false"
+                 aria-label="Enter Rolex serial number" />
+          <button class="serial-lookup__btn" id="serialBtn" type="button">Look Up Year</button>
+        </div>
+        <div class="serial-lookup__result" id="serialResult" hidden aria-live="polite"></div>
+      </div>
+
+      <div class="serial-table-wrap">
+        <p class="serial-table__title">Complete Reference Table</p>
+        <div class="serial-table-scroll">
+          <table class="serial-table" aria-label="Rolex serial number to production year reference">
+            <thead>
+              <tr>
+                <th>Serial Number</th>
+                <th>Year</th>
+              </tr>
+            </thead>
+            <tbody id="serialTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <p class="serial-disclaimer">Dates are approximate. Rolex assembled watches non-sequentially — actual manufacture may vary ±1–2 years. For definitive authentication, consult an authorized Rolex dealer.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div class="sl-footer">
+    &copy; <script>document.write(new Date().getFullYear())</script> ChronoClassics &mdash;
+    <a href="/">Shop Watches</a> &middot;
+    <a href="https://www.ebay.com/str/chronoclassics" target="_blank" rel="noopener noreferrer">eBay Store</a>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  var LETTER_MAP = {
+    'G': '2010',
+    'V': '2008–2009',
+    'M': '2007–2008',
+    'Z': '2006–2007',
+    'D': '2004–2006',
+    'F': '2002–2004',
+    'Y': '2001–2002',
+    'K': '2000–2001',
+    'P': '1999–2000',
+    'A': '1998–1999',
+    'U': '1996–1998',
+    'T': '1995–1996',
+    'W': '1994–1995',
+    'S': '1992–1994',
+    'C': '1991–1992',
+    'N': '1990–1991',
+    'X': '1990–1991',
+    'E': '1989–1990',
+    'L': '1988–1989',
+    'R': '1987–1988',
+  };
+  var NUMERIC = [
+    { from: 9400000, to: 9999999, year: '1987' },
+    { from: 8900000, to: 9399999, year: '1986' },
+    { from: 8614000, to: 8899999, year: '1985' },
+    { from: 8070022, to: 8613999, year: '1984' },
+    { from: 7400000, to: 8070021, year: '1983' },
+    { from: 7100000, to: 7399999, year: '1982' },
+    { from: 6520870, to: 7099999, year: '1981' },
+    { from: 6434000, to: 6520869, year: '1980' },
+    { from: 5737030, to: 6433999, year: '1979' },
+    { from: 5000000, to: 5737029, year: '1977–1978' },
+    { from: 4115299, to: 4999999, year: '1976' },
+    { from: 3862196, to: 4115298, year: '1975' },
+    { from: 3567927, to: 3862195, year: '1974' },
+    { from: 3200268, to: 3567926, year: '1973' },
+    { from: 2890459, to: 3200267, year: '1972' },
+    { from: 2589295, to: 2890458, year: '1971' },
+    { from: 2241882, to: 2589294, year: '1970' },
+    { from: 1900000, to: 2241881, year: '1969' },
+    { from: 1752000, to: 1899999, year: '1968' },
+    { from: 1538435, to: 1751999, year: '1967' },
+    { from: 1200000, to: 1538434, year: '1966' },
+    { from: 1100000, to: 1199999, year: '1965' },
+    { from: 1008889, to: 1099999, year: '1964' },
+    { from: 824000,  to: 1008888, year: '1963' },
+    { from: 744000,  to: 823999,  year: '1962' },
+    { from: 643153,  to: 743999,  year: '1961' },
+    { from: 516000,  to: 643152,  year: '1960' },
+    { from: 399453,  to: 515999,  year: '1959' },
+    { from: 328000,  to: 399452,  year: '1958' },
+    { from: 224000,  to: 327999,  year: '1957' },
+    { from: 133061,  to: 223999,  year: '1956' },
+    { from: 97000,   to: 133060,  year: '1955' },
+    { from: 23000,   to: 96999,   year: '1954' },
+    { from: 1,       to: 22999,   year: '1926–1953' },
+  ];
+
+  function lookup(raw) {
+    var s = raw.trim().toUpperCase().replace(/[\s,.']/g, '');
+    if (!s) return null;
+    if (/^\d+$/.test(s)) {
+      var n = parseInt(s, 10);
+      for (var i = 0; i < NUMERIC.length; i++) {
+        if (n >= NUMERIC[i].from && n <= NUMERIC[i].to) {
+          return { year: NUMERIC[i].year, era: 'Numeric Era (pre-1987)' };
+        }
+      }
+      return null;
+    }
+    if (/^[A-Z]$/.test(s)) {
+      if (LETTER_MAP[s]) return { year: LETTER_MAP[s], era: 'Letter-Prefix Series' };
+      return { year: '2011–2026', era: 'Random Serial Era' };
+    }
+    var m = s.match(/^([A-Z])(\d+)$/);
+    if (m) {
+      var letter = m[1];
+      if (LETTER_MAP[letter]) return { year: LETTER_MAP[letter], era: 'Letter-Prefix Series' };
+      return { year: '2011–2026', era: 'Random Serial Era' };
+    }
+    if (/^[A-Z0-9]+$/.test(s)) return { year: '2011–2026', era: 'Random Serial Era' };
+    return null;
+  }
+
+  function doLookup() {
+    var inp = document.getElementById('serialInput');
+    var out = document.getElementById('serialResult');
+    if (!inp || !out) return;
+    var val = inp.value.trim();
+    if (!val) { out.hidden = true; return; }
+    var r = lookup(val);
+    out.hidden = false;
+    out.className = 'serial-lookup__result';
+    document.querySelectorAll('.serial-table__row--active').forEach(function (el) { el.classList.remove('serial-table__row--active'); });
+    if (!r) {
+      out.className += ' serial-result--error';
+      out.innerHTML = '<p class="serial-result__label">Not Recognized</p>'
+        + '<p class="serial-result__year" style="font-size:1.2rem;color:#b94040;">Serial not found in database</p>'
+        + '<p class="serial-result__note">Enter digits only (e.g. <strong>5237899</strong>) or letter + digits (e.g. <strong>V123456</strong>).</p>';
+      return;
+    }
+    out.innerHTML = '<p class="serial-result__label">Estimated Production Year</p>'
+      + '<p class="serial-result__year">' + r.year + '</p>'
+      + '<p class="serial-result__note">' + r.era + '</p>';
+    var row = document.querySelector('[data-serial-year="' + r.year + '"]');
+    if (row) { row.classList.add('serial-table__row--active'); row.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+  }
+
+  function buildTable() {
+    var tbody = document.getElementById('serialTableBody');
+    if (!tbody) return;
+    var rows = [];
+    rows.push({ serial: 'Random', year: '2011–2026' });
+    ['G','V','M','Z','D','F','Y','K','P','A','U','T','W','S','C','N','X','E','L','R'].forEach(function (l) {
+      rows.push({ serial: l, year: LETTER_MAP[l] });
+    });
+    NUMERIC.forEach(function (r) {
+      rows.push({ serial: r.from.toLocaleString('en-US'), year: r.year });
+    });
+    rows.forEach(function (row) {
+      var tr = document.createElement('tr');
+      tr.setAttribute('data-serial-year', row.year);
+      tr.innerHTML = '<td><span class="serial-table__serial">' + row.serial + '</span></td>'
+        + '<td class="serial-table__year">' + row.year + '</td>';
+      tbody.appendChild(tr);
+    });
+  }
+
+  var btn = document.getElementById('serialBtn');
+  var inp = document.getElementById('serialInput');
+  if (btn) btn.addEventListener('click', doLookup);
+  if (inp) inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') doLookup(); });
+  buildTable();
+})();
+</script>
+
+</body>
+</html>
