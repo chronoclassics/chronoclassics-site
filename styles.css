@@ -4473,3 +4473,214 @@ main {
     display: none;
   }
 }
+
+/* ── Rolex Serial Lookup Section ───────────────────────────────── */
+
+.serial-section {
+  background: var(--page-bg);
+  padding: var(--space-xl) var(--space-md);
+}
+.serial-section__inner {
+  max-width: var(--max-content);
+  margin: 0 auto;
+}
+.serial-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+.serial-eyebrow {
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  margin: 0 0 0.6rem;
+}
+.serial-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 500;
+  color: var(--text-body);
+  margin: 0 0 0.75rem;
+  line-height: 1.1;
+}
+.serial-sub {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  max-width: 52rem;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+.serial-lookup {
+  background: #fff;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  max-width: 640px;
+  margin: 0 auto 2.5rem;
+  box-shadow: var(--shadow-card);
+}
+.serial-lookup__form {
+  display: flex;
+  gap: 0.75rem;
+}
+.serial-lookup__input {
+  flex: 1;
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--card-border);
+  border-radius: var(--radius-sm);
+  color: var(--text-body);
+  background: #fafafa;
+  outline: none;
+  transition: border-color 0.15s;
+  min-width: 0;
+}
+.serial-lookup__input:focus {
+  border-color: var(--accent-gold);
+  background: #fff;
+}
+.serial-lookup__input::placeholder { color: #aaa; }
+.serial-lookup__btn {
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.75rem 1.5rem;
+  background: var(--accent-gold);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+.serial-lookup__btn:hover { background: var(--accent-gold-deep); }
+.serial-lookup__result {
+  margin-top: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  background: #f9f6ee;
+  border-left: 3px solid var(--accent-gold);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.serial-result__label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  margin: 0 0 0.35rem;
+}
+.serial-result__year {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  font-weight: 500;
+  color: var(--text-body);
+  line-height: 1;
+  margin: 0 0 0.4rem;
+}
+.serial-result__note {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+.serial-result--error .serial-lookup__result { border-left-color: #c0392b; background: #fdf3f3; }
+.serial-table-wrap {
+  background: #fff;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+.serial-table__title {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--card-border);
+  background: #fafaf8;
+}
+.serial-table-scroll {
+  overflow-x: auto;
+  max-height: 500px;
+  overflow-y: auto;
+}
+.serial-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+}
+.serial-table thead { position: sticky; top: 0; z-index: 1; }
+.serial-table th {
+  text-align: left;
+  padding: 0.65rem 1.25rem;
+  background: #f3f1eb;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--card-border);
+  white-space: nowrap;
+}
+.serial-table td {
+  padding: 0.6rem 1.25rem;
+  border-bottom: 1px solid #f0eee8;
+  color: var(--text-body);
+  vertical-align: middle;
+}
+.serial-table tbody tr:last-child td { border-bottom: none; }
+.serial-table tbody tr:hover td { background: #faf8f2; }
+.serial-table tbody tr.serial-table__row--active td { background: #fdf7e3; }
+.serial-table__serial {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #333;
+}
+.serial-table__year { font-weight: 600; }
+.serial-table__badge {
+  display: inline-block;
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.55rem;
+  border-radius: 20px;
+  background: #f0ede3;
+  color: var(--accent-gold);
+  border: 1px solid #e8e0c8;
+}
+.serial-table__badge--random {
+  background: #eaf4ea;
+  color: #2e6b2e;
+  border-color: #c4dfc4;
+}
+.serial-table__badge--numeric {
+  background: #edf0f7;
+  color: #3a4d7a;
+  border-color: #c8d0e8;
+}
+.serial-table__note { color: var(--text-muted); font-size: 0.8rem; }
+.serial-disclaimer {
+  margin: 1.5rem 0 0;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-align: center;
+  font-style: italic;
+  line-height: 1.55;
+}
+@media (max-width: 640px) {
+  .serial-lookup { padding: 1.25rem; }
+  .serial-lookup__form { flex-direction: column; }
+  .serial-lookup__btn { width: 100%; }
+  .serial-table th, .serial-table td { padding: 0.55rem 0.85rem; }
+  .serial-table__note { display: none; }
+}

@@ -156,6 +156,10 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
         Recently Sold
       </a>
+      <a href="#serial" class="mobile-nav__link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Serial Lookup
+      </a>
       <a href="#reviews" class="mobile-nav__link">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         Reviews
@@ -576,6 +580,47 @@
             <!-- populated by JS fetch below -->
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- Rolex Serial Lookup -->
+    <section class="serial-section" id="serial" aria-labelledby="serial-heading">
+      <div class="serial-section__inner">
+        <div class="serial-header">
+          <p class="serial-eyebrow">Authentication Tool</p>
+          <h2 id="serial-heading" class="serial-title">Rolex Serial Number Lookup</h2>
+          <p class="serial-sub">Enter your Rolex serial number to identify its approximate production year. Serial numbers are engraved between the lugs at the 6 o'clock position of the case.</p>
+        </div>
+
+        <div class="serial-lookup">
+          <div class="serial-lookup__form">
+            <input class="serial-lookup__input" id="serialInput" type="text"
+                   placeholder="e.g. V123456 or 5,237,899"
+                   autocomplete="off" spellcheck="false"
+                   aria-label="Enter Rolex serial number" />
+            <button class="serial-lookup__btn" id="serialBtn" type="button">Look Up Year</button>
+          </div>
+          <div class="serial-lookup__result" id="serialResult" hidden aria-live="polite"></div>
+        </div>
+
+        <div class="serial-table-wrap">
+          <p class="serial-table__title">Complete Reference Table</p>
+          <div class="serial-table-scroll">
+            <table class="serial-table" aria-label="Rolex serial number to production year reference">
+              <thead>
+                <tr>
+                  <th>Serial / Range</th>
+                  <th>Production Year</th>
+                  <th>Era</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody id="serialTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <p class="serial-disclaimer">Dates are approximate. Rolex assembled watches non-sequentially — actual manufacture may vary ±1–2 years. For definitive authentication, consult an authorized Rolex dealer.</p>
       </div>
     </section>
 
@@ -1639,7 +1684,16 @@
         <span class="quicknav__label">Recently Sold</span>
       </button>
 
-      <!-- 7. Sell — dollar sign -->
+      <!-- 7. Serial Lookup — magnifying glass -->
+      <button class="quicknav__item" data-target="serial" aria-label="Rolex Serial Lookup">
+        <span class="quicknav__icon">
+          <svg class="qn-base" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <svg class="qn-active" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </span>
+        <span class="quicknav__label">Serial Lookup</span>
+      </button>
+
+      <!-- 8. Sell — dollar sign -->
       <button class="quicknav__item" data-target="sell" aria-label="Sell Your Watch">
         <span class="quicknav__icon">
           <svg class="qn-base" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
@@ -1835,6 +1889,139 @@
         render(items && items.length ? items : FALLBACK);
       })
       .catch(function () { render(FALLBACK); });
+  })();
+
+  // ── Rolex Serial Number Lookup ────────────────────────────────
+  (function () {
+    var LETTER_MAP = {
+      'G': { year: '~2010',      note: 'Last letter-prefix series before randomization' },
+      'V': { year: '~2008–2009', note: '' },
+      'M': { year: '~2007–2008', note: '' },
+      'Z': { year: '~2006–2007', note: '' },
+      'D': { year: '~2004–2006', note: '' },
+      'F': { year: '~2002–2004', note: '' },
+      'Y': { year: '~2001–2002', note: '' },
+      'K': { year: '~2000–2001', note: '' },
+      'P': { year: '~1999–2000', note: '' },
+      'A': { year: '~1998–1999', note: '' },
+      'U': { year: '~1996–1998', note: '' },
+      'T': { year: '~1995–1996', note: '' },
+      'W': { year: '~1994–1995', note: '' },
+      'S': { year: '~1992–1994', note: '' },
+      'C': { year: '~1991–1992', note: '' },
+      'N': { year: '~1990–1991', note: '' },
+      'X': { year: '~1990–1991', note: '' },
+      'E': { year: '~1989–1990', note: '' },
+      'L': { year: '~1988–1989', note: '' },
+      'R': { year: '~1987–1988', note: 'First letter-prefix series' },
+    };
+    var NUMERIC = [
+      { from: 9400000, to: 9999999, year: '1987' },
+      { from: 8900000, to: 9399999, year: '1986' },
+      { from: 8614000, to: 8899999, year: '1985' },
+      { from: 8070022, to: 8613999, year: '1984' },
+      { from: 7400000, to: 8070021, year: '1983' },
+      { from: 7100000, to: 7399999, year: '1982' },
+      { from: 6520870, to: 7099999, year: '1981' },
+      { from: 6434000, to: 6520869, year: '1980' },
+      { from: 5737030, to: 6433999, year: '1979' },
+      { from: 5000000, to: 5737029, year: '1977–1978' },
+      { from: 4115299, to: 4999999, year: '1976' },
+      { from: 3862196, to: 4115298, year: '1975' },
+      { from: 3567927, to: 3862195, year: '1974' },
+      { from: 3200268, to: 3567926, year: '1973' },
+      { from: 2890459, to: 3200267, year: '1972' },
+      { from: 2589295, to: 2890458, year: '1971' },
+      { from: 2241882, to: 2589294, year: '1970' },
+      { from: 1900000, to: 2241881, year: '1969' },
+      { from: 1752000, to: 1899999, year: '1968' },
+      { from: 1538435, to: 1751999, year: '1967' },
+      { from: 1200000, to: 1538434, year: '1966' },
+      { from: 1100000, to: 1199999, year: '1965' },
+      { from: 1008889, to: 1099999, year: '1964' },
+      { from: 824000,  to: 1008888, year: '1963' },
+      { from: 744000,  to: 823999,  year: '1962' },
+      { from: 643153,  to: 743999,  year: '1961' },
+      { from: 516000,  to: 643152,  year: '1960' },
+      { from: 399453,  to: 515999,  year: '1959' },
+      { from: 328000,  to: 399452,  year: '1958' },
+      { from: 224000,  to: 327999,  year: '1957' },
+      { from: 133061,  to: 223999,  year: '1956' },
+      { from: 97000,   to: 133060,  year: '1955' },
+      { from: 23000,   to: 96999,   year: '1954' },
+      { from: 1,       to: 22999,   year: '1926–1953' },
+    ];
+
+    function lookup(raw) {
+      var s = raw.trim().toUpperCase().replace(/[\s,.']/g, '');
+      if (!s) return null;
+      if (/^\d+$/.test(s)) {
+        var n = parseInt(s, 10);
+        for (var i = 0; i < NUMERIC.length; i++) {
+          if (n >= NUMERIC[i].from && n <= NUMERIC[i].to) {
+            return { year: NUMERIC[i].year, era: 'Numeric Era', note: '' };
+          }
+        }
+        return null;
+      }
+      var m = s.match(/^([A-Z])(\d{1,6})$/);
+      if (m) {
+        var letter = m[1];
+        if (LETTER_MAP[letter]) return { year: LETTER_MAP[letter].year, era: 'Letter-Prefix Era', note: LETTER_MAP[letter].note };
+        return { year: '2011 or later', era: 'Random Serial Era', note: 'Rolex switched to randomized serials in 2011' };
+      }
+      if (/^[A-Z0-9]+$/.test(s)) return { year: '2011 or later', era: 'Random Serial Era', note: 'Rolex switched to randomized serials in 2011' };
+      return null;
+    }
+
+    function doLookup() {
+      var inp = document.getElementById('serialInput');
+      var out = document.getElementById('serialResult');
+      if (!inp || !out) return;
+      var val = inp.value.trim();
+      if (!val) { out.hidden = true; return; }
+      var r = lookup(val);
+      out.hidden = false;
+      out.className = 'serial-lookup__result';
+      document.querySelectorAll('.serial-table__row--active').forEach(function (el) { el.classList.remove('serial-table__row--active'); });
+      if (!r) {
+        out.className += ' serial-result--error';
+        out.innerHTML = '<p class="serial-result__label">Not Recognized</p><p class="serial-result__year" style="font-size:1.1rem;color:#b94040;">Could not identify this serial number.</p><p class="serial-result__note">Try entering just the digits or letter + digits, without spaces.</p>';
+        return;
+      }
+      out.innerHTML = '<p class="serial-result__label">Estimated Production Year</p><p class="serial-result__year">' + r.year + '</p><p class="serial-result__note">' + r.era + (r.note ? ' &mdash; ' + r.note : '') + '</p>';
+      var row = document.querySelector('[data-serial-year="' + r.year + '"]');
+      if (row) { row.classList.add('serial-table__row--active'); row.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+    }
+
+    function buildTable() {
+      var tbody = document.getElementById('serialTableBody');
+      if (!tbody) return;
+      var rows = [];
+      rows.push({ serial: 'Random Format', year: '2011–Present', era: 'Random Era', note: 'No sequential order — any letter/number combination', cls: 'serial-table__badge--random' });
+      var letters = ['G','V','M','Z','D','F','Y','K','P','A','U','T','W','S','C','N','X','E','L','R'];
+      letters.forEach(function (l) {
+        rows.push({ serial: l + ' xxxxxxx', year: LETTER_MAP[l].year, era: 'Letter-Prefix', note: LETTER_MAP[l].note, cls: '' });
+      });
+      NUMERIC.forEach(function (r) {
+        rows.push({ serial: r.from.toLocaleString('en-US') + ' – ' + r.to.toLocaleString('en-US'), year: r.year, era: 'Numeric', note: '', cls: 'serial-table__badge--numeric' });
+      });
+      rows.forEach(function (row) {
+        var tr = document.createElement('tr');
+        tr.setAttribute('data-serial-year', row.year);
+        tr.innerHTML = '<td><span class="serial-table__serial">' + row.serial + '</span></td>' +
+          '<td><strong class="serial-table__year">' + row.year + '</strong></td>' +
+          '<td><span class="serial-table__badge ' + row.cls + '">' + row.era + '</span></td>' +
+          '<td class="serial-table__note">' + row.note + '</td>';
+        tbody.appendChild(tr);
+      });
+    }
+
+    var btn = document.getElementById('serialBtn');
+    var inp = document.getElementById('serialInput');
+    if (btn) btn.addEventListener('click', doLookup);
+    if (inp) inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') doLookup(); });
+    buildTable();
   })();
   </script>
 
