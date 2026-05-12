@@ -1966,17 +1966,17 @@
       // Single letter only (e.g. just "V")
       if (/^[A-Z]$/.test(s)) {
         if (LETTER_MAP[s]) return { year: LETTER_MAP[s], era: 'Letter-Prefix Series' };
-        return { year: '2011 or later', era: 'Random Serial Era' };
+        return { year: '2011–2026', era: 'Random Serial Era' };
       }
       // Letter + digits (e.g. V123456)
       var m = s.match(/^([A-Z])(\d+)$/);
       if (m) {
         var letter = m[1];
         if (LETTER_MAP[letter]) return { year: LETTER_MAP[letter], era: 'Letter-Prefix Series' };
-        return { year: '2011 or later', era: 'Random Serial Era' };
+        return { year: '2011–2026', era: 'Random Serial Era' };
       }
       // Any other alphanumeric = random era
-      if (/^[A-Z0-9]+$/.test(s)) return { year: '2011 or later', era: 'Random Serial Era' };
+      if (/^[A-Z0-9]+$/.test(s)) return { year: '2011–2026', era: 'Random Serial Era' };
       return null;
     }
 
@@ -2008,11 +2008,8 @@
       var tbody = document.getElementById('serialTableBody');
       if (!tbody) return;
       var rows = [];
-      // Random era — individual years like BobsWatches
-      var yr = new Date().getFullYear();
-      for (var y = yr; y >= 2011; y--) {
-        rows.push({ serial: 'Random', year: String(y) });
-      }
+      // Random era — single row
+      rows.push({ serial: 'Random', year: '2011–2026' });
       // Letter-prefix era
       ['G','V','M','Z','D','F','Y','K','P','A','U','T','W','S','C','N','X','E','L','R'].forEach(function (l) {
         rows.push({ serial: l, year: LETTER_MAP[l] });
