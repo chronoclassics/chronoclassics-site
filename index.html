@@ -428,6 +428,28 @@
       </div>
     </section>
 
+    <!-- Serial Lookup Widget -->
+    <section class="serial-widget-section" id="serial" aria-label="Rolex Serial Number Lookup">
+      <div class="serial-widget__inner">
+        <div class="serial-widget__header">
+          <p class="serial-widget__eyebrow">Free Tool</p>
+          <h2 class="serial-widget__title">Rolex Serial Number Lookup</h2>
+          <p class="serial-widget__sub">Enter any Rolex serial number to find its approximate production year.</p>
+        </div>
+        <div class="serial-widget__form-wrap">
+          <div class="serial-widget__form">
+            <input class="serial-widget__input" id="swInput" type="text"
+                   placeholder="e.g. V123456 or 5,237,899"
+                   autocomplete="off" spellcheck="false"
+                   aria-label="Enter Rolex serial number" />
+            <button class="serial-widget__btn" id="swBtn" type="button">Look Up Year</button>
+          </div>
+          <div class="serial-widget__result" id="swResult" hidden aria-live="polite"></div>
+          <a class="serial-widget__link" href="/serial-lookup.html">View full reference table &amp; model number guide →</a>
+        </div>
+      </div>
+    </section>
+
     <!-- Reviews -->
     <section class="reviews-section" id="reviews" aria-labelledby="reviews-heading">
       <div class="reviews-section__inner">
@@ -579,28 +601,6 @@
           <div class="sold-grid__track" id="soldTrack">
             <!-- populated by JS fetch below -->
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Serial Lookup Widget -->
-    <section class="serial-widget-section" id="serial" aria-label="Rolex Serial Number Lookup">
-      <div class="serial-widget__inner">
-        <div class="serial-widget__header">
-          <p class="serial-widget__eyebrow">Free Tool</p>
-          <h2 class="serial-widget__title">Rolex Serial Number Lookup</h2>
-          <p class="serial-widget__sub">Enter any Rolex serial number to find its approximate production year.</p>
-        </div>
-        <div class="serial-widget__form-wrap">
-          <div class="serial-widget__form">
-            <input class="serial-widget__input" id="swInput" type="text"
-                   placeholder="e.g. V123456 or 5,237,899"
-                   autocomplete="off" spellcheck="false"
-                   aria-label="Enter Rolex serial number" />
-            <button class="serial-widget__btn" id="swBtn" type="button">Look Up Year</button>
-          </div>
-          <div class="serial-widget__result" id="swResult" hidden aria-live="polite"></div>
-          <a class="serial-widget__link" href="/serial-lookup.html">View full reference table &amp; model number guide →</a>
         </div>
       </div>
     </section>
@@ -1666,7 +1666,16 @@
         <span class="quicknav__label">Luxury Watches</span>
       </button>
 
-      <!-- 4. Reviews — star -->
+      <!-- 4. Serial lookup — search clock -->
+      <button class="quicknav__item" data-target="serial" aria-label="Rolex Year Lookup">
+        <span class="quicknav__icon">
+          <svg class="qn-base" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="5"/><path d="m21 21-3.5-3.5"/><polyline points="11 8 11 11 12.5 12.5"/></svg>
+          <svg class="qn-active" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="5"/><path d="m21 21-3.5-3.5"/><polyline points="11 8 11 11 12.5 12.5"/></svg>
+        </span>
+        <span class="quicknav__label">Rolex Year Lookup</span>
+      </button>
+
+      <!-- 5. Reviews — star -->
       <button class="quicknav__item" data-target="reviews" aria-label="What Our Buyers Say">
         <span class="quicknav__icon">
           <svg class="qn-base" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -1675,7 +1684,7 @@
         <span class="quicknav__label">What Our Buyers Say</span>
       </button>
 
-      <!-- 5. Guides — open book -->
+      <!-- 6. Guides — open book -->
       <button class="quicknav__item" data-target="guides" aria-label="Watch Buying Guides">
         <span class="quicknav__icon">
           <svg class="qn-base" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
@@ -1684,22 +1693,13 @@
         <span class="quicknav__label">Watch Buying Guides</span>
       </button>
 
-      <!-- 6. Recently Sold — price tag -->
+      <!-- 7. Recently Sold — price tag -->
       <button class="quicknav__item" data-target="sold" aria-label="Recently Sold">
         <span class="quicknav__icon">
           <svg class="qn-base" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
           <svg class="qn-active" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
         </span>
         <span class="quicknav__label">Recently Sold</span>
-      </button>
-
-      <!-- 7. Serial lookup — search clock -->
-      <button class="quicknav__item" data-target="serial" aria-label="Rolex Year Lookup">
-        <span class="quicknav__icon">
-          <svg class="qn-base" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="5"/><path d="m21 21-3.5-3.5"/><polyline points="11 8 11 11 12.5 12.5"/></svg>
-          <svg class="qn-active" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="5"/><path d="m21 21-3.5-3.5"/><polyline points="11 8 11 11 12.5 12.5"/></svg>
-        </span>
-        <span class="quicknav__label">Rolex Year Lookup</span>
       </button>
 
       <!-- 8. Sell — dollar sign -->
