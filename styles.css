@@ -4794,10 +4794,7 @@ main {
 .serial-widget__inner {
   max-width: var(--max-content);
   margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2.5rem;
+  display: block;
   position: relative;
   /* Card shell — no border-top; animated ::before/::after handle it */
   background: #08080f;
@@ -4809,7 +4806,7 @@ main {
   border: 1px solid rgba(166, 139, 58, 0.22);
   border-top: none;
   border-bottom: none;
-  padding: 2rem 2.5rem;
+  padding: 2rem 2.5rem 2.25rem;
   box-shadow:
     0 0 0 1px rgba(166, 139, 58, 0.06),
     0 32px 80px rgba(0, 0, 0, 0.65),
@@ -4895,8 +4892,6 @@ main {
   margin: 0;
 }
 
-.serial-widget__header { flex: 1 1 280px; }
-
 /* Title */
 .serial-widget__title {
   font-family: var(--font-heading);
@@ -4915,13 +4910,12 @@ main {
   font-size: 0.93rem;
   color: rgba(255, 255, 255, 0.52);
   line-height: 1.55;
-  margin: 0;
+  margin: 0 0 1.5rem;
 }
 
-/* Form — right side */
+/* Form — sits directly below subtitle, left-aligned */
 .serial-widget__form-wrap {
-  flex-shrink: 0;
-  width: clamp(240px, 38%, 420px);
+  max-width: 480px;
 }
 
 /* Pill-shaped compound input */
@@ -5030,13 +5024,8 @@ main {
 /* Responsive */
 @media (max-width: 680px) {
   .serial-widget-section { padding: 1.5rem var(--space-md); }
-  .serial-widget__inner {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 1.4rem 1.5rem;
-  }
-  .serial-widget__form-wrap { width: 100%; }
+  .serial-widget__inner { padding: 1.4rem 1.5rem; }
+  .serial-widget__form-wrap { max-width: 100%; }
 }
 
 @media (max-width: 420px) {
