@@ -3685,59 +3685,6 @@ main {
   padding: 0 var(--space-md);
 }
 
-/* ── Footer editorial cap ─────────────────────────────────────────── */
-.site-footer__cap {
-  text-align: center;
-  padding: 1rem var(--space-md) 2.75rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.45rem;
-  position: relative;
-}
-
-.site-footer__cap-rule {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  width: 100%;
-  max-width: 340px;
-  margin-bottom: 0.6rem;
-}
-
-.site-footer__cap-rule::before,
-.site-footer__cap-rule::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(to var(--_d, right), transparent, rgba(166,139,58,0.5));
-}
-
-.site-footer__cap-rule::after { --_d: left; }
-
-.site-footer__cap-rule span {
-  color: var(--accent-gold);
-  font-size: 0.4rem;
-  opacity: 0.8;
-  flex-shrink: 0;
-}
-
-.site-footer__cap-name {
-  font-family: var(--font-heading);
-  font-size: clamp(1.5rem, 3vw, 2.1rem);
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #fff;
-  line-height: 1;
-}
-
-.site-footer__cap-tagline {
-  font-size: 0.78rem;
-  color: rgba(255,255,255,0.32);
-  letter-spacing: 0.06em;
-  margin: 0;
-}
 
 .site-footer__grid {
   display: grid;
