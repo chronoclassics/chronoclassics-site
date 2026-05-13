@@ -3893,14 +3893,29 @@ main {
   color: var(--text-body);
   line-height: 1.75;
   max-width: 72rem;
-  margin: 0 0 2rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid var(--card-border);
+  margin: 0 0 1rem;
 }
 
 .policy-lead strong {
   color: var(--header-text);
   font-weight: 700;
+}
+
+.policy-terms-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent-gold);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.15s, gap 0.15s;
+}
+.policy-terms-link:hover {
+  color: var(--accent-gold-deep);
+  gap: 0.5rem;
 }
 
 .policy-cards {
