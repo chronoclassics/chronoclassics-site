@@ -4788,6 +4788,7 @@ main {
 
 .serial-widget-section {
   background: #111;
+  background-image: radial-gradient(ellipse at 15% 50%, rgba(166, 139, 58, 0.1) 0%, transparent 60%);
   padding: 2rem 1.25rem;
 }
 
@@ -4799,9 +4800,14 @@ main {
   gap: 2rem;
 }
 
-/* Crown ornament — sits beside the title */
+/* Crown ornament */
 .serial-widget__crown {
-  display: none; /* hidden — kept in HTML for future use */
+  display: block;
+  width: 24px;
+  height: auto;
+  color: var(--accent-gold);
+  opacity: 0.85;
+  margin-bottom: 0.6rem;
 }
 
 /* Eyebrow */
