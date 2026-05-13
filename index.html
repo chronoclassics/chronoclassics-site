@@ -1129,17 +1129,28 @@
     }
 
     function boldMatch(title, query) {
-      var safe  = escHtml(title);
-      var safeQ = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      return safe.replace(new RegExp('(' + safeQ + ')', 'gi'), '<strong>$1</strong>');
+      var safe = escHtml(title);
+      // Bold each keyword individually so multi-word queries highlight correctly
+      query.trim().split(/\s+/).filter(Boolean).forEach(function (k) {
+        var safeK = k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        safe = safe.replace(new RegExp('(' + safeK + ')', 'gi'), '<strong>$1</strong>');
+      });
+      return safe;
     }
 
     function show(query) {
       if (!query || query.length < 2) { hide(); return; }
-      var q = query.toLowerCase();
-      var matches = suggestTitles.filter(function (obj) {
-        return obj.title.toLowerCase().indexOf(q) !== -1;
-      }).slice(0, 5);
+      // Split into unique keywords and score each title by how many it contains.
+      // This means "Cartier Bleu" matches "CARTIER BALLON BLEU" (2/2 keywords hit).
+      var keywords = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
+      var unique   = keywords.filter(function (k, i) { return keywords.indexOf(k) === i; });
+      var scored = suggestTitles.map(function (obj) {
+        var lower = obj.title.toLowerCase();
+        var hits  = unique.filter(function (k) { return lower.indexOf(k) !== -1; }).length;
+        return { obj: obj, hits: hits };
+      }).filter(function (s) { return s.hits > 0; });
+      scored.sort(function (a, b) { return b.hits - a.hits; });
+      var matches = scored.slice(0, 5).map(function (s) { return s.obj; });
       if (!matches.length) { hide(); return; }
       suggestEl.innerHTML = matches.map(function (obj) {
         var imgHtml = obj.image
