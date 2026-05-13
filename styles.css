@@ -4783,52 +4783,57 @@ main {
 }
 
 /* =====================================================
-   SERIAL WIDGET — premium centered feature section
+   SERIAL WIDGET — exquisite floating card
    ===================================================== */
 
-/* Section is now a light wrapper — the card floats inside it */
 .serial-widget-section {
   background: var(--page-bg);
-  padding: 1.5rem var(--space-md);
+  padding: 2rem var(--space-md);
 }
 
-/* The card — mirrors source-banner style */
 .serial-widget__inner {
   max-width: var(--max-content);
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
-  background: #0f0f1a;
+  gap: 2rem;
+  /* Card shell */
+  background: #0c0c18;
+  background-image: radial-gradient(ellipse at 18% 50%, rgba(166, 139, 58, 0.13) 0%, transparent 58%);
   border-radius: var(--radius-lg);
-  padding: 1.25rem 1.5rem;
+  border: 1px solid rgba(166, 139, 58, 0.2);
+  border-top: 2px solid var(--accent-gold);
+  padding: 1.6rem 2rem;
+  box-shadow:
+    0 16px 56px rgba(0, 0, 0, 0.45),
+    0 1px 0 rgba(166, 139, 58, 0.06) inset;
 }
 
-/* Crown + eyebrow on one line */
+/* Crown + eyebrow inline */
 .serial-widget__label-row {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.4rem;
 }
 
-/* Crown ornament */
+/* Crown with gold glow */
 .serial-widget__crown {
   display: block;
-  width: 18px;
+  width: 20px;
   height: auto;
   color: var(--accent-gold);
-  opacity: 0.9;
   flex-shrink: 0;
+  filter: drop-shadow(0 0 5px rgba(166, 139, 58, 0.55));
 }
 
 /* Eyebrow */
 .serial-widget__eyebrow {
   font-family: var(--font-ui);
-  font-size: 0.58rem;
+  font-size: 0.57rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--accent-gold);
   margin: 0;
@@ -4838,57 +4843,59 @@ main {
   flex: 1 1 280px;
 }
 
-/* Title */
+/* Title — italic Cormorant for maximum elegance */
 .serial-widget__title {
   font-family: var(--font-heading);
-  font-size: 1.15rem;
-  font-weight: 700;
-  line-height: 1.25;
-  color: #fff;
-  margin: 0 0 0.25rem;
+  font-size: clamp(1.35rem, 2.6vw, 1.65rem);
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.2;
+  color: #f5f0e8;
+  letter-spacing: 0.01em;
+  margin: 0 0 0.3rem;
 }
 
 /* Subtitle */
 .serial-widget__sub {
-  font-size: 0.83rem;
-  color: rgba(255, 255, 255, 0.5);
-  line-height: 1.5;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.42);
+  line-height: 1.55;
   margin: 0;
 }
 
-/* Form — right side of card */
+/* Form — right side */
 .serial-widget__form-wrap {
   flex-shrink: 0;
   width: clamp(240px, 38%, 420px);
 }
 
-/* Unified compound input */
+/* Pill-shaped compound input */
 .serial-widget__form {
   display: flex;
-  border: 1.5px solid #2a2a2a;
-  border-radius: var(--radius);
+  border: 1.5px solid rgba(166, 139, 58, 0.22);
+  border-radius: 999px;
   overflow: hidden;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .serial-widget__form:focus-within {
   border-color: var(--accent-gold);
-  box-shadow: 0 0 0 3px rgba(166, 139, 58, 0.1);
+  box-shadow: 0 0 0 3px rgba(166, 139, 58, 0.14);
 }
 
 .serial-widget__input {
   flex: 1 1 0;
-  padding: 0.72rem 1rem;
+  padding: 0.72rem 1.2rem;
   border: none;
   outline: none;
   font-family: var(--font-ui);
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   color: #e8e4dc;
-  background: #1a1a1a;
+  background: rgba(255, 255, 255, 0.04);
   min-width: 0;
 }
 
-.serial-widget__input::placeholder { color: #3a3835; }
+.serial-widget__input::placeholder { color: rgba(255, 255, 255, 0.2); }
 
 .serial-widget__btn {
   flex-shrink: 0;
@@ -4896,70 +4903,73 @@ main {
   background: var(--accent-gold);
   color: #fff;
   border: none;
-  border-left: 1px solid rgba(255, 255, 255, 0.08);
   font-family: var(--font-ui);
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   cursor: pointer;
   white-space: nowrap;
-  transition: background 0.18s;
+  transition: background 0.18s, transform 0.15s;
 }
 
-.serial-widget__btn:hover { background: var(--accent-gold-deep); }
+.serial-widget__btn:hover {
+  background: var(--accent-gold-deep);
+  transform: scale(1.02);
+}
 
-/* Result */
+/* Result — gold-framed reveal */
 .serial-widget__result {
-  margin-top: 0.85rem;
-  padding: 0.85rem 1rem;
-  background: rgba(166, 139, 58, 0.05);
-  border: 1px solid rgba(166, 139, 58, 0.18);
-  border-radius: var(--radius);
+  margin-top: 0.9rem;
+  padding: 0.9rem 1.2rem;
+  background: rgba(166, 139, 58, 0.06);
+  border: 1px solid rgba(166, 139, 58, 0.22);
+  border-radius: var(--radius-lg);
 }
 
 .sw-result__label {
   display: block;
   font-family: var(--font-ui);
-  font-size: 0.6rem;
+  font-size: 0.57rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--accent-gold);
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.25rem;
 }
 
 .sw-result__year {
   display: block;
   font-family: var(--font-heading);
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: 600;
+  font-style: italic;
   color: #f5f0e8;
   line-height: 1.1;
 }
 
 .sw-result__era {
   display: block;
-  font-size: 0.8rem;
-  color: #6a6660;
-  margin-top: 0.1rem;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.38);
+  margin-top: 0.12rem;
 }
 
 .sw-result__error {
-  color: #c0392b;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
+  color: #e07070;
 }
 
 /* Reference link */
 .serial-widget__link {
   display: inline-block;
-  margin-top: 0.7rem;
+  margin-top: 0.75rem;
   font-family: var(--font-ui);
-  font-size: 0.75rem;
-  color: #484440;
+  font-size: 0.72rem;
+  color: rgba(166, 139, 58, 0.5);
   text-decoration: none;
   font-weight: 500;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
   transition: color 0.15s;
 }
 
@@ -4967,21 +4977,19 @@ main {
 
 /* Responsive */
 @media (max-width: 680px) {
+  .serial-widget-section { padding: 1.5rem var(--space-md); }
   .serial-widget__inner {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
-    padding: 1.1rem 1.25rem;
+    padding: 1.25rem 1.5rem;
   }
   .serial-widget__form-wrap { width: 100%; }
 }
 
 @media (max-width: 420px) {
-  .serial-widget__form { flex-direction: column; }
-  .serial-widget__btn {
-    border-left: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    width: 100%;
-    padding: 0.75rem;
-  }
+  .serial-widget__inner { padding: 1.1rem 1.25rem; }
+  .serial-widget__form { border-radius: var(--radius); }
+  .serial-widget__btn { border-radius: 0; }
+  .serial-widget__input { border-radius: 0; }
 }
