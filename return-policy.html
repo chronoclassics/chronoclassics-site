@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Return Policy — ChronoClassics</title>
+  <meta name="description" content="ChronoClassics offers a 14-day return policy on all watch purchases. Learn about our original condition requirement, no-modification policy, and how to initiate a return." />
+  <link rel="canonical" href="https://chronoclassics.vercel.app/return-policy" />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── Page shell ───────────────────────────────────────────── */
+    .rp-page { min-height: 100vh; background: #faf8f5; }
+
+    /* ── Top bar ──────────────────────────────────────────────── */
+    .rp-topbar {
+      background: #fff;
+      border-bottom: 1px solid var(--card-border);
+      padding: 0 var(--space-md);
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .rp-topbar__back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: var(--font-ui);
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+      width: 140px;
+    }
+    .rp-topbar__back:hover { color: var(--text-body); }
+    .rp-topbar__logo {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text-body);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+    .rp-topbar__spacer { width: 140px; text-align: right; }
+
+    /* ── Hero strip ───────────────────────────────────────────── */
+    .rp-hero {
+      background: #111;
+      padding: 3.5rem 1.25rem 3rem;
+      text-align: center;
+    }
+    .rp-hero__icon {
+      width: 52px;
+      height: 52px;
+      color: var(--accent-gold);
+      margin: 0 auto 1.1rem;
+      display: block;
+    }
+    .rp-hero__eyebrow {
+      font-family: var(--font-ui);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin: 0 0 0.5rem;
+    }
+    .rp-hero__title {
+      font-family: var(--font-heading);
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: #f5f0e8;
+      margin: 0 0 1rem;
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+    }
+    .rp-hero__sub {
+      font-size: 0.95rem;
+      color: #9a9690;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.65;
+    }
+
+    /* ── Badge row ────────────────────────────────────────────── */
+    .rp-badges {
+      background: var(--accent-gold);
+      padding: 0.9rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .rp-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: var(--font-ui);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    /* ── Main content ─────────────────────────────────────────── */
+    .rp-body {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 3rem 1.25rem 4rem;
+    }
+
+    /* Intro */
+    .rp-intro {
+      background: #fff;
+      border: 1px solid var(--card-border);
+      border-left: 4px solid var(--accent-gold);
+      border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+      padding: 1.75rem 2rem;
+      margin-bottom: 2.5rem;
+      font-size: 1rem;
+      color: var(--text-body);
+      line-height: 1.8;
+    }
+    .rp-intro strong {
+      color: var(--header-text);
+      font-weight: 700;
+    }
+
+    /* Section heading */
+    .rp-section-title {
+      font-family: var(--font-ui);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin: 0 0 1.1rem;
+    }
+
+    /* Policy cards */
+    .rp-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+    .rp-card {
+      background: #fff;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 1.6rem 2rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .rp-card:hover {
+      border-color: var(--accent-gold);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+    .rp-card__icon {
+      width: 46px;
+      height: 46px;
+      background: rgba(166, 139, 58, 0.08);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-gold);
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .rp-card__body { flex: 1; }
+    .rp-card__title {
+      font-family: var(--font-ui);
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--header-text);
+      margin: 0 0 0.45rem;
+    }
+    .rp-card__text {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* How to return */
+    .rp-steps {
+      background: #fff;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 2rem;
+      margin-bottom: 3rem;
+    }
+    .rp-steps__list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+    .rp-steps__item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .rp-steps__num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent-gold);
+      color: #fff;
+      font-family: var(--font-ui);
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .rp-steps__text {
+      font-size: 0.875rem;
+      color: var(--text-body);
+      line-height: 1.65;
+      margin: 0;
+    }
+    .rp-steps__text strong {
+      color: var(--header-text);
+      font-weight: 700;
+    }
+
+    /* CTA */
+    .rp-cta {
+      background: #111;
+      border-radius: var(--radius-lg);
+      padding: 2.25rem 2rem;
+      text-align: center;
+    }
+    .rp-cta__title {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #f5f0e8;
+      margin: 0 0 0.5rem;
+    }
+    .rp-cta__sub {
+      font-size: 0.875rem;
+      color: #9a9690;
+      margin: 0 0 1.5rem;
+    }
+    .rp-cta__btns {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+    }
+    .rp-cta__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-ui);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.8rem 1.6rem;
+      border-radius: 2px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .rp-cta__btn--primary {
+      background: var(--accent-gold);
+      color: #fff;
+    }
+    .rp-cta__btn--primary:hover { background: var(--accent-gold-deep); }
+    .rp-cta__btn--ghost {
+      background: transparent;
+      color: #9a9690;
+      border: 1px solid #333;
+    }
+    .rp-cta__btn--ghost:hover { color: #f5f0e8; border-color: #555; }
+
+    /* Footer */
+    .rp-footer {
+      text-align: center;
+      padding: var(--space-lg) var(--space-md);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--card-border);
+    }
+    .rp-footer a { color: var(--accent-gold); text-decoration: none; }
+    .rp-footer a:hover { text-decoration: underline; }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      .rp-hero { padding: 2.5rem 1rem 2.25rem; }
+      .rp-body { padding: 2rem 1rem 3rem; }
+      .rp-card { padding: 1.25rem 1.1rem; }
+      .rp-steps { padding: 1.25rem 1.1rem; }
+      .rp-intro { padding: 1.25rem 1.1rem; }
+      .rp-cta { padding: 1.75rem 1.1rem; }
+      .rp-badges { gap: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="rp-page">
+
+  <!-- Top bar -->
+  <div class="rp-topbar">
+    <a class="rp-topbar__back" href="/">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to ChronoClassics
+    </a>
+    <a class="rp-topbar__logo" href="/">ChronoClassics</a>
+    <div class="rp-topbar__spacer"></div>
+  </div>
+
+  <!-- Hero -->
+  <div class="rp-hero">
+    <svg class="rp-hero__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    <p class="rp-hero__eyebrow">Buyer Protection</p>
+    <h1 class="rp-hero__title">Return Policy</h1>
+    <p class="rp-hero__sub">We stand behind every watch we sell. Your satisfaction is our commitment.</p>
+  </div>
+
+  <!-- Trust badges -->
+  <div class="rp-badges">
+    <span class="rp-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+      14-Day Returns
+    </span>
+    <span class="rp-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+      Any Reason
+    </span>
+    <span class="rp-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+      Authenticity Guaranteed
+    </span>
+  </div>
+
+  <!-- Body -->
+  <div class="rp-body">
+
+    <!-- Intro -->
+    <p class="rp-intro">
+      We promise to do everything possible to make sure you are completely satisfied with your watch purchase. We also understand that sometimes it may not be a good fit, or simply it's not what you want. Unless otherwise indicated, you can return any watch for any reason within <strong>14 days</strong> of receiving it.
+    </p>
+
+    <!-- Conditions -->
+    <p class="rp-section-title">Return Conditions</p>
+    <div class="rp-cards">
+
+      <!-- Card 1 -->
+      <div class="rp-card">
+        <div class="rp-card__icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+        <div class="rp-card__body">
+          <h2 class="rp-card__title">Original Condition Required</h2>
+          <p class="rp-card__text">All returned or exchanged items must be in their original condition as sold. All returned or exchanged items must include in the packaging: documents, instruments, links, straps, buckles, tags, protective stickers, boxes and warranties as shipped.</p>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="rp-card">
+        <div class="rp-card__icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+        </div>
+        <div class="rp-card__body">
+          <h2 class="rp-card__title">No Modifications</h2>
+          <p class="rp-card__text">We ask that you do not alter any watch while it's in your possession. No modified watches will be accepted as a return. This includes intentional modifications such as exchanged, removed, or added parts, as well as unintentional modifications such as scratches, dents, or mechanical tampering.</p>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="rp-card">
+        <div class="rp-card__icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="rp-card__body">
+          <h2 class="rp-card__title">Unworn Condition</h2>
+          <p class="rp-card__text">Items must be returned without blemishes, dings, scratches or any indication that the watch has been worn or sized in any manner.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- How to initiate a return -->
+    <p class="rp-section-title">How to Initiate a Return</p>
+    <div class="rp-steps">
+      <ol class="rp-steps__list">
+        <li class="rp-steps__item">
+          <span class="rp-steps__num">1</span>
+          <p class="rp-steps__text"><strong>Contact us within 14 days</strong> of receiving your watch — message us on WhatsApp at <a href="https://wa.me/19174801080" target="_blank" rel="noopener noreferrer" style="color:var(--accent-gold);text-decoration:none;">+1 (917) 480-1080</a> or email us to let us know you'd like to return.</p>
+        </li>
+        <li class="rp-steps__item">
+          <span class="rp-steps__num">2</span>
+          <p class="rp-steps__text"><strong>Pack securely.</strong> Include all original packaging: box, papers, tags, links, straps, buckles, and any accessories exactly as received.</p>
+        </li>
+        <li class="rp-steps__item">
+          <span class="rp-steps__num">3</span>
+          <p class="rp-steps__text"><strong>Ship with insurance.</strong> We recommend using a fully insured, signature-required carrier. We are not responsible for packages lost or damaged in transit.</p>
+        </li>
+        <li class="rp-steps__item">
+          <span class="rp-steps__num">4</span>
+          <p class="rp-steps__text"><strong>Refund issued promptly.</strong> Once we receive and inspect the watch, your refund will be processed within 3 business days to your original payment method.</p>
+        </li>
+      </ol>
+    </div>
+
+    <!-- CTA -->
+    <div class="rp-cta">
+      <p class="rp-cta__title">Questions about a return?</p>
+      <p class="rp-cta__sub">We're here to help — reach out any time and we'll take care of you.</p>
+      <div class="rp-cta__btns">
+        <a class="rp-cta__btn rp-cta__btn--primary" href="https://wa.me/19174801080" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+          WhatsApp Us
+        </a>
+        <a class="rp-cta__btn rp-cta__btn--ghost" href="/">
+          Browse Watches
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /.rp-body -->
+
+  <!-- Footer -->
+  <div class="rp-footer">
+    &copy; <script>document.write(new Date().getFullYear())</script> ChronoClassics &mdash;
+    <a href="/">Shop Watches</a> &middot;
+    <a href="/serial-lookup">Rolex Serial Lookup</a> &middot;
+    <a href="https://www.ebay.com/str/chronoclassics" target="_blank" rel="noopener noreferrer">eBay Store</a>
+  </div>
+
+</div><!-- /.rp-page -->
+
+</body>
+</html>

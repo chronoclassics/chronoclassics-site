@@ -9,6 +9,20 @@
   </url>
 
   <url>
+    <loc>https://chronoclassics.vercel.app/serial-lookup</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://chronoclassics.vercel.app/return-policy</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
     <loc>https://chronoclassics.netlify.app/blog/</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>weekly</changefreq>
