@@ -4786,28 +4786,41 @@ main {
    SERIAL WIDGET — premium centered feature section
    ===================================================== */
 
+/* Section is now a light wrapper — the card floats inside it */
 .serial-widget-section {
-  background: #111;
-  background-image: radial-gradient(ellipse at 15% 50%, rgba(166, 139, 58, 0.1) 0%, transparent 60%);
-  padding: 2rem 1.25rem;
+  background: var(--page-bg);
+  padding: 1.5rem var(--space-md);
 }
 
+/* The card — mirrors source-banner style */
 .serial-widget__inner {
   max-width: var(--max-content);
   margin: 0 auto;
   display: flex;
   align-items: center;
-  gap: 2rem;
+  justify-content: space-between;
+  gap: 1.5rem;
+  background: #0f0f1a;
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+}
+
+/* Crown + eyebrow on one line */
+.serial-widget__label-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.3rem;
 }
 
 /* Crown ornament */
 .serial-widget__crown {
   display: block;
-  width: 24px;
+  width: 18px;
   height: auto;
   color: var(--accent-gold);
-  opacity: 0.85;
-  margin-bottom: 0.6rem;
+  opacity: 0.9;
+  flex-shrink: 0;
 }
 
 /* Eyebrow */
@@ -4815,39 +4828,38 @@ main {
   font-family: var(--font-ui);
   font-size: 0.58rem;
   font-weight: 700;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--accent-gold);
-  margin: 0 0 0.3rem;
+  margin: 0;
 }
 
 .serial-widget__header {
-  flex: 1 1 300px;
-  max-width: 380px;
+  flex: 1 1 280px;
 }
 
 /* Title */
 .serial-widget__title {
   font-family: var(--font-heading);
-  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
-  font-weight: 600;
-  line-height: 1.2;
-  color: #f5f0e8;
-  margin: 0 0 0.35rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #fff;
+  margin: 0 0 0.25rem;
 }
 
 /* Subtitle */
 .serial-widget__sub {
-  font-size: 0.88rem;
-  color: #6a6660;
-  line-height: 1.55;
+  font-size: 0.83rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.5;
   margin: 0;
 }
 
-/* Form container */
+/* Form — right side of card */
 .serial-widget__form-wrap {
-  flex: 1 1 340px;
-  max-width: 460px;
+  flex-shrink: 0;
+  width: clamp(240px, 38%, 420px);
 }
 
 /* Unified compound input */
@@ -4954,15 +4966,17 @@ main {
 .serial-widget__link:hover { color: var(--accent-gold); }
 
 /* Responsive */
-@media (max-width: 720px) {
-  .serial-widget-section { padding: 1.5rem 1.25rem; }
-  .serial-widget__inner { flex-direction: column; gap: 1rem; align-items: flex-start; }
-  .serial-widget__header,
-  .serial-widget__form-wrap { flex: 0 0 auto; max-width: 100%; width: 100%; }
+@media (max-width: 680px) {
+  .serial-widget__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.1rem 1.25rem;
+  }
+  .serial-widget__form-wrap { width: 100%; }
 }
 
-@media (max-width: 480px) {
-  .serial-widget-section { padding: 1.25rem 1rem; }
+@media (max-width: 420px) {
   .serial-widget__form { flex-direction: column; }
   .serial-widget__btn {
     border-left: none;
