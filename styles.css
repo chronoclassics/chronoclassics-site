@@ -4787,13 +4787,11 @@ main {
    ===================================================== */
 
 .serial-widget-section {
-  background: var(--page-bg);
-  padding: 2.5rem var(--space-md);
+  /* Lives inside .listings-body which already handles max-width + side padding */
+  margin-bottom: 1.5rem;
 }
 
 .serial-widget__inner {
-  max-width: var(--max-content);
-  margin: 0 auto;
   display: block;
   position: relative;
   /* Card shell — no border-top; animated ::before/::after handle it */
@@ -5023,7 +5021,6 @@ main {
 
 /* Responsive */
 @media (max-width: 680px) {
-  .serial-widget-section { padding: 1.5rem var(--space-md); }
   .serial-widget__inner { padding: 1.4rem 1.5rem; }
   .serial-widget__form-wrap { max-width: 100%; }
 }
