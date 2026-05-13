@@ -4687,7 +4687,7 @@ main {
   background: #fff;
   border-top: 1px solid #ece9e1;
   border-bottom: 1px solid #ece9e1;
-  padding: 3.5rem 1.25rem;
+  padding: 2rem 1.25rem;
 }
 
 .serial-widget__inner {
@@ -4695,28 +4695,18 @@ main {
   margin: 0 auto;
   display: flex;
   align-items: center;
-  gap: 3rem;
+  gap: 2rem;
 }
 
 .serial-widget__header {
-  flex: 1 1 340px;
-  max-width: 400px;
-}
-
-.serial-widget__eyebrow {
-  margin: 0 0 0.45rem;
-  font-family: var(--font-ui);
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--accent-gold);
+  flex: 1 1 300px;
+  max-width: 380px;
 }
 
 .serial-widget__title {
-  margin: 0 0 0.65rem;
+  margin: 0 0 0.4rem;
   font-family: var(--font-heading);
-  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
   font-weight: 600;
   line-height: 1.2;
   color: var(--header-text);
@@ -4828,7 +4818,7 @@ main {
 
 /* Responsive stacking */
 @media (max-width: 720px) {
-  .serial-widget-section { padding: 2rem 1.25rem; }
+  .serial-widget-section { padding: 1.5rem 1.25rem; }
   .serial-widget__inner {
     flex-direction: column;
     gap: 1rem;
@@ -4846,7 +4836,7 @@ main {
 }
 
 @media (max-width: 480px) {
-  .serial-widget-section { padding: 1.75rem 1rem; }
+  .serial-widget-section { padding: 1.25rem 1rem; }
   .serial-widget__form { flex-direction: column; }
   .serial-widget__btn { width: 100%; text-align: center; }
 }
