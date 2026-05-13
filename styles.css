@@ -2288,8 +2288,10 @@ main {
     padding-right: 0;
   }
 
+  /* iframe must fill the container — a separate height here creates a
+     mismatch with .location-map height:300px and leaves white space */
   .location-map iframe {
-    height: 220px;
+    height: 100%;
   }
 }
 
