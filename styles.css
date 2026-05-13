@@ -177,7 +177,8 @@ a:hover {
 
 /* Scrolled state — compact header */
 .site-header.scrolled {
-  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  border-bottom-color: rgba(166,139,58,0.3);
 }
 
 .site-header.scrolled .site-header__grid {
@@ -690,6 +691,31 @@ a:hover {
   background: var(--header-text);
   color: #fff;
   border-color: var(--header-text);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Sweeping shimmer */
+.btn--primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgba(255,255,255,0.22) 50%,
+    transparent 80%
+  );
+  animation: btn-shimmer 2.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes btn-shimmer {
+  0%        { left: -100%; }
+  40%, 100% { left: 150%; }
 }
 
 .btn--primary:hover {
@@ -1484,9 +1510,12 @@ main {
 }
 
 .watch-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
   border-color: var(--accent-gold);
-  box-shadow: 0 0 0 1px var(--accent-gold), 0 24px 60px rgba(0,0,0,0.13);
+  box-shadow:
+    0 0 0 2px var(--accent-gold),
+    0 28px 64px rgba(0,0,0,0.18),
+    0 8px 20px rgba(166,139,58,0.1);
 }
 
 .watch-card__img-wrap {
@@ -1494,6 +1523,21 @@ main {
   aspect-ratio: 1;
   overflow: hidden;
   background: #ffffff;
+}
+
+/* Gold shimmer overlay on hover */
+.watch-card__img-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(166,139,58,0) 0%, rgba(166,139,58,0.07) 100%);
+  opacity: 0;
+  transition: opacity 0.22s ease;
+  pointer-events: none;
+}
+
+.watch-card:hover .watch-card__img-wrap::after {
+  opacity: 1;
 }
 
 .watch-card__img {
@@ -1505,7 +1549,7 @@ main {
 }
 
 .watch-card:hover .watch-card__img {
-  transform: scale(1.08);
+  transform: scale(1.06);
 }
 
 .watch-card__badge {
@@ -2645,6 +2689,20 @@ main {
   margin: 0 0 0.3rem;
 }
 
+.reviews-stars-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  margin: 0.35rem 0 0.6rem;
+}
+
+.reviews-stars-row svg {
+  width: 22px;
+  height: 22px;
+  fill: var(--accent-gold);
+}
+
 .reviews-sub {
   font-size: 0.85rem;
   color: var(--text-muted);
@@ -2668,7 +2726,7 @@ main {
 
 .reviews-stat__value {
   font-family: var(--font-heading);
-  font-size: 1.5rem;
+  font-size: 2.1rem;
   font-weight: 700;
   color: var(--header-text);
   line-height: 1;
@@ -2743,9 +2801,16 @@ main {
 }
 
 .review-card__stars {
-  color: var(--accent-gold);
-  font-size: 0.95rem;
-  letter-spacing: 0.08em;
+  display: flex;
+  gap: 0.2rem;
+  align-items: center;
+}
+
+.review-card__stars svg {
+  width: 14px;
+  height: 14px;
+  fill: var(--accent-gold);
+  flex-shrink: 0;
 }
 
 .review-card__text {
@@ -3620,6 +3685,60 @@ main {
   padding: 0 var(--space-md);
 }
 
+/* ── Footer editorial cap ─────────────────────────────────────────── */
+.site-footer__cap {
+  text-align: center;
+  padding: 1rem var(--space-md) 2.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  position: relative;
+}
+
+.site-footer__cap-rule {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  width: 100%;
+  max-width: 340px;
+  margin-bottom: 0.6rem;
+}
+
+.site-footer__cap-rule::before,
+.site-footer__cap-rule::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to var(--_d, right), transparent, rgba(166,139,58,0.5));
+}
+
+.site-footer__cap-rule::after { --_d: left; }
+
+.site-footer__cap-rule span {
+  color: var(--accent-gold);
+  font-size: 0.4rem;
+  opacity: 0.8;
+  flex-shrink: 0;
+}
+
+.site-footer__cap-name {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #fff;
+  line-height: 1;
+}
+
+.site-footer__cap-tagline {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.32);
+  letter-spacing: 0.06em;
+  margin: 0;
+}
+
 .site-footer__grid {
   display: grid;
   grid-template-columns: 1.8fr 1fr 1fr 1.2fr;
@@ -4442,21 +4561,21 @@ main {
   bottom: 1.75rem;
   right: 1.75rem;
   z-index: 900;
-  width: 44px;
-  height: 44px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
-  border: 1.5px solid rgba(166,139,58,0.45);
-  background: #fff;
-  color: var(--accent-gold);
+  border: none;
+  background: var(--accent-gold);
+  color: #fff;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  box-shadow: 0 4px 18px rgba(166,139,58,0.45), 0 2px 6px rgba(0,0,0,0.15);
   opacity: 0;
-  transform: translateY(12px);
+  transform: translateY(14px);
   pointer-events: none;
-  transition: opacity 0.25s ease, transform 0.25s ease, background 0.18s ease, color 0.18s ease;
+  transition: opacity 0.25s ease, transform 0.25s ease, background 0.18s ease, box-shadow 0.18s ease;
 }
 .back-to-top--visible {
   opacity: 1;
@@ -4464,9 +4583,9 @@ main {
   pointer-events: auto;
 }
 .back-to-top:hover {
-  background: var(--accent-gold);
-  color: #fff;
-  border-color: var(--accent-gold);
+  background: var(--accent-gold-deep);
+  box-shadow: 0 6px 24px rgba(166,139,58,0.6), 0 2px 8px rgba(0,0,0,0.18);
+  transform: translateY(-2px);
 }
 
 /* ── QuickNav Sidebar ─────────────────────────────────────────────── */
