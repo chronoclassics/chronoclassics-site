@@ -3081,6 +3081,14 @@ main {
   animation: none;
 }
 
+/* Sold cards must always be fully visible — they live inside an overflow:hidden
+   marquee so the IntersectionObserver can't reliably detect them. Force-override
+   the scroll-reveal .reveal state to prevent cards staying invisible. */
+.sold-grid__track .sold-card {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
 .sold-grid__track:hover {
   animation-play-state: paused;
 }

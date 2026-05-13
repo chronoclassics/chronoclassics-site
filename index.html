@@ -1592,7 +1592,7 @@
     }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
 
     // Assign staggered delays within each parent group, then observe
-    ['.guides-grid .guide-card', '.sold-grid__track .sold-card', '.services__grid .service-card'].forEach(function (sel) {
+    ['.guides-grid .guide-card', '.services__grid .service-card'].forEach(function (sel) {
       document.querySelectorAll(sel).forEach(function (el, i) {
         el.style.setProperty('--reveal-delay', Math.min(i * 0.08, 0.4) + 's');
         el.classList.add('reveal');
