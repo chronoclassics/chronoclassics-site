@@ -4783,12 +4783,12 @@ main {
 }
 
 /* =====================================================
-   SERIAL WIDGET — exquisite floating card
+   SERIAL WIDGET — ultra-premium floating card
    ===================================================== */
 
 .serial-widget-section {
   background: var(--page-bg);
-  padding: 2.25rem var(--space-md);
+  padding: 2.5rem var(--space-md);
 }
 
 .serial-widget__inner {
@@ -4797,21 +4797,25 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 2.5rem;
   position: relative;
-  /* Card shell — no border-top here; animated ::before handles it */
-  background: #0a0a14;
+  /* Card shell — no border-top; animated ::before/::after handle it */
+  background: #08080f;
   background-image:
-    radial-gradient(ellipse at 16% 45%, rgba(166, 139, 58, 0.16) 0%, transparent 52%),
-    radial-gradient(ellipse at 88% 75%, rgba(166, 139, 58, 0.06) 0%, transparent 42%);
+    radial-gradient(ellipse at 14% 40%, rgba(166, 139, 58, 0.22) 0%, transparent 48%),
+    radial-gradient(ellipse at 85% 70%, rgba(166, 139, 58, 0.09) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 100%, rgba(166, 139, 58, 0.04) 0%, transparent 55%);
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(166, 139, 58, 0.18);
+  border: 1px solid rgba(166, 139, 58, 0.22);
   border-top: none;
-  padding: 1.75rem 2.25rem;
+  border-bottom: none;
+  padding: 2rem 2.5rem;
   box-shadow:
-    0 20px 64px rgba(0, 0, 0, 0.5),
-    0 1px 0 rgba(166, 139, 58, 0.08) inset,
-    0 -1px 0 rgba(166, 139, 58, 0.04) inset;
+    0 0 0 1px rgba(166, 139, 58, 0.06),
+    0 32px 80px rgba(0, 0, 0, 0.65),
+    0 8px 24px rgba(0, 0, 0, 0.4),
+    0 0 48px rgba(166, 139, 58, 0.07),
+    0 1px 0 rgba(166, 139, 58, 0.1) inset;
 }
 
 /* Animated shimmer top border */
@@ -4819,17 +4823,37 @@ main {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 2px;
+  height: 3px;
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   background: linear-gradient(
     90deg,
-    var(--accent-gold-deep) 0%,
-    #f0d060 35%,
-    var(--accent-gold) 55%,
-    var(--accent-gold-deep) 100%
+    transparent 0%,
+    var(--accent-gold-deep) 15%,
+    #f5d96a 42%,
+    #fff7d0 50%,
+    #f5d96a 58%,
+    var(--accent-gold) 75%,
+    transparent 100%
   );
   background-size: 200% 100%;
-  animation: serial-border-shimmer 4s ease-in-out infinite;
+  animation: serial-border-shimmer 4.5s ease-in-out infinite;
+}
+
+/* Subtle bottom accent line */
+.serial-widget__inner::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 10%; right: 10%;
+  height: 1px;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(166, 139, 58, 0.35) 30%,
+    rgba(166, 139, 58, 0.55) 50%,
+    rgba(166, 139, 58, 0.35) 70%,
+    transparent 100%
+  );
 }
 
 @keyframes serial-border-shimmer {
@@ -4841,14 +4865,14 @@ main {
 .serial-widget__label-row {
   display: flex;
   align-items: center;
-  gap: 0.55rem;
-  margin-bottom: 0.45rem;
+  gap: 0.6rem;
+  margin-bottom: 0.85rem;
 }
 
 /* Crown — pulsing gold glow */
 .serial-widget__crown {
   display: block;
-  width: 22px;
+  width: 24px;
   height: auto;
   color: var(--accent-gold);
   flex-shrink: 0;
@@ -4856,11 +4880,11 @@ main {
 }
 
 @keyframes crown-pulse {
-  0%, 100% { filter: drop-shadow(0 0 4px rgba(166, 139, 58, 0.5)); }
-  50%       { filter: drop-shadow(0 0 9px rgba(166, 139, 58, 0.9)); }
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(166, 139, 58, 0.55)); }
+  50%       { filter: drop-shadow(0 0 11px rgba(240, 210, 80, 1)); }
 }
 
-/* Eyebrow — fixed: was too small */
+/* Eyebrow */
 .serial-widget__eyebrow {
   font-family: var(--font-ui);
   font-size: 0.68rem;
@@ -4876,19 +4900,20 @@ main {
 /* Title */
 .serial-widget__title {
   font-family: var(--font-heading);
-  font-size: clamp(1.4rem, 2.8vw, 1.75rem);
+  font-size: clamp(1.45rem, 2.8vw, 1.85rem);
   font-weight: 600;
   font-style: italic;
-  line-height: 1.2;
-  color: #f5f0e8;
+  line-height: 1.15;
+  color: #f8f2e6;
   letter-spacing: 0.01em;
-  margin: 0 0 0.35rem;
+  margin: 0 0 0.45rem;
+  text-shadow: 0 1px 12px rgba(166, 139, 58, 0.15);
 }
 
-/* Subtitle — fixed: was too small */
+/* Subtitle */
 .serial-widget__sub {
   font-size: 0.93rem;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.52);
   line-height: 1.55;
   margin: 0;
 }
