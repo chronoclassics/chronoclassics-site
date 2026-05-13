@@ -4080,12 +4080,12 @@ main {
 .guides-section__inner {
   max-width: var(--max-content);
   margin: 0 auto;
+  padding: 0 var(--space-md);
 }
 
 .guides-header {
   text-align: center;
   margin-bottom: 1.5rem;
-  padding: 0 var(--space-md);
 }
 
 .guides-eyebrow {
@@ -4114,31 +4114,24 @@ main {
   margin: 0;
 }
 
-/* Horizontal scroll track */
+/* Full-width horizontal scroll track — lives outside the constrained inner */
 .guides-grid {
   display: flex;
-  gap: 1rem;
+  flex-wrap: nowrap;
+  gap: 1.1rem;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-  padding: 0.5rem var(--space-md) 1rem;
-  /* hide scrollbar but keep scroll */
+  /* First/last card padding so edge-fade mask doesn't clip them */
+  padding: 0.5rem 2rem 1.25rem;
   scrollbar-width: none;
+  cursor: grab;
+  /* Fade out left and right edges */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 5%, #000 95%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 5%, #000 95%, transparent 100%);
 }
 .guides-grid::-webkit-scrollbar { display: none; }
-
-/* Fade-out hint on right edge */
-.guides-section__inner {
-  position: relative;
-}
-.guides-section__inner::after {
-  content: '';
-  position: absolute;
-  top: 0; right: 0; bottom: 0;
-  width: 3rem;
-  background: linear-gradient(to right, transparent, #fafafa);
-  pointer-events: none;
-}
+.guides-grid.is-dragging { cursor: grabbing; scroll-snap-type: none; }
 
 .guide-card {
   background: #fff;
@@ -4153,9 +4146,12 @@ main {
   color: inherit;
   cursor: pointer;
   transition: border-color 0.15s, box-shadow 0.15s;
-  /* fixed card width — scroll snapping */
-  flex: 0 0 300px;
+  /* Fixed card width — always scroll, even on wide screens */
+  flex: 0 0 320px;
   scroll-snap-align: start;
+  /* Always visible — horizontal scroll container breaks IntersectionObserver */
+  opacity: 1 !important;
+  transform: none !important;
 }
 
 .guide-card:not(.guide-card--soon):hover {
