@@ -1888,6 +1888,35 @@
       track.innerHTML = '';
       items.forEach(function (it) { track.appendChild(buildCard(it, false)); });
       items.forEach(function (it) { track.appendChild(buildCard(it, true)); });
+
+      // Calculate precise pixel scroll distance so the loop is perfectly seamless.
+      // CSS width:max-content excludes the trailing margin-right on the last flex item,
+      // which means translateX(-50%) overshoots slightly and creates a blank gap.
+      // We inject an exact @keyframes override after layout is known.
+      requestAnimationFrame(function () {
+        var firstCard = track.querySelector('.sold-card:not([aria-hidden])');
+        if (!firstCard) return;
+        var cardW   = firstCard.offsetWidth;
+        var marginR = parseFloat(getComputedStyle(firstCard).marginRight) || 0;
+        var scrollDist = items.length * (cardW + marginR);
+
+        var styleEl = document.getElementById('__sold-kf');
+        if (!styleEl) {
+          styleEl = document.createElement('style');
+          styleEl.id = '__sold-kf';
+          document.head.appendChild(styleEl);
+        }
+        styleEl.textContent =
+          '@keyframes sold-marquee{' +
+          '0%{transform:translateX(0)}' +
+          '100%{transform:translateX(-' + scrollDist + 'px)}' +
+          '}';
+
+        // Restart animation so it picks up the new keyframes immediately
+        track.style.animationName = 'none';
+        void track.offsetWidth; // force reflow
+        track.style.animationName = '';
+      });
     }
 
     fetch('/api/ebay-sold')
