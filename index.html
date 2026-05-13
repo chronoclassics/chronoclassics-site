@@ -219,6 +219,13 @@
       </div>
     </section>
 
+    <!-- Brand Strip -->
+    <div class="brands-strip" aria-label="Brands we carry">
+      <div class="brands-strip__track" id="brandsTrack">
+        <span class="brands-strip__item">Rolex</span><span class="brands-strip__sep" aria-hidden="true">◆</span><span class="brands-strip__item">Cartier</span><span class="brands-strip__sep" aria-hidden="true">◆</span><span class="brands-strip__item">Omega</span><span class="brands-strip__sep" aria-hidden="true">◆</span><span class="brands-strip__item">Breitling</span><span class="brands-strip__sep" aria-hidden="true">◆</span><span class="brands-strip__item">Jaeger-LeCoultre</span><span class="brands-strip__sep" aria-hidden="true">◆</span><span class="brands-strip__item">Patek Philippe</span><span class="brands-strip__sep" aria-hidden="true">◆</span><span class="brands-strip__item">Audemars Piguet</span><span class="brands-strip__sep" aria-hidden="true">◆</span><span class="brands-strip__item">IWC</span><span class="brands-strip__sep" aria-hidden="true">◆</span><span class="brands-strip__item">Chopard</span><span class="brands-strip__sep" aria-hidden="true">◆</span><span class="brands-strip__item">Tudor</span><span class="brands-strip__sep" aria-hidden="true">◆</span><span class="brands-strip__item">Panerai</span><span class="brands-strip__sep" aria-hidden="true">◆</span><span class="brands-strip__item">TAG Heuer</span><span class="brands-strip__sep" aria-hidden="true">◆</span>
+      </div>
+    </div>
+
     <!-- Serial Lookup Widget -->
     <section class="serial-widget-section" id="serial" aria-label="Rolex Serial Number Lookup">
       <div class="serial-widget__inner">
@@ -449,6 +456,9 @@
       </div>
     </section>
 
+    <!-- Divider -->
+    <div class="section-divider" aria-hidden="true"><span class="section-divider__gem">◆</span></div>
+
     <!-- Reviews -->
     <section class="reviews-section" id="reviews" aria-labelledby="reviews-heading">
       <div class="reviews-section__inner">
@@ -531,6 +541,9 @@
       </div>
     </section>
 
+    <!-- Divider -->
+    <div class="section-divider" aria-hidden="true"><span class="section-divider__gem">◆</span></div>
+
     <!-- Buying Guides -->
     <section class="guides-section" id="guides" aria-labelledby="guides-heading">
       <div class="guides-section__inner">
@@ -587,6 +600,9 @@
         </a>
       </div>
     </section>
+
+    <!-- Divider -->
+    <div class="section-divider" aria-hidden="true"><span class="section-divider__gem">◆</span></div>
 
     <!-- Recently Sold -->
     <section class="sold-section" id="sold" aria-labelledby="sold-heading">
@@ -1551,6 +1567,36 @@
     // Set footer copyright year without document.write
     var yearEl = document.getElementById('footerYear');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
+  })();
+
+  // ── Brand Strip — seamless pixel-precise loop ────────────────────
+  (function () {
+    var track = document.getElementById('brandsTrack');
+    if (!track) return;
+
+    // Clone the original set to create a seamless duplicate
+    var origItems = Array.from(track.children);
+    origItems.forEach(function (child) {
+      var clone = child.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      track.appendChild(clone);
+    });
+
+    // After layout, calculate exact scroll distance and inject precise keyframes
+    requestAnimationFrame(function () {
+      var dist = 0;
+      origItems.forEach(function (child) {
+        dist += child.offsetWidth + (parseFloat(getComputedStyle(child).marginRight) || 0);
+      });
+
+      var s = document.createElement('style');
+      s.textContent = '@keyframes brands-scroll{0%{transform:translateX(0)}100%{transform:translateX(-' + dist + 'px)}}';
+      document.head.appendChild(s);
+
+      track.style.animationName = 'none';
+      void track.offsetWidth;
+      track.style.animationName = '';
+    });
   })();
 
   // ── Guides drag-to-scroll (desktop) ──────────────────────────────

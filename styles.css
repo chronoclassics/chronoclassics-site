@@ -825,12 +825,21 @@ a:hover {
   border: 1px solid var(--card-border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
 }
 
 .service-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
+  transform: translateY(-7px);
+  box-shadow: 0 24px 56px rgba(166, 139, 58, 0.16);
+  border-color: var(--accent-gold);
+}
+
+.service-card__icon {
+  transition: color 0.22s ease;
+}
+
+.service-card:hover .service-card__icon {
+  color: var(--accent-gold);
 }
 
 .service-card__header {
@@ -2615,7 +2624,6 @@ main {
 .reviews-section {
   background: #fff;
   padding: 2.5rem 0;
-  border-top: 1px solid var(--accent-gold);
   overflow: hidden;
 }
 
@@ -2943,7 +2951,6 @@ main {
 
 /* ── Recently Sold ──────────────────────────────────────────────── */
 .sold-section {
-  border-top: 1px solid var(--accent-gold);
   background: #fafafa;
   padding: 3.5rem 0;
 }
@@ -4027,6 +4034,88 @@ main {
   }
 }
 
+/* ── Brand Strip ─────────────────────────────────────────────────── */
+.brands-strip {
+  background: #fff;
+  border-top: 1px solid #ece9e1;
+  border-bottom: 1px solid #ece9e1;
+  overflow: hidden;
+  height: 42px;
+  display: flex;
+  align-items: center;
+}
+
+.brands-strip__track {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  width: max-content;
+  will-change: transform;
+  animation: brands-scroll 50s linear infinite;
+}
+
+.brands-strip__track:hover {
+  animation-play-state: paused;
+}
+
+.brands-strip__item {
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #4a4540;
+  flex-shrink: 0;
+  margin-right: 1.6rem;
+}
+
+.brands-strip__sep {
+  color: var(--accent-gold);
+  font-size: 0.38rem;
+  flex-shrink: 0;
+  margin-right: 1.6rem;
+  opacity: 0.7;
+}
+
+@keyframes brands-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── Section Divider ─────────────────────────────────────────────── */
+.section-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem var(--space-md);
+  background: var(--page-bg);
+}
+
+.section-divider::before,
+.section-divider::after {
+  content: '';
+  flex: 1;
+  max-width: 180px;
+  height: 1px;
+  background: linear-gradient(
+    to var(--_dir, right),
+    transparent,
+    rgba(166, 139, 58, 0.45)
+  );
+}
+
+.section-divider::after {
+  --_dir: left;
+}
+
+.section-divider__gem {
+  color: var(--accent-gold);
+  font-size: 0.42rem;
+  margin: 0 0.9rem;
+  opacity: 0.75;
+  flex-shrink: 0;
+}
+
 /* ── Pull to Refresh ─────────────────────────────────────────────── */
 .ptr-indicator {
   display: none;
@@ -4095,7 +4184,6 @@ main {
 /* ── Buying Guides Section ───────────────────────────────────────── */
 .guides-section {
   background: #fafafa;
-  border-top: 1px solid var(--accent-gold);
   padding: 2.5rem 0;
 }
 
