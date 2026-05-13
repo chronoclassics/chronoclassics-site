@@ -4684,10 +4684,8 @@ main {
    ===================================================== */
 
 .serial-widget-section {
-  background: #fff;
-  border-top: 1px solid #ece9e1;
-  border-bottom: 1px solid #ece9e1;
-  padding: 2rem 1.25rem;
+  background: #111;
+  padding: 2.5rem 1.25rem;
 }
 
 .serial-widget__inner {
@@ -4709,13 +4707,13 @@ main {
   font-size: clamp(1.35rem, 2.5vw, 1.75rem);
   font-weight: 600;
   line-height: 1.2;
-  color: var(--header-text);
+  color: #f5f0e8;
 }
 
 .serial-widget__sub {
   margin: 0;
   font-size: 0.92rem;
-  color: var(--text-muted);
+  color: #9a9690;
   line-height: 1.55;
 }
 
@@ -4732,18 +4730,18 @@ main {
 .serial-widget__input {
   flex: 1 1 0;
   padding: 0.72rem 1rem;
-  border: 1.5px solid #dddad2;
+  border: 1.5px solid #333;
   border-radius: var(--radius);
   font-family: var(--font-ui);
   font-size: 0.95rem;
-  color: var(--text-body);
-  background: #faf9f7;
+  color: #f0ece4;
+  background: #1e1e1e;
   outline: none;
   transition: border-color 0.18s;
   min-width: 0;
 }
-.serial-widget__input::placeholder { color: #b0ab9e; }
-.serial-widget__input:focus { border-color: var(--accent-gold); background: #fff; }
+.serial-widget__input::placeholder { color: #666; }
+.serial-widget__input:focus { border-color: var(--accent-gold); background: #242424; }
 
 .serial-widget__btn {
   flex-shrink: 0;
@@ -4765,11 +4763,11 @@ main {
 .serial-widget__result {
   margin-top: 1rem;
   padding: 0.85rem 1.1rem;
-  background: #faf8f0;
+  background: #1a1a18;
   border-left: 3px solid var(--accent-gold);
   border-radius: 0 var(--radius) var(--radius) 0;
   font-size: 0.9rem;
-  color: var(--text-body);
+  color: #e8e4dc;
   line-height: 1.5;
 }
 
@@ -4787,7 +4785,7 @@ main {
   font-family: var(--font-heading);
   font-size: 1.4rem;
   font-weight: 700;
-  color: var(--header-text);
+  color: #f5f0e8;
   display: block;
   line-height: 1.2;
 }
@@ -4795,7 +4793,7 @@ main {
 .sw-result__era {
   display: block;
   font-size: 0.82rem;
-  color: var(--text-muted);
+  color: #9a9690;
   margin-top: 0.15rem;
 }
 

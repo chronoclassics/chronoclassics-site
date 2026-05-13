@@ -219,6 +219,27 @@
       </div>
     </section>
 
+    <!-- Serial Lookup Widget -->
+    <section class="serial-widget-section" id="serial" aria-label="Rolex Serial Number Lookup">
+      <div class="serial-widget__inner">
+        <div class="serial-widget__header">
+          <h2 class="serial-widget__title">Rolex Serial Number Lookup</h2>
+          <p class="serial-widget__sub">Enter any Rolex serial number to find its approximate production year.</p>
+        </div>
+        <div class="serial-widget__form-wrap">
+          <div class="serial-widget__form">
+            <input class="serial-widget__input" id="swInput" type="text"
+                   placeholder="e.g. V123456 or 5,237,899"
+                   autocomplete="off" spellcheck="false"
+                   aria-label="Enter Rolex serial number" />
+            <button class="serial-widget__btn" id="swBtn" type="button">Look Up Year</button>
+          </div>
+          <div class="serial-widget__result" id="swResult" hidden aria-live="polite"></div>
+          <a class="serial-widget__link" href="/serial-lookup.html">View full reference table &amp; model number guide →</a>
+        </div>
+      </div>
+    </section>
+
     <!-- Services -->
     <section id="services" aria-labelledby="services-heading">
       <div class="section services">
@@ -425,27 +446,6 @@
           </div>
         </div>
 
-      </div>
-    </section>
-
-    <!-- Serial Lookup Widget -->
-    <section class="serial-widget-section" id="serial" aria-label="Rolex Serial Number Lookup">
-      <div class="serial-widget__inner">
-        <div class="serial-widget__header">
-          <h2 class="serial-widget__title">Rolex Serial Number Lookup</h2>
-          <p class="serial-widget__sub">Enter any Rolex serial number to find its approximate production year.</p>
-        </div>
-        <div class="serial-widget__form-wrap">
-          <div class="serial-widget__form">
-            <input class="serial-widget__input" id="swInput" type="text"
-                   placeholder="e.g. V123456 or 5,237,899"
-                   autocomplete="off" spellcheck="false"
-                   aria-label="Enter Rolex serial number" />
-            <button class="serial-widget__btn" id="swBtn" type="button">Look Up Year</button>
-          </div>
-          <div class="serial-widget__result" id="swResult" hidden aria-live="polite"></div>
-          <a class="serial-widget__link" href="/serial-lookup.html">View full reference table &amp; model number guide →</a>
-        </div>
       </div>
     </section>
 
@@ -1647,7 +1647,16 @@
         <span class="quicknav__label">Home</span>
       </button>
 
-      <!-- 2. Services — wrench -->
+      <!-- 2. Serial lookup — search clock -->
+      <button class="quicknav__item" data-target="serial" aria-label="Rolex Year Lookup">
+        <span class="quicknav__icon">
+          <svg class="qn-base" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="5"/><path d="m21 21-3.5-3.5"/><polyline points="11 8 11 11 12.5 12.5"/></svg>
+          <svg class="qn-active" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="5"/><path d="m21 21-3.5-3.5"/><polyline points="11 8 11 11 12.5 12.5"/></svg>
+        </span>
+        <span class="quicknav__label">Rolex Year Lookup</span>
+      </button>
+
+      <!-- 3. Services — wrench -->
       <button class="quicknav__item" data-target="services" aria-label="Our Services">
         <span class="quicknav__icon">
           <svg class="qn-base" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
@@ -1656,22 +1665,13 @@
         <span class="quicknav__label">Our Services</span>
       </button>
 
-      <!-- 3. Listings — diamond -->
+      <!-- 4. Listings — diamond -->
       <button class="quicknav__item" data-target="listings" aria-label="Luxury Watches">
         <span class="quicknav__icon">
           <svg class="qn-base" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><line x1="2" y1="9" x2="22" y2="9"/></svg>
           <svg class="qn-active" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><line x1="2" y1="9" x2="22" y2="9"/></svg>
         </span>
         <span class="quicknav__label">Luxury Watches</span>
-      </button>
-
-      <!-- 4. Serial lookup — search clock -->
-      <button class="quicknav__item" data-target="serial" aria-label="Rolex Year Lookup">
-        <span class="quicknav__icon">
-          <svg class="qn-base" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="5"/><path d="m21 21-3.5-3.5"/><polyline points="11 8 11 11 12.5 12.5"/></svg>
-          <svg class="qn-active" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="5"/><path d="m21 21-3.5-3.5"/><polyline points="11 8 11 11 12.5 12.5"/></svg>
-        </span>
-        <span class="quicknav__label">Rolex Year Lookup</span>
       </button>
 
       <!-- 5. Reviews — star -->
