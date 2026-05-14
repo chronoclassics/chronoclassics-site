@@ -3055,7 +3055,6 @@ main {
 /* ── Gold Section Dividers ──────────────────────────────────────── */
 .section.services {
   border-top: 1px solid var(--accent-gold);
-  background: #f0ece5;
 }
 
 /* ── Recently Sold ──────────────────────────────────────────────── */
