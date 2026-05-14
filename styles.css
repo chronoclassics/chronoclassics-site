@@ -4874,6 +4874,7 @@ main {
   border: 1px solid rgba(166, 139, 58, 0.22);
   border-top: none;
   border-bottom: none;
+  overflow: hidden;
   padding: 2rem 2.5rem 2.25rem;
   box-shadow:
     0 0 0 1px rgba(166, 139, 58, 0.06),
@@ -4924,6 +4925,38 @@ main {
 @keyframes serial-border-shimmer {
   0%, 100% { background-position: 0% center; }
   50%       { background-position: 100% center; }
+}
+
+/* Decorative watch photo — hidden on mobile, shown on wider screens */
+.serial-widget__watch-img {
+  display: none;
+  position: absolute;
+  right: -18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 280px;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent  0%,
+    rgba(0,0,0,0.55) 24%,
+    black        46%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent  0%,
+    rgba(0,0,0,0.55) 24%,
+    black        46%
+  );
+  opacity: 0.88;
+  filter: brightness(0.96) contrast(1.02);
+}
+
+@media (min-width: 860px) {
+  .serial-widget__watch-img { display: block; }
+  .serial-widget__inner     { padding-right: 282px; }
 }
 
 /* Crown + eyebrow inline */
