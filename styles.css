@@ -4927,36 +4927,37 @@ main {
   50%       { background-position: 100% center; }
 }
 
-/* Decorative watch photo — hidden on mobile, shown on wider screens */
+/* Decorative Paul Newman Daytona photo — hidden on mobile, shown on wider screens */
 .serial-widget__watch-img {
   display: none;
   position: absolute;
-  right: -18px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 280px;
-  height: auto;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 52%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
   pointer-events: none;
   user-select: none;
   -webkit-mask-image: linear-gradient(
     to right,
     transparent  0%,
-    rgba(0,0,0,0.55) 24%,
-    black        46%
+    rgba(0,0,0,0.3) 18%,
+    black        38%
   );
   mask-image: linear-gradient(
     to right,
     transparent  0%,
-    rgba(0,0,0,0.55) 24%,
-    black        46%
+    rgba(0,0,0,0.3) 18%,
+    black        38%
   );
-  opacity: 0.88;
-  filter: brightness(0.96) contrast(1.02);
+  opacity: 0.95;
 }
 
 @media (min-width: 860px) {
   .serial-widget__watch-img { display: block; }
-  .serial-widget__inner     { padding-right: 282px; }
+  .serial-widget__inner     { padding-right: 46%; }
 }
 
 /* Crown + eyebrow inline */
