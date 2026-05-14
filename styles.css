@@ -4103,7 +4103,8 @@ main {
 .brands-strip {
   background: #fff;
   border-top: 1px solid #ece9e1;
-  border-bottom: 1px solid #ece9e1;
+  border-bottom: 1px solid transparent;
+  border-image: linear-gradient(to right, transparent 0%, #ece9e1 12%, #ece9e1 88%, transparent 100%) 0 0 1 0;
   height: 42px;
   display: flex;
   align-items: center;
