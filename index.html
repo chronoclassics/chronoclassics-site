@@ -866,11 +866,14 @@
         <p class="newsletter-eyebrow">Newsletter</p>
         <h2 id="newsletter-heading" class="newsletter-title">Never miss a rare timepiece.</h2>
         <p class="newsletter-sub">Be the first to know when a new watch arrives in our collection — delivered straight to your inbox.</p>
-        <form class="newsletter-form" id="newsletterForm" novalidate>
+        <form class="newsletter-form" id="newsletterForm" name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+          <input type="hidden" name="form-name" value="newsletter" />
+          <input type="text" name="bot-field" class="sell-form__hidden" />
           <div class="newsletter-form__row">
             <input
               class="newsletter-form__input"
               id="newsletterEmail"
+              name="email"
               type="email"
               placeholder="Your email address"
               autocomplete="email"
@@ -1923,24 +1926,22 @@
       btn.textContent = 'Subscribing…';
       status.hidden   = true;
 
-      fetch('/api/subscribe', {
+      var body = new URLSearchParams({ 'form-name': 'newsletter', email: email }).toString();
+
+      fetch('/', {
         method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ email: email }),
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body:    body,
       })
-        .then(function (r) { return r.json(); })
-        .then(function (data) {
-          if (data.success) {
+        .then(function (r) {
+          if (r.ok || r.status === 200) {
             input.value  = '';
             btn.textContent = 'Subscribed ✓';
-            setStatus(data.already
-              ? 'You\'re already on the list — we\'ll keep you posted!'
-              : 'You\'re in! We\'ll notify you when new watches arrive.', false);
+            setStatus('You\'re in! We\'ll notify you when new watches arrive.', false);
           } else {
-            btn.disabled    = false;
-            btn.textContent = 'Notify Me';
-            btn.innerHTML   = 'Notify Me <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
-            setStatus(data.error || 'Something went wrong. Please try again.', true);
+            btn.disabled  = false;
+            btn.innerHTML = 'Notify Me <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+            setStatus('Something went wrong. Please try again.', true);
           }
         })
         .catch(function () {
