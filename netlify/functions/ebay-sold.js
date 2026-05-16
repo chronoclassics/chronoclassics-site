@@ -61,7 +61,6 @@ exports.handler = async function (event) {
     'SECURITY-APPNAME=' + encodeURIComponent(APP_ID),
     'RESPONSE-DATA-FORMAT=JSON',
     'REST-PAYLOAD',
-    'outputSelector(0)=PictureURLLarge',
     'itemFilter(0).name=Seller',
     'itemFilter(0).value=chronoclassics',
     'itemFilter(1).name=SoldItemsOnly',
