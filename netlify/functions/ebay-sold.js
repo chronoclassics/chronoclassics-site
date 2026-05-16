@@ -1,6 +1,7 @@
 // netlify/functions/ebay-sold.js
 // Returns recently-sold completed eBay listings for the chronoclassics seller.
 // Uses the eBay Finding API (no OAuth — App ID only via EBAY_APP_ID env var).
+// Falls back to static curated listings if the API is unavailable / rate-limited.
 
 const https = require('https');
 
@@ -32,6 +33,90 @@ function extractBrand(title) {
   return BRANDS.find(b => t.startsWith(b.toLowerCase())) || title.split(' ')[0];
 }
 
+// Static curated sold listings — shown when eBay API is unavailable / rate-limited
+const STATIC_LISTINGS = [
+  {
+    brand: 'Rolex',
+    model: 'ROLEX COSMOGRAPH DAYTONA 116520 White Dial 40mm · Full Set B&P',
+    condition: 'Pre-Owned',
+    price: '$22,950',
+    url: 'https://www.ebay.com/itm/389788130722',
+    image: 'https://i.ebayimg.com/images/g/uycAAeSwnQ1pnU6l/s-l500.jpg',
+  },
+  {
+    brand: 'Rolex',
+    model: 'ROLEX SEA-DWELLER 126600 43mm Red Letters Black Ceramic Steel · Box & Tags',
+    condition: 'Pre-Owned',
+    price: '$12,450',
+    url: 'https://www.ebay.com/itm/389867848673',
+    image: 'https://i.ebayimg.com/images/g/b3kAAeSw1rlp1-aZ/s-l500.jpg',
+  },
+  {
+    brand: 'Rolex',
+    model: 'ROLEX MILGAUSS 116400GV Oyster Perpetual 40mm Green Crystal · Box',
+    condition: 'Pre-Owned',
+    price: '$9,995',
+    url: 'https://www.ebay.com/itm/389704125510',
+    image: 'https://i.ebayimg.com/images/g/0jwAAeSwodJpgSd-/s-l500.jpg',
+  },
+  {
+    brand: 'Cartier',
+    model: 'CARTIER BALLON BLEU 42mm WSBB0025 Automatic Blue Dial Crocodile Strap · B&P',
+    condition: 'Pre-Owned',
+    price: '$4,950',
+    url: 'https://www.ebay.com/itm/389895410827',
+    image: 'https://i.ebayimg.com/images/g/s2IAAeSwamJp4Cxa/s-l500.jpg',
+  },
+  {
+    brand: 'Cartier',
+    model: 'CARTIER PANTHERE 27mm 2024 Stainless Steel Ladies Watch Ref. WSPN0007 · B&P',
+    condition: 'Pre-Owned',
+    price: '$5,695',
+    url: 'https://www.ebay.com/itm/389872394381',
+    image: 'https://i.ebayimg.com/images/g/8AEAAeSw-Bhp2S5E/s-l500.jpg',
+  },
+  {
+    brand: 'Jaeger-LeCoultre',
+    model: 'JAEGER-LECOULTRE Master Ultra Thin Reserve de Marche Automatic Q1378420 · B&P',
+    condition: 'Pre-Owned',
+    price: '$6,095',
+    url: 'https://www.ebay.com/itm/389199086804',
+    image: 'https://i.ebayimg.com/images/g/V6cAAeSwo5ZpDC5W/s-l500.jpg',
+  },
+  {
+    brand: 'Breitling',
+    model: 'BREITLING OLD NAVITIMER D13322 Chronograph 18k Gold & Steel · Full Set',
+    condition: 'Pre-Owned',
+    price: '$4,695',
+    url: 'https://www.ebay.com/itm/389887075896',
+    image: 'https://i.ebayimg.com/images/g/rtkAAeSwajBp3YlI/s-l500.jpg',
+  },
+  {
+    brand: 'Omega',
+    model: 'OMEGA SPEEDMASTER Torino Olympic Games Collection 3836.70.36 MOP Dial · B&P',
+    condition: 'Pre-Owned',
+    price: '$3,495',
+    url: 'https://www.ebay.com/itm/389317662175',
+    image: 'https://i.ebayimg.com/images/g/k8gAAeSwFhRpLeeZ/s-l500.jpg',
+  },
+  {
+    brand: 'Chopard',
+    model: 'CHOPARD CASMIR Mother of Pearl 18K Gold & Steel Ladies Quartz Watch · Box',
+    condition: 'Pre-Owned',
+    price: '$3,895',
+    url: 'https://www.ebay.com/itm/388820699714',
+    image: 'https://i.ebayimg.com/images/g/cKgAAeSwe7pomRw9/s-l500.jpg',
+  },
+  {
+    brand: 'Chronographe Suisse',
+    model: 'CHRONOGRAPHE SUISSE 18K Rose Gold 38mm · Swiss Made Landeron · 1950s Manual',
+    condition: 'Pre-Owned',
+    price: '$2,295',
+    url: 'https://www.ebay.com/itm/389554217389',
+    image: 'https://i.ebayimg.com/images/g/iTwAAeSw8nNphR5B/s-l500.jpg',
+  },
+];
+
 exports.handler = async function (event) {
   const cors = {
     'Access-Control-Allow-Origin':  '*',
@@ -44,69 +129,69 @@ exports.handler = async function (event) {
   }
 
   const APP_ID = process.env.EBAY_APP_ID;
-  if (!APP_ID) {
-    return {
-      statusCode: 500,
-      headers: cors,
-      body: JSON.stringify({ error: 'Missing EBAY_APP_ID env var' }),
-    };
-  }
-
   const params = event.queryStringParameters || {};
   const limit  = Math.min(parseInt(params.limit) || 20, 50);
 
-  const qs = [
-    'OPERATION-NAME=findCompletedItems',
-    'SERVICE-VERSION=1.0.0',
-    'SECURITY-APPNAME=' + encodeURIComponent(APP_ID),
-    'RESPONSE-DATA-FORMAT=JSON',
-    'REST-PAYLOAD',
-    'itemFilter(0).name=Seller',
-    'itemFilter(0).value=chronoclassics',
-    'itemFilter(1).name=SoldItemsOnly',
-    'itemFilter(1).value=true',
-    'sortOrder=EndTimeSoonest',
-    'paginationInput.entriesPerPage=' + limit,
-  ].join('&');
+  // Try eBay Finding API if we have a key
+  if (APP_ID) {
+    try {
+      const qs = [
+        'OPERATION-NAME=findCompletedItems',
+        'SERVICE-VERSION=1.0.0',
+        'SECURITY-APPNAME=' + encodeURIComponent(APP_ID),
+        'RESPONSE-DATA-FORMAT=JSON',
+        'REST-PAYLOAD',
+        'itemFilter(0).name=Seller',
+        'itemFilter(0).value=chronoclassics',
+        'itemFilter(1).name=SoldItemsOnly',
+        'itemFilter(1).value=true',
+        'sortOrder=EndTimeSoonest',
+        'paginationInput.entriesPerPage=' + limit,
+      ].join('&');
 
-  try {
-    const data  = await httpsGet('svcs.ebay.com', '/services/search/FindingService/v1?' + qs);
-    const resp  = data.findCompletedItemsResponse?.[0];
-    const ack   = resp?.ack?.[0];
-    if (!resp || ack !== 'Success') {
-      return { statusCode: 200, headers: { ...cors, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ listings: [] }) };
+      const data  = await httpsGet('svcs.ebay.com', '/services/search/FindingService/v1?' + qs);
+      const resp  = data.findCompletedItemsResponse?.[0];
+      const ack   = resp?.ack?.[0];
+
+      if (resp && ack === 'Success') {
+        const items = resp?.searchResult?.[0]?.item || [];
+
+        const listings = items
+          .map(item => {
+            const title    = item.title?.[0] || '';
+            const rawPrice = parseFloat(
+              item.sellingStatus?.[0]?.convertedCurrentPrice?.[0]?.['__value__'] || '0'
+            );
+            if (!rawPrice) return null;   // unsold — skip
+
+            const price     = '$' + rawPrice.toLocaleString('en-US', { maximumFractionDigits: 0 });
+            const condition = item.condition?.[0]?.conditionDisplayName?.[0] || 'Pre-Owned';
+            const url       = item.viewItemURL?.[0] || null;
+            const image     = item.pictureURLLarge?.[0] || item.galleryURL?.[0] || null;
+            const brand     = extractBrand(title);
+
+            return { brand, model: title, condition, price, url, image };
+          })
+          .filter(Boolean);
+
+        if (listings.length > 0) {
+          return {
+            statusCode: 200,
+            headers: { ...cors, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ listings, source: 'live' }),
+          };
+        }
+      }
+    } catch (err) {
+      // Fall through to static data
     }
-    const items = resp?.searchResult?.[0]?.item || [];
-
-    const listings = items
-      .map(item => {
-        const title    = item.title?.[0] || '';
-        const rawPrice = parseFloat(
-          item.sellingStatus?.[0]?.convertedCurrentPrice?.[0]?.['__value__'] || '0'
-        );
-        if (!rawPrice) return null;   // unsold — skip
-
-        const price     = '$' + rawPrice.toLocaleString('en-US', { maximumFractionDigits: 0 });
-        const condition = item.condition?.[0]?.conditionDisplayName?.[0] || 'Pre-Owned';
-        const url       = item.viewItemURL?.[0] || null;
-        const image     = item.pictureURLLarge?.[0] || item.galleryURL?.[0] || null;
-        const brand     = extractBrand(title);
-
-        return { brand, model: title, condition, price, url, image };
-      })
-      .filter(Boolean);
-
-    return {
-      statusCode: 200,
-      headers: { ...cors, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ listings }),
-    };
-  } catch (err) {
-    return {
-      statusCode: 500,
-      headers: cors,
-      body: JSON.stringify({ error: err.message }),
-    };
   }
+
+  // Fallback: return curated static listings
+  const listings = STATIC_LISTINGS.slice(0, limit);
+  return {
+    statusCode: 200,
+    headers: { ...cors, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ listings, source: 'static' }),
+  };
 };
