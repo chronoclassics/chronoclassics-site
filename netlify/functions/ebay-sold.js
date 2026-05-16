@@ -61,6 +61,7 @@ exports.handler = async function (event) {
     'SECURITY-APPNAME=' + encodeURIComponent(APP_ID),
     'RESPONSE-DATA-FORMAT=JSON',
     'REST-PAYLOAD',
+    'keywords=watch',
     'itemFilter(0).name=Seller',
     'itemFilter(0).value=chronoclassics',
     'itemFilter(1).name=SoldItemsOnly',
@@ -71,12 +72,11 @@ exports.handler = async function (event) {
 
   try {
     const data  = await httpsGet('svcs.ebay.com', '/services/search/FindingService/v1?' + qs);
-    const topKeys = Object.keys(data);
     const resp  = data.findCompletedItemsResponse?.[0];
     const ack   = resp?.ack?.[0];
     if (!resp || ack !== 'Success') {
       return { statusCode: 200, headers: { ...cors, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ listings: [], debug: { topKeys, ack, rawResp: JSON.stringify(data).slice(0, 500) } }) };
+        body: JSON.stringify({ listings: [], debug: { ack, rawResp: JSON.stringify(data).slice(0, 600) } }) };
     }
     const items = resp?.searchResult?.[0]?.item || [];
 
