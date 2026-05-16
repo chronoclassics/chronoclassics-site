@@ -36,7 +36,7 @@ exports.handler = async function (event) {
   const cors = {
     'Access-Control-Allow-Origin':  '*',
     'Access-Control-Allow-Headers': 'Content-Type',
-    'Cache-Control':                'public, max-age=300, s-maxage=300',
+    'Cache-Control':                'public, max-age=3600, s-maxage=3600',
   };
 
   if (event.httpMethod === 'OPTIONS') {
@@ -77,7 +77,7 @@ exports.handler = async function (event) {
     const ack   = resp?.ack?.[0];
     if (!resp || ack !== 'Success') {
       return { statusCode: 200, headers: { ...cors, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ listings: [], debug: { ack, rawResp: JSON.stringify(data).slice(0, 600) } }) };
+        body: JSON.stringify({ listings: [] }) };
     }
     const items = resp?.searchResult?.[0]?.item || [];
 
