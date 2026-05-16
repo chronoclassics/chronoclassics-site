@@ -85,9 +85,10 @@ exports.handler = async function (event) {
         const price     = '$' + rawPrice.toLocaleString('en-US', { maximumFractionDigits: 0 });
         const condition = item.condition?.[0]?.conditionDisplayName?.[0] || 'Pre-Owned';
         const url       = item.viewItemURL?.[0] || null;
+        const image     = item.galleryURL?.[0] || null;
         const brand     = extractBrand(title);
 
-        return { brand, model: title, condition, price, url };
+        return { brand, model: title, condition, price, url, image };
       })
       .filter(Boolean);
 
