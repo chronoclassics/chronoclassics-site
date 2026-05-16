@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://chronoclassics.netlify.app/sitemap.xml
+Sitemap: https://chrono-classics.com/sitemap.xml
