@@ -72,6 +72,13 @@ exports.handler = async function (event) {
   try {
     const data  = await httpsGet('svcs.ebay.com', '/services/search/FindingService/v1?' + qs);
     const resp  = data.findCompletedItemsResponse?.[0];
+    const ack   = resp?.ack?.[0];
+    const errMsg = resp?.errorMessage?.[0]?.error?.[0]?.message?.[0] || null;
+    const totalItems = resp?.paginationOutput?.[0]?.totalEntries?.[0] || '0';
+    if (ack !== 'Success') {
+      return { statusCode: 200, headers: { ...cors, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ listings: [], debug: { ack, errMsg, totalItems } }) };
+    }
     const items = resp?.searchResult?.[0]?.item || [];
 
     const listings = items
