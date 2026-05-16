@@ -36,7 +36,7 @@ exports.handler = async function (event) {
   const cors = {
     'Access-Control-Allow-Origin':  '*',
     'Access-Control-Allow-Headers': 'Content-Type',
-    'Cache-Control':                'public, max-age=1800, s-maxage=1800',
+    'Cache-Control':                'public, max-age=300, s-maxage=300',
   };
 
   if (event.httpMethod === 'OPTIONS') {
@@ -61,6 +61,8 @@ exports.handler = async function (event) {
     'SECURITY-APPNAME=' + encodeURIComponent(APP_ID),
     'RESPONSE-DATA-FORMAT=JSON',
     'REST-PAYLOAD',
+    'outputSelector=PictureURLLarge',
+    'outputSelector(1)=GalleryInfo',
     'itemFilter(0).name=Seller',
     'itemFilter(0).value=chronoclassics',
     'itemFilter(1).name=SoldItemsOnly',
@@ -85,7 +87,7 @@ exports.handler = async function (event) {
         const price     = '$' + rawPrice.toLocaleString('en-US', { maximumFractionDigits: 0 });
         const condition = item.condition?.[0]?.conditionDisplayName?.[0] || 'Pre-Owned';
         const url       = item.viewItemURL?.[0] || null;
-        const image     = item.galleryURL?.[0] || null;
+        const image     = item.pictureURLLarge?.[0] || item.galleryURL?.[0] || null;
         const brand     = extractBrand(title);
 
         return { brand, model: title, condition, price, url, image };
