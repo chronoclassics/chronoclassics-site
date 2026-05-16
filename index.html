@@ -752,8 +752,9 @@
 
           </div>
           <div id="contact" class="reveal" style="--reveal-d:160ms">
-            <form class="sell-form" name="sell-watch" method="POST" action="https://formspree.io/f/YOUR_FORM_ID">
-              <input type="text" name="_gotcha" class="sell-form__hidden" />
+            <form class="sell-form" name="sell-watch" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+              <input type="hidden" name="form-name" value="sell-watch" />
+              <input type="text" name="bot-field" class="sell-form__hidden" />
 
               <!-- Purpose toggle -->
               <div class="sell-form__purpose" role="group" aria-label="What can we help with?">
