@@ -1659,14 +1659,76 @@ main {
 /* ── Newsletter section ──────────────────────────────────────────── */
 .newsletter-section {
   background: #0f0f0f;
-  padding: 5rem 1.5rem;
+  padding: 0;
   border-bottom: 1px solid rgba(166,139,58,0.3);
+  overflow: hidden;
+  position: relative;
 }
 
 .newsletter-section__inner {
-  max-width: 600px;
+  max-width: 860px;
   margin: 0 auto;
-  text-align: center;
+  min-height: 380px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.newsletter-section__img {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 62%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+  filter: brightness(0.8) contrast(1.1);
+  transform: scale(1.04);
+  transform-origin: center top;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0,0,0,0.25) 22%,
+    rgba(0,0,0,0.8) 48%,
+    black 65%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0,0,0,0.25) 22%,
+    rgba(0,0,0,0.8) 48%,
+    black 65%
+  );
+}
+
+.newsletter-section__content {
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  max-width: 520px;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .newsletter-section__inner {
+    min-height: unset;
+  }
+  .newsletter-section__img {
+    display: none;
+  }
+  .newsletter-section__content {
+    max-width: 100%;
+    padding: 3rem 1.5rem;
+    text-align: center;
+  }
 }
 
 .newsletter-eyebrow {
@@ -1681,11 +1743,11 @@ main {
 
 .newsletter-title {
   font-family: var(--font-heading);
-  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
   font-weight: 600;
   color: #fff;
   line-height: 1.15;
-  margin: 0 0 1rem;
+  margin: 0 0 0.75rem;
 }
 
 .newsletter-sub {
@@ -1699,7 +1761,7 @@ main {
   display: flex;
   gap: 0.6rem;
   max-width: 480px;
-  margin: 0 auto 0.85rem;
+  margin: 0 0 0.85rem;
 }
 
 .newsletter-form__input {
