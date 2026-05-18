@@ -1831,9 +1831,9 @@ main {
 .newsletter-form__status--error { color: #eb5757; }
 
 .newsletter-privacy {
-  font-size: 0.78rem;
-  color: #555;
-  margin: 1rem 0 0;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.45);
+  margin: 0.5rem 0 0;
 }
 
 @media (max-width: 480px) {
@@ -3806,6 +3806,68 @@ main {
   .sell-section {
     padding: 2.5rem 0;
   }
+}
+
+/* ── Trust Bar ───────────────────────────────────────────────────── */
+.trust-bar {
+  background: #000;
+  padding: 0.5rem var(--space-md);
+}
+.trust-bar__inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.5rem;
+}
+.trust-bar__item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: #fff;
+  white-space: nowrap;
+}
+.trust-bar__item svg {
+  color: #fff;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+.trust-bar__dot {
+  color: rgba(255,255,255,0.3);
+  font-size: 1rem;
+  line-height: 1;
+}
+@media (max-width: 600px) {
+  .trust-bar__dot { display: none; }
+  .trust-bar__inner { gap: 0.3rem 0.9rem; }
+  .trust-bar__item { font-size: 0.7rem; }
+}
+
+/* ── Sell Promise Callout ────────────────────────────────────────── */
+.sell-promise {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #f9f7f2;
+  border: 1px solid rgba(166,139,58,0.25);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--header-text);
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+}
+.sell-promise svg {
+  color: var(--accent-gold);
+  flex-shrink: 0;
 }
 
 /* ── Mobile Watch Grid — 2-column layout ────────────────────────── */

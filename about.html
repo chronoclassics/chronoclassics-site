@@ -210,6 +210,65 @@
       border-top: 1px solid var(--card-border);
     }
 
+    /* Auth steps */
+    .about-auth {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .about-auth__step {
+      flex: 1;
+      min-width: 160px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.6rem;
+      background: #f9f7f2;
+      border: 1px solid #e8e2d5;
+      border-radius: 12px;
+      padding: 1.25rem 1rem;
+    }
+    .about-auth__icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #fff;
+      border: 1px solid #e8e2d5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-gold);
+      flex-shrink: 0;
+    }
+    .about-auth__body strong {
+      display: block;
+      font-family: var(--font-ui);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--header-text);
+      margin-bottom: 0.35rem;
+    }
+    .about-auth__body p {
+      font-family: var(--font-ui);
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+    .about-auth__arrow {
+      color: #ccc;
+      display: flex;
+      align-items: center;
+      padding-top: 1.5rem;
+      flex-shrink: 0;
+    }
+    @media (max-width: 640px) {
+      .about-auth { flex-direction: column; }
+      .about-auth__arrow { transform: rotate(90deg); align-self: center; padding-top: 0; }
+    }
+
     @media (max-width: 600px) {
       .about-stats { grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
       .about-stat__num { font-size: 1.5rem; }
@@ -240,7 +299,7 @@
 
   <!-- Hero -->
   <section class="about-hero">
-    <p class="about-hero__eyebrow">Our Story</p>
+    <p class="about-hero__eyebrow">My Story</p>
     <h1 class="about-hero__title">Built from a <em>lifelong passion</em> for exceptional timepieces.</h1>
     <div class="about-hero__rule"></div>
   </section>
@@ -249,15 +308,15 @@
   <main class="about-body">
 
     <p class="about-intro">
-      Some people collect stamps or coins. We collect watches.
+      Some people collect stamps or coins. I collect watches.
     </p>
 
     <p>
-      From the moment we first held a Rolex Submariner — the weight of the case, the sweep of the seconds hand, the history sitting on your wrist — we were hooked. What started as a passion became an obsession, and eventually, a business we're genuinely proud of.
+      From the moment I first held a Rolex Submariner — the weight of the case, the sweep of the seconds hand, the history sitting on your wrist — I was hooked. What started as a passion became an obsession, and eventually, a business I'm genuinely proud of.
     </p>
 
     <p>
-      ChronoClassics was founded because we wanted to do something we love, and do it with integrity. We've spent years studying movements, tracking market values, and building relationships deep in New York's collector community. Every watch we acquire is evaluated personally. Every watch we sell, we stand behind completely.
+      ChronoClassics was founded because I wanted to do something I love, and do it with integrity. I've spent years studying movements, tracking market values, and building relationships deep in New York's collector community. Every watch I acquire is evaluated personally. Every watch I sell, I stand behind completely.
     </p>
 
     <!-- Stats -->
@@ -271,45 +330,81 @@
         <div class="about-stat__label">Midtown Manhattan</div>
       </div>
       <div class="about-stat">
-        <div class="about-stat__num">Auth.</div>
+        <div class="about-stat__num">Authentic</div>
         <div class="about-stat__label">Every Watch Verified</div>
       </div>
     </div>
 
     <div class="about-section">
-      <p class="about-section__heading">You're dealing with us — not a sales team</p>
+      <p class="about-section__heading">You're dealing with me — not a sales team</p>
       <p>
-        ChronoClassics isn't a storefront with rotating staff and commission targets. When you message us, a real person replies. When we quote your watch, that number is based on real research — not a lowball offer designed to flip you fast. Whether you're buying your grail piece or selling something that's been sitting in a drawer, you get a straight answer, fast.
+        ChronoClassics isn't a storefront with rotating staff and commission targets. When you message me, I reply personally. When I quote your watch, that number is based on real research — not a lowball offer designed to flip you fast. Whether you're buying your grail piece or selling something that's been sitting in a drawer, you get a straight answer, fast.
       </p>
     </div>
 
     <div class="about-section">
       <p class="about-section__heading">A track record you can verify</p>
       <p>
-        Our eBay feedback is public and perfect — 100% positive across every transaction. Not because every deal is easy, but because we take every deal seriously. You're welcome to read through it before you ever send us a message.
+        My eBay feedback is public and perfect — 100% positive across every transaction. Not because every deal is easy, but because I take every deal seriously. You're welcome to read through it before you ever send me a message.
       </p>
     </div>
 
     <div class="about-section">
       <p class="about-section__heading">New York City</p>
       <p>
-        Operating out of Midtown Manhattan, we're embedded in one of the world's most active watch markets. That means better access, better pricing, and the ability to source pieces most dealers can't find.
+        Operating out of Midtown Manhattan, I'm embedded in one of the world's most active watch markets. That means better access, better pricing, and the ability to source pieces most dealers can't find.
       </p>
     </div>
 
     <div class="about-section">
       <p class="about-section__heading">Authentication is everything</p>
       <p>
-        Every watch that passes through ChronoClassics is personally inspected. We know the tells — a refinished dial, a replaced crown, an incorrect serial range. If it doesn't check out, it doesn't go in our store. Full stop.
+        Every watch that passes through ChronoClassics is personally inspected by me. I know the tells — a refinished dial, a replaced crown, an incorrect serial range. If it doesn't check out, it doesn't go in my store. Full stop.
       </p>
+
+      <div class="about-auth">
+        <div class="about-auth__step">
+          <div class="about-auth__icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <div class="about-auth__body">
+            <strong>Physical Inspection</strong>
+            <p>Case, crystal, crown, dial, and bracelet are examined closely for any signs of tampering, polishing, or non-original parts.</p>
+          </div>
+        </div>
+        <div class="about-auth__arrow" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+        <div class="about-auth__step">
+          <div class="about-auth__icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <div class="about-auth__body">
+            <strong>Serial &amp; Movement Verification</strong>
+            <p>The serial number is cross-referenced against known manufacturer records and production ranges. The movement is checked for originality.</p>
+          </div>
+        </div>
+        <div class="about-auth__arrow" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+        <div class="about-auth__step">
+          <div class="about-auth__icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="about-auth__body">
+            <strong>Market Pricing</strong>
+            <p>After authentication, I research recent comparable sales to ensure every price reflects true current market value — fair for both sides.</p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- CTA -->
     <div class="about-cta">
       <h2 class="about-cta__heading">Ready to buy or sell?</h2>
-      <p>We're a message away. No pressure, no obligation.</p>
+      <p>I'm a message away. No pressure, no obligation.</p>
       <div class="about-cta__btns">
-        <a href="https://wa.me/19174801080" class="btn btn--primary" target="_blank" rel="noopener noreferrer">Message us on WhatsApp</a>
+        <a href="https://wa.me/19174801080" class="btn btn--primary" target="_blank" rel="noopener noreferrer">Message me on WhatsApp</a>
         <a href="/" class="btn btn--secondary">Browse watches</a>
       </div>
     </div>

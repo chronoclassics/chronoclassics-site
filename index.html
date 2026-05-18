@@ -61,7 +61,34 @@
   <div class="grain-overlay" aria-hidden="true"></div>
   <a class="skip-link" href="#listings">Skip to content</a>
 
-  <!-- Announcement bar -->
+  <!-- Trust bar -->
+  <div class="trust-bar" aria-label="Trust highlights">
+    <div class="trust-bar__inner">
+      <span class="trust-bar__item">
+        <!-- Shield checkmark — Authentic -->
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        100% Authentic
+      </span>
+      <span class="trust-bar__dot" aria-hidden="true">·</span>
+      <span class="trust-bar__item">
+        <!-- Clock — Within the Hour -->
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Offers Within the Hour
+      </span>
+      <span class="trust-bar__dot" aria-hidden="true">·</span>
+      <span class="trust-bar__item">
+        <!-- Star — eBay Feedback -->
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        100% Positive eBay Feedback
+      </span>
+      <span class="trust-bar__dot" aria-hidden="true">·</span>
+      <span class="trust-bar__item">
+        <!-- Pin — New York -->
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        New York, NY
+      </span>
+    </div>
+  </div>
 
   <!-- Header -->
   <header class="site-header" id="siteHeader">
@@ -768,6 +795,10 @@
 
           </div>
           <div id="contact" class="reveal" style="--reveal-d:160ms">
+            <div class="sell-promise">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Submit your details and receive a fair, no-obligation offer — usually within the hour.
+            </div>
             <form class="sell-form" name="sell-watch" method="POST" enctype="multipart/form-data" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you.html">
               <input type="hidden" name="form-name" value="sell-watch" />
               <input type="text" name="bot-field" class="sell-form__hidden" />
@@ -911,9 +942,9 @@
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </button>
           </div>
+          <p class="newsletter-privacy">No spam. Unsubscribe anytime.</p>
           <p class="newsletter-form__status" id="newsletterStatus" hidden></p>
         </form>
-        <p class="newsletter-privacy">No spam. Unsubscribe anytime.</p>
         </div><!-- /.newsletter-section__content -->
       </div>
     </section>
