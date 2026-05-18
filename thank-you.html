@@ -232,7 +232,8 @@
   </main>
 
   <footer class="ty-footer">
-    © 2025 ChronoClassics · <a href="mailto:sales@chrono-classics.com" style="color:inherit;">sales@chrono-classics.com</a> · <a href="tel:+19174801080" style="color:inherit;">(917) 480-1080</a>
+    © <span id="footerYear"></span> ChronoClassics · <a href="mailto:sales@chrono-classics.com" style="color:inherit;">sales@chrono-classics.com</a> · <a href="tel:+19174801080" style="color:inherit;">(917) 480-1080</a>
+    <script>document.getElementById('footerYear').textContent = new Date().getFullYear();</script>
   </footer>
 
 </body>

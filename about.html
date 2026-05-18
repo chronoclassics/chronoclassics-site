@@ -3,9 +3,22 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>About Us — ChronoClassics</title>
+  <title>About — ChronoClassics</title>
   <meta name="description" content="The story behind ChronoClassics — a lifelong passion for luxury timepieces turned into New York's most trusted pre-owned watch dealer." />
-  <link rel="canonical" href="https://chrono-classics.com/about" />
+  <link rel="canonical" href="https://chrono-classics.com/about.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://chrono-classics.com/about.html" />
+  <meta property="og:title"       content="About — ChronoClassics" />
+  <meta property="og:description" content="Built from a lifelong passion for exceptional timepieces. The story behind ChronoClassics." />
+  <meta property="og:image"       content="https://chrono-classics.com/assets/og-image.jpg" />
+
+  <!-- Twitter / iMessage -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="About — ChronoClassics" />
+  <meta name="twitter:description" content="Built from a lifelong passion for exceptional timepieces. The story behind ChronoClassics." />
+  <meta name="twitter:image"       content="https://chrono-classics.com/assets/og-image.jpg" />
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
@@ -345,7 +358,7 @@
     <div class="about-section">
       <p class="about-section__heading">A track record you can verify</p>
       <p>
-        My eBay feedback is public and perfect — 100% positive across every transaction. Not because every deal is easy, but because I take every deal seriously. You're welcome to read through it before you ever send me a message.
+        My eBay feedback is public and perfect — 100% positive across every transaction. Not because every deal is easy, but because I take every deal seriously. <a href="https://www.ebay.com/fdbk/feedback_profile/chronoclassics" target="_blank" rel="noopener noreferrer" style="color:var(--accent-gold);text-decoration:underline;text-underline-offset:3px;">You're welcome to read through it</a> before you ever send me a message.
       </p>
     </div>
 
@@ -412,7 +425,8 @@
   </main>
 
   <footer class="about-footer">
-    © 2025 ChronoClassics · <a href="mailto:sales@chrono-classics.com" style="color:inherit;">sales@chrono-classics.com</a> · <a href="tel:+19174801080" style="color:inherit;">(917) 480-1080</a>
+    © <span id="footerYear"></span> ChronoClassics · <a href="mailto:sales@chrono-classics.com" style="color:inherit;">sales@chrono-classics.com</a> · <a href="tel:+19174801080" style="color:inherit;">(917) 480-1080</a>
+    <script>document.getElementById('footerYear').textContent = new Date().getFullYear();</script>
   </footer>
 
 </body>
