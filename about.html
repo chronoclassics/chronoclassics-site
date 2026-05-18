@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Us — ChronoClassics</title>
+  <meta name="description" content="The story behind ChronoClassics — a lifelong passion for luxury timepieces turned into New York's most trusted pre-owned watch dealer." />
+  <link rel="canonical" href="https://chrono-classics.com/about" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .about-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+    }
+    .about-topbar {
+      background: #fff;
+      border-bottom: 1px solid var(--card-border);
+      padding: 0 var(--space-md);
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .about-topbar__logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--header-text);
+      letter-spacing: 0.02em;
+    }
+    .about-topbar__logo img {
+      height: 36px;
+      width: auto;
+    }
+    .about-topbar__back {
+      font-family: var(--font-ui);
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: color 0.2s;
+    }
+    .about-topbar__back:hover { color: var(--accent-gold); }
+
+    /* Hero */
+    .about-hero {
+      background: linear-gradient(135deg, #0d0d0d 0%, #1a1510 100%);
+      padding: 5rem var(--space-md) 4rem;
+      text-align: center;
+    }
+    .about-hero__eyebrow {
+      font-family: var(--font-ui);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-bottom: 1rem;
+    }
+    .about-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 6vw, 3.5rem);
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .about-hero__title em {
+      font-style: italic;
+      color: #d4b96a;
+    }
+    .about-hero__rule {
+      width: 48px;
+      height: 2px;
+      background: var(--accent-gold);
+      margin: 0 auto;
+    }
+
+    /* Body */
+    .about-body {
+      flex: 1;
+      max-width: 740px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 4rem var(--space-md) 5rem;
+    }
+    .about-intro {
+      font-family: var(--font-display);
+      font-size: clamp(1.15rem, 2.5vw, 1.35rem);
+      font-style: italic;
+      color: var(--header-text);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .about-body p {
+      font-family: var(--font-ui);
+      font-size: 1rem;
+      color: var(--text-body, #444);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+    .about-section {
+      margin-top: 3rem;
+    }
+    .about-section__heading {
+      font-family: var(--font-ui);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-bottom: 0.75rem;
+    }
+    .about-section p {
+      font-family: var(--font-ui);
+      font-size: 1rem;
+      color: var(--text-body, #444);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    /* Stats row */
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 3rem 0;
+    }
+    .about-stat {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      background: #f9f7f3;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+    }
+    .about-stat__num {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .about-stat__label {
+      font-family: var(--font-ui);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    /* CTA */
+    .about-cta {
+      text-align: center;
+      margin-top: 3.5rem;
+      padding-top: 3rem;
+      border-top: 1px solid var(--card-border);
+    }
+    .about-cta__heading {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--header-text);
+      margin-bottom: 0.75rem;
+    }
+    .about-cta p {
+      font-family: var(--font-ui);
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 1.75rem;
+    }
+    .about-cta__btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Footer */
+    .about-footer {
+      padding: 1.5rem var(--space-md);
+      text-align: center;
+      font-family: var(--font-ui);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--card-border);
+    }
+
+    @media (max-width: 600px) {
+      .about-stats { grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
+      .about-stat__num { font-size: 1.5rem; }
+      .about-stat { padding: 1rem 0.5rem; }
+    }
+  </style>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TN8J21XFYQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TN8J21XFYQ');
+  </script>
+</head>
+<body class="about-page">
+
+  <!-- Top bar -->
+  <header class="about-topbar">
+    <a href="/" class="about-topbar__logo">
+      <img src="assets/new-logo.PNG" alt="ChronoClassics" />
+    </a>
+    <a href="/" class="about-topbar__back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to home
+    </a>
+  </header>
+
+  <!-- Hero -->
+  <section class="about-hero">
+    <p class="about-hero__eyebrow">Our Story</p>
+    <h1 class="about-hero__title">Built from a <em>lifelong passion</em> for exceptional timepieces.</h1>
+    <div class="about-hero__rule"></div>
+  </section>
+
+  <!-- Body -->
+  <main class="about-body">
+
+    <p class="about-intro">
+      Some people collect stamps or coins. We collect watches.
+    </p>
+
+    <p>
+      From the moment we first held a Rolex Submariner — the weight of the case, the sweep of the seconds hand, the history sitting on your wrist — we were hooked. What started as a passion became an obsession, and eventually, a business we're genuinely proud of.
+    </p>
+
+    <p>
+      ChronoClassics was founded because we wanted to do something we love, and do it with integrity. We've spent years studying movements, tracking market values, and building relationships deep in New York's collector community. Every watch we acquire is evaluated personally. Every watch we sell, we stand behind completely.
+    </p>
+
+    <!-- Stats -->
+    <div class="about-stats">
+      <div class="about-stat">
+        <div class="about-stat__num">100%</div>
+        <div class="about-stat__label">Positive eBay Feedback</div>
+      </div>
+      <div class="about-stat">
+        <div class="about-stat__num">NYC</div>
+        <div class="about-stat__label">Midtown Manhattan</div>
+      </div>
+      <div class="about-stat">
+        <div class="about-stat__num">Auth.</div>
+        <div class="about-stat__label">Every Watch Verified</div>
+      </div>
+    </div>
+
+    <div class="about-section">
+      <p class="about-section__heading">You're dealing with us — not a sales team</p>
+      <p>
+        ChronoClassics isn't a storefront with rotating staff and commission targets. When you message us, a real person replies. When we quote your watch, that number is based on real research — not a lowball offer designed to flip you fast. Whether you're buying your grail piece or selling something that's been sitting in a drawer, you get a straight answer, fast.
+      </p>
+    </div>
+
+    <div class="about-section">
+      <p class="about-section__heading">A track record you can verify</p>
+      <p>
+        Our eBay feedback is public and perfect — 100% positive across every transaction. Not because every deal is easy, but because we take every deal seriously. You're welcome to read through it before you ever send us a message.
+      </p>
+    </div>
+
+    <div class="about-section">
+      <p class="about-section__heading">New York City</p>
+      <p>
+        Operating out of Midtown Manhattan, we're embedded in one of the world's most active watch markets. That means better access, better pricing, and the ability to source pieces most dealers can't find.
+      </p>
+    </div>
+
+    <div class="about-section">
+      <p class="about-section__heading">Authentication is everything</p>
+      <p>
+        Every watch that passes through ChronoClassics is personally inspected. We know the tells — a refinished dial, a replaced crown, an incorrect serial range. If it doesn't check out, it doesn't go in our store. Full stop.
+      </p>
+    </div>
+
+    <!-- CTA -->
+    <div class="about-cta">
+      <h2 class="about-cta__heading">Ready to buy or sell?</h2>
+      <p>We're a message away. No pressure, no obligation.</p>
+      <div class="about-cta__btns">
+        <a href="https://wa.me/19174801080" class="btn btn--primary" target="_blank" rel="noopener noreferrer">Message us on WhatsApp</a>
+        <a href="/" class="btn btn--secondary">Browse watches</a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="about-footer">
+    © 2025 ChronoClassics · <a href="mailto:sales@chrono-classics.com" style="color:inherit;">sales@chrono-classics.com</a> · <a href="tel:+19174801080" style="color:inherit;">(917) 480-1080</a>
+  </footer>
+
+</body>
+</html>
