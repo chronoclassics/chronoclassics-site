@@ -764,7 +764,7 @@
 
           </div>
           <div id="contact" class="reveal" style="--reveal-d:160ms">
-            <form class="sell-form" name="sell-watch" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you.html">
+            <form class="sell-form" name="sell-watch" method="POST" enctype="multipart/form-data" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you.html">
               <input type="hidden" name="form-name" value="sell-watch" />
               <input type="text" name="bot-field" class="sell-form__hidden" />
 
@@ -844,6 +844,14 @@
               <div class="sell-form__group">
                 <label class="sell-form__label" for="sell-notes">Additional Notes</label>
                 <textarea class="sell-form__input sell-form__textarea" id="sell-notes" name="notes" rows="3"></textarea>
+              </div>
+              <div class="sell-form__group">
+                <label class="sell-form__label" for="sell-photos">Photos <span style="font-weight:400;color:var(--text-muted)">(optional — up to 5 images)</span></label>
+                <label class="sell-form__upload" for="sell-photos">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  <span class="sell-form__upload-text">Click to upload or drag &amp; drop</span>
+                  <input type="file" id="sell-photos" name="photos" accept="image/*" multiple class="sell-form__upload-input" />
+                </label>
               </div>
               <button class="sell-form__submit" type="submit">Get My Offer →</button>
               <p class="sell-form__success" id="sellFormSuccess" hidden>✓ Message sent! We'll be in touch within the hour.</p>
