@@ -18,6 +18,7 @@
   --footer-bg: #0f0f0f;
   --footer-text: #b8b8b8;
   --font-heading: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
   --font-ui: "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --space-xs: 0.35rem;
   --space-sm: 0.75rem;
@@ -591,7 +592,24 @@ a:hover {
   object-position: center 42%;
 }
 
+/* Hero video — sits above the photo fallback, fades in once ready */
+.hero__video {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+.hero__video.is-playing {
+  opacity: 1;
+}
+
 /* Narrow seam blend into white column + subtle vignette so the dial stays readable */
+/* z-indexes bumped by 2 to stay above both photo (0) and video (1) */
 .hero__visual::before {
   content: "";
   position: absolute;
@@ -599,7 +617,7 @@ a:hover {
   background:
     radial-gradient(ellipse 90% 85% at 58% 45%, transparent 32%, rgba(0, 0, 0, 0.42) 100%);
   pointer-events: none;
-  z-index: 1;
+  z-index: 2;
 }
 
 .hero__visual::after {
@@ -608,7 +626,7 @@ a:hover {
   inset: 0;
   background: linear-gradient(115deg, rgba(212, 165, 116, 0.07) 0%, transparent 42%);
   pointer-events: none;
-  z-index: 2;
+  z-index: 3;
 }
 
 @media (max-width: 900px) {
@@ -1838,12 +1856,7 @@ main {
 .newsletter-privacy--mobile { display: none; }
 .newsletter-privacy--desktop { display: block; }
 @media (max-width: 480px) {
-  .newsletter-privacy--mobile {
-    display: block;
-    margin: 0.4rem 0 0;
-    font-size: 0.72rem;
-    color: rgba(255,255,255,0.45);
-  }
+  .newsletter-privacy--mobile { display: none; }
   .newsletter-privacy--desktop { display: none; }
 }
 
@@ -3082,6 +3095,10 @@ main {
     justify-content: flex-start;
     padding: 0.45rem 0.5rem;
     font-size: 0.7rem;
+  }
+  .trust-badge:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    justify-content: center;
   }
 }
 
@@ -4699,15 +4716,17 @@ main {
 /* ===== Scroll Reveal ===== */
 .reveal {
   opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-  transition-delay: var(--reveal-delay, 0s);
+  transform: translateY(18px);
+  transition:
+    opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-d, var(--reveal-delay, 0ms));
 }
-.reveal.is-visible {
+.reveal.is-visible,
+.reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
-/* Respect reduced-motion preference */
 @media (prefers-reduced-motion: reduce) {
   .reveal {
     opacity: 1 !important;
@@ -5377,17 +5396,7 @@ main {
   .serial-widget__btn { border-radius: 0; }
 }
 
-/* ── Scroll-reveal ────────────────────────────────────────────────── */
-.reveal {
-  opacity: 0;
-  transform: translateY(26px);
-  transition: opacity 0.72s ease, transform 0.72s ease;
-  transition-delay: var(--reveal-d, 0ms);
-}
-.reveal.visible {
-  opacity: 1;
-  transform: none;
-}
+/* ── Scroll-reveal (consolidated above in ===== Scroll Reveal =====) ── */
 
 /* ── Page grain texture overlay ───────────────────────────────────── */
 .grain-overlay {

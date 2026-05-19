@@ -111,7 +111,7 @@
       </div>
 
       <a class="brand" href="/">
-        <img class="brand__logo" src="assets/new-logo.PNG" alt="ChronoClassics" decoding="async" />
+        <img class="brand__logo" src="assets/new-logo.png" alt="ChronoClassics" decoding="async" />
         <span class="brand__text">
           <span class="brand__name">ChronoClassics</span>
           <span class="brand__tag">Luxury Timepieces</span>
@@ -260,6 +260,15 @@
           decoding="async"
           fetchpriority="high"
         />
+        <video
+          class="hero__video"
+          src="assets/rolex.mp4"
+          autoplay
+          muted
+          playsinline
+          preload="metadata"
+          aria-hidden="true"
+        ></video>
       </div>
     </section>
 
@@ -908,7 +917,7 @@
           </div>
         </div>
         <p class="policy-lead">We promise to do everything possible to make sure you are completely satisfied with your watch purchase. We also understand that sometimes it may not be a good fit, or simply it's not what you want. Unless otherwise indicated, you can return any watch for any reason within <strong>14 days</strong> of receiving it.</p>
-        <a class="policy-terms-link" href="/return-policy">
+        <a class="policy-terms-link" href="/return-policy.html">
           Full Terms and Conditions
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
         </a>
@@ -1038,8 +1047,8 @@
           <span class="site-footer__label">Information</span>
           <a href="#location">Our Location</a>
           <a href="https://wa.me/19174801080" target="_blank" rel="noopener noreferrer">Contact Us</a>
-          <a href="/about">About Us</a>
-          <a href="/return-policy">Return Policy</a>
+          <a href="/about.html">About Us</a>
+          <a href="/return-policy.html">Return Policy</a>
           <a href="https://www.ebay.com/str/chronoclassics" target="_blank" rel="noopener noreferrer">eBay Store</a>
           <a href="https://www.ebay.com/fdbk/feedback_profile/chronoclassics" target="_blank" rel="noopener noreferrer">Feedback Profile</a>
         </div>
@@ -1132,6 +1141,7 @@
       }).then(function (r) {
         if (r.ok) {
           form.reset();
+          window.location.href = '/thank-you.html';
           // reset purpose display back to "sell" defaults after reset
           var docsRow    = document.getElementById('sellFormDocs');
           var priceLabel = document.getElementById('sellPriceLabel');
@@ -1499,7 +1509,7 @@
                   cardObserver.unobserve(entry.target);
                 }
               });
-            }, { threshold: 0.06, rootMargin: '0px 0px -20px 0px' });
+            }, { threshold: 0.08, rootMargin: '0px 0px -48px 0px' });
             grid.querySelectorAll('.watch-card').forEach(function (card, i) {
               card.style.setProperty('--reveal-delay', Math.min(i * 0.06, 0.36) + 's');
               card.classList.add('reveal');
@@ -1675,7 +1685,7 @@
           revealObserver.unobserve(entry.target);
         }
       });
-    }, { rootMargin: '0px 0px -40px 0px', threshold: 0.07 });
+    }, { rootMargin: '0px 0px -48px 0px', threshold: 0.08 });
 
     toObserve.forEach(function (el) {
       // Elements already in viewport on page load → show instantly, no animation
@@ -1789,7 +1799,7 @@
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    }, { threshold: 0.08, rootMargin: '0px 0px -48px 0px' });
 
     // Assign staggered delays within each parent group, then observe
     ['.services__grid .service-card'].forEach(function (sel) {
@@ -2156,6 +2166,37 @@
     if (inp) inp.addEventListener('keydown',function(e){if(e.key==='Enter')run();});
   })();
 
+  // ── Hero video: fade in, play 2 times, then fade back to photo ───
+  (function () {
+    var video = document.querySelector('.hero__video');
+    if (!video) return;
+    var plays = 0;
+    var MAX_PLAYS = 2;
+    // Upgrade preload to 'auto' on desktop only — saves cellular data on mobile
+    if (!window.matchMedia('(max-width: 768px)').matches && !('ontouchstart' in window)) {
+      video.preload = 'auto';
+    }
+
+    function fadeIn() {
+      video.classList.add('is-playing');
+    }
+    function fadeOut() {
+      video.classList.remove('is-playing');
+    }
+
+    video.addEventListener('ended', function () {
+      plays++;
+      if (plays < MAX_PLAYS) {
+        video.play();
+      } else {
+        fadeOut();
+      }
+    });
+
+    if (video.readyState >= 3) { fadeIn(); }
+    else { video.addEventListener('canplay', fadeIn, { once: true }); }
+  })();
+
   // ── Scroll-reveal (IntersectionObserver) ───────────────────────────
   (function () {
     var els = document.querySelectorAll('.reveal');
@@ -2171,7 +2212,7 @@
           io.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -32px 0px' });
+    }, { threshold: 0.08, rootMargin: '0px 0px -48px 0px' });
     els.forEach(function (el) { io.observe(el); });
   })();
 
