@@ -1621,6 +1621,8 @@
         _seen[obj.title] = true;
         return true;
       });
+      // Mark brand strip items now that we have real inventory data
+      if (window._markBrandStrip) window._markBrandStrip();
     })
     .catch(function () {});
 
@@ -1808,15 +1810,8 @@
       });
     }
 
-    // Run after suggestTitles cache is populated (poll briefly)
-    var attempts = 0;
-    var timer = setInterval(function () {
-      attempts++;
-      if (suggestTitles.length > 0 || attempts > 20) {
-        clearInterval(timer);
-        markActiveBrands();
-      }
-    }, 300);
+    // Called by the suggestTitles fetch once data is ready
+    window._markBrandStrip = markActiveBrands;
 
     // Click + keyboard handler on the track
     var track = document.getElementById('brandsTrack');
