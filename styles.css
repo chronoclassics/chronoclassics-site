@@ -649,8 +649,8 @@ a:hover {
 
   .hero__visual::before {
     background:
-      linear-gradient(to bottom, transparent 52%, var(--page-bg) 100%),
-      radial-gradient(ellipse 95% 75% at 50% 38%, transparent 28%, rgba(0, 0, 0, 0.35) 100%);
+      linear-gradient(to bottom, transparent 85%, var(--page-bg) 100%),
+      radial-gradient(ellipse 95% 75% at 50% 38%, transparent 28%, rgba(0, 0, 0, 0.06) 100%);
   }
 
   .hero__content {
