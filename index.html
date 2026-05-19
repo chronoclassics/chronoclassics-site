@@ -2170,6 +2170,7 @@
   (function () {
     var video = document.querySelector('.hero__video');
     if (!video) return;
+    var visual = video.closest('.hero__visual');
     var plays = 0;
     var MAX_PLAYS = 2;
     // Upgrade preload to 'auto' on desktop only — saves cellular data on mobile
@@ -2179,9 +2180,11 @@
 
     function fadeIn() {
       video.classList.add('is-playing');
+      if (visual) visual.classList.add('video-active');
     }
     function fadeOut() {
       video.classList.remove('is-playing');
+      if (visual) visual.classList.remove('video-active');
     }
 
     video.addEventListener('ended', function () {

@@ -618,6 +618,7 @@ a:hover {
     radial-gradient(ellipse 90% 85% at 58% 45%, transparent 32%, rgba(0, 0, 0, 0.42) 100%);
   pointer-events: none;
   z-index: 2;
+  transition: opacity 1.2s ease;
 }
 
 .hero__visual::after {
@@ -627,6 +628,13 @@ a:hover {
   background: linear-gradient(115deg, rgba(212, 165, 116, 0.07) 0%, transparent 42%);
   pointer-events: none;
   z-index: 3;
+  transition: opacity 1.2s ease;
+}
+
+/* Hide overlays while video is playing so gradients don't clash with video content */
+.hero__visual.video-active::before,
+.hero__visual.video-active::after {
+  opacity: 0;
 }
 
 @media (max-width: 900px) {
