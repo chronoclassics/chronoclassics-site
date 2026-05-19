@@ -1835,6 +1835,17 @@ main {
   color: rgba(255,255,255,0.45);
   margin: 0.5rem 0 0;
 }
+.newsletter-privacy--mobile { display: none; }
+.newsletter-privacy--desktop { display: block; }
+@media (max-width: 480px) {
+  .newsletter-privacy--mobile {
+    display: block;
+    margin: 0.4rem 0 0;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.45);
+  }
+  .newsletter-privacy--desktop { display: none; }
+}
 
 @media (max-width: 480px) {
   .newsletter-form__row {

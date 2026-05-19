@@ -937,12 +937,15 @@
               required
               aria-label="Email address"
             />
+            <!-- Mobile only: shown between input and button -->
+            <p class="newsletter-privacy newsletter-privacy--mobile">No spam. Unsubscribe anytime.</p>
             <button class="newsletter-form__btn" type="submit">
               Notify Me
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </button>
           </div>
-          <p class="newsletter-privacy">No spam. Unsubscribe anytime.</p>
+          <!-- Desktop only: shown below the row -->
+          <p class="newsletter-privacy newsletter-privacy--desktop">No spam. Unsubscribe anytime.</p>
           <p class="newsletter-form__status" id="newsletterStatus" hidden></p>
         </form>
         </div><!-- /.newsletter-section__content -->
