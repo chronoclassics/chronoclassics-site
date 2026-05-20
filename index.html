@@ -1621,8 +1621,7 @@
         _seen[obj.title] = true;
         return true;
       });
-      // Mark brand strip items now that we have real inventory data
-      if (window._markBrandStrip) window._markBrandStrip();
+      // (brand strip clickability handled synchronously below)
     })
     .catch(function () {});
 
@@ -1777,41 +1776,14 @@
 
   // ── Brand strip — mark clickable brands + click handler ──────────
   (function () {
-    var BRAND_KEYWORDS = {
-      'rolex':    ['rolex'],
-      'cartier':  ['cartier'],
-      'omega':    ['omega'],
-      'breitling':['breitling'],
-      'jlc':      ['jaeger', 'lecoultre'],
-      'patek':    ['patek'],
-      'ap':       ['audemars', 'piguet'],
-      'iwc':      ['iwc'],
-      'chopard':  ['chopard'],
-      'tudor':    ['tudor'],
-      'panerai':  ['panerai', 'luminor', 'radiomir'],
-      'tag':      ['tag heuer', 'heuer']
-    };
-
-    function markActiveBrands() {
-      var allTitlesLower = suggestTitles.map(function (t) { return t.title.toLowerCase(); });
-      document.querySelectorAll('.brands-strip__item[data-brand]').forEach(function (el) {
-        if (el.getAttribute('aria-hidden') === 'true') return; // skip clones
-        var brand = el.dataset.brand;
-        var keywords = BRAND_KEYWORDS[brand] || [brand];
-        var hasItems = keywords.some(function (kw) {
-          return allTitlesLower.some(function (title) { return title.indexOf(kw) !== -1; });
-        });
-        if (hasItems) {
-          el.classList.add('brands-strip__item--clickable');
-          el.setAttribute('role', 'button');
-          el.setAttribute('tabindex', '0');
-          el.title = 'Browse ' + el.textContent.trim() + ' watches';
-        }
-      });
-    }
-
-    // Called by the suggestTitles fetch once data is ready
-    window._markBrandStrip = markActiveBrands;
+    // Mark all brand strip items as clickable immediately
+    document.querySelectorAll('.brands-strip__item[data-brand]').forEach(function (el) {
+      if (el.getAttribute('aria-hidden') === 'true') return; // skip clones
+      el.classList.add('brands-strip__item--clickable');
+      el.setAttribute('role', 'button');
+      el.setAttribute('tabindex', '0');
+      el.title = 'Browse ' + el.textContent.trim() + ' watches';
+    });
 
     // Click + keyboard handler on the track
     var track = document.getElementById('brandsTrack');

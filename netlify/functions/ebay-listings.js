@@ -38,7 +38,7 @@ async function getToken(appId, certId) {
 async function getListings(token, seller, params) {
   const q        = params.q        || 'watch';
   const sort     = params.sort     || 'newlyListed';
-  const limit    = Math.min(parseInt(params.limit) || 24, 50);
+  const limit    = Math.min(parseInt(params.limit) || 24, 200);
   const minPrice = params.minPrice;
   const maxPrice = params.maxPrice;
 
