@@ -1776,13 +1776,15 @@
 
   // ── Brand strip — mark clickable brands + click handler ──────────
   (function () {
-    // Mark all brand strip items as clickable immediately
+    // Mark all brand strip items as clickable (originals + clones —
+    // the animation can show either one at any moment)
     document.querySelectorAll('.brands-strip__item[data-brand]').forEach(function (el) {
-      if (el.getAttribute('aria-hidden') === 'true') return; // skip clones
       el.classList.add('brands-strip__item--clickable');
-      el.setAttribute('role', 'button');
-      el.setAttribute('tabindex', '0');
-      el.title = 'Browse ' + el.textContent.trim() + ' watches';
+      if (el.getAttribute('aria-hidden') !== 'true') {
+        el.setAttribute('role', 'button');
+        el.setAttribute('tabindex', '0');
+        el.title = 'Browse ' + el.textContent.trim() + ' watches';
+      }
     });
 
     // Click + keyboard handler on the track
@@ -1790,7 +1792,7 @@
     if (!track) return;
     track.addEventListener('click', function (e) {
       var item = e.target.closest('.brands-strip__item--clickable');
-      if (!item || item.getAttribute('aria-hidden') === 'true') return;
+      if (!item) return;
       var brand      = item.dataset.brand;
       var searchTerm = item.dataset.search || brand;
 
