@@ -1,5 +1,9 @@
 const https = require('https');
 
+// ── Token cache (persists across warm invocations of the same instance) ──────
+let _cachedToken  = null;
+let _tokenExpiry  = 0;   // Unix ms timestamp
+
 function httpsPost(hostname, path, headers, body) {
   return new Promise((resolve, reject) => {
     const req = https.request({ hostname, path, method: 'POST', headers }, res => {
@@ -26,13 +30,22 @@ function httpsGet(hostname, path, headers) {
 }
 
 async function getToken(appId, certId) {
+  // Return cached token if still valid (with 60 s buffer)
+  if (_cachedToken && Date.now() < _tokenExpiry) {
+    return { access_token: _cachedToken };
+  }
   const creds = Buffer.from(`${appId}:${certId}`).toString('base64');
   const body  = 'grant_type=client_credentials&scope=https%3A%2F%2Fapi.ebay.com%2Foauth%2Fapi_scope';
-  return httpsPost('api.ebay.com', '/identity/v1/oauth2/token', {
+  const tokenData = await httpsPost('api.ebay.com', '/identity/v1/oauth2/token', {
     'Authorization': `Basic ${creds}`,
     'Content-Type':  'application/x-www-form-urlencoded',
     'Content-Length': Buffer.byteLength(body)
   }, body);
+  if (tokenData.access_token) {
+    _cachedToken = tokenData.access_token;
+    _tokenExpiry = Date.now() + ((tokenData.expires_in || 7200) - 60) * 1000;
+  }
+  return tokenData;
 }
 
 async function getListings(token, seller, params) {
@@ -66,7 +79,7 @@ exports.handler = async function(event) {
   const params  = (event && event.queryStringParameters) || {};
 
   const cors = {
-    'Access-Control-Allow-Origin':  '*',
+    'Access-Control-Allow-Origin':  'https://chrono-classics.com',
     'Access-Control-Allow-Headers': 'Content-Type',
     'Cache-Control':                'no-cache'
   };
