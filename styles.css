@@ -1589,7 +1589,7 @@ main {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  padding: 0.4rem;
+  padding: 0.3rem;
   transition: transform 0.4s ease;
 }
 
@@ -1615,7 +1615,7 @@ main {
 .watch-card__badge--good      { background: #fff8e1; color: #b45309; }
 
 .watch-card__body {
-  padding: 1.1rem;
+  padding: 1rem;
 }
 
 .watch-card__brand {
@@ -1630,7 +1630,7 @@ main {
 .watch-card__model {
   margin: 0.2rem 0 0.3rem;
   font-family: var(--font-heading);
-  font-size: 1.08rem;
+  font-size: 1.02rem;
   font-weight: 700;
   color: var(--header-text);
   line-height: 1.2;
@@ -1654,7 +1654,7 @@ main {
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem;
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.4rem;
 }
 .watch-card__cond-pill {
   display: inline-flex;
@@ -1675,7 +1675,7 @@ main {
 .watch-card__price {
   margin: 0;
   font-family: var(--font-ui);
-  font-size: 1.12rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: var(--header-text);
 }
