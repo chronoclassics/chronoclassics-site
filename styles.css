@@ -3907,6 +3907,11 @@ main {
   white-space: nowrap;
 }
 .trust-bar__phone:hover { color: rgba(255,255,255,0.7); }
+@media (max-width: 640px) {
+  /* Phone number is in the mobile header — hide it from the trust bar
+     so it doesn't overlap the rotating trust items */
+  .trust-bar__phone { display: none; }
+}
 
 /* ── Sell Promise Callout ────────────────────────────────────────── */
 .sell-promise {
