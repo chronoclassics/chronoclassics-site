@@ -1222,6 +1222,16 @@
     }, { passive: true });
   })();
 
+  // ── Scroll to watch grid (skips serial widget, accounts for sticky header) ──
+  function scrollToWatchGrid() {
+    var target = document.querySelector('.listings-filters') || document.getElementById('watchGrid');
+    if (!target) { document.getElementById('listings').scrollIntoView({ behavior: 'smooth' }); return; }
+    var header = document.getElementById('siteHeader');
+    var offset = header ? header.offsetHeight + 16 : 86;
+    var top = target.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+  }
+
   // ── Search ────────────────────────────────────────────────────────
   (function () {
     var input   = document.getElementById('searchInput');
@@ -1247,7 +1257,7 @@
         document.getElementById('maxPrice').value = '';
         currentParams = { q: q, sort: 'newlyListed', limit: 24 };
         fetchListings(currentParams);
-        document.getElementById('listings').scrollIntoView({ behavior: 'smooth' });
+        scrollToWatchGrid();
       }
     }
     btn.addEventListener('click', doSearch);
@@ -1370,7 +1380,7 @@
       document.getElementById('maxPrice').value = '';
       currentParams = { q: title, sort: 'newlyListed', limit: 24, fieldgroups: 'EXTENDED' };
       fetchListings(currentParams);
-      document.getElementById('listings').scrollIntoView({ behavior: 'smooth' });
+      scrollToWatchGrid();
     }
   );
 
@@ -1407,7 +1417,7 @@
       document.getElementById('maxPrice').value = '';
       currentParams = { q: q, sort: 'newlyListed', limit: 24, fieldgroups: 'EXTENDED' };
       fetchListings(currentParams);
-      document.getElementById('listings').scrollIntoView({ behavior: 'smooth' });
+      scrollToWatchGrid();
     }
     navInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') doNavSearch(); });
   })();
@@ -1813,8 +1823,8 @@
         if (allPill) allPill.classList.add('active');
       }
 
-      // Scroll to listings and fetch
-      document.getElementById('listings').scrollIntoView({ behavior: 'smooth' });
+      // Scroll to watch grid and fetch
+      scrollToWatchGrid();
       currentParams = { q: searchTerm, sort: 'newlyListed', limit: 24, fieldgroups: 'EXTENDED' };
       fetchListings(currentParams);
     });
