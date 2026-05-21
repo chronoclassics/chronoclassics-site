@@ -254,7 +254,7 @@ a:hover {
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: 1.35rem;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--header-text);
 }
@@ -563,7 +563,7 @@ a:hover {
 
 .hero--split {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
   gap: 0;
   max-width: var(--max-content);
   margin: 0 auto;
@@ -1056,6 +1056,7 @@ main {
   max-width: var(--max-content);
   margin: 0 auto;
   padding: clamp(1.5rem, 4vw, 2.5rem) var(--space-md);
+  text-align: center;
 }
 
 .breadcrumb {
@@ -1086,7 +1087,7 @@ main {
 }
 
 .listings-hero__sub {
-  margin: 0;
+  margin: 0 auto;
   font-size: 0.9rem;
   color: var(--text-muted);
   max-width: 52rem;
@@ -1567,7 +1568,7 @@ main {
   position: relative;
   aspect-ratio: 1;
   overflow: hidden;
-  background: #ffffff;
+  background: #faf6ef;
 }
 
 /* Gold shimmer overlay on hover */
