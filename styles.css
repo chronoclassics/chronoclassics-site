@@ -4564,9 +4564,33 @@ main {
 
 /* ── Buying Guides Section ───────────────────────────────────────── */
 .guides-section {
-  background: #fafafa;
-  padding: 2.5rem 0;
-  border-top: 1px solid var(--accent-gold);
+  background: #0a0a0a;
+  padding: 3rem 0;
+  min-height: 1100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-top: 1px solid rgba(166,139,58,0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.guides-section__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 8%;
+  pointer-events: none;
+  user-select: none;
+  filter: brightness(0.42) contrast(1.08);
+}
+
+#guides .guides-section__inner,
+#guides .guides-grid {
+  position: relative;
+  z-index: 1;
 }
 
 .guides-section__inner {
@@ -4594,7 +4618,7 @@ main {
   font-family: var(--font-heading);
   font-size: clamp(2.25rem, 4vw, 3.5rem);
   font-weight: 700;
-  color: var(--header-text);
+  color: #ffffff;
   margin: 0 0 0.4rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -4602,8 +4626,61 @@ main {
 
 .guides-sub {
   font-size: 0.9rem;
-  color: var(--text-muted);
+  color: rgba(255,255,255,0.6);
   margin: 0;
+}
+
+/* ── Guide cards on dark photo background ───────────────────────── */
+#guides .guide-card {
+  background: rgba(15,15,15,0.72);
+  border-color: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+#guides .guide-card:not(.guide-card--soon):hover {
+  background: rgba(30,30,30,0.85);
+  border-color: var(--accent-gold);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+
+#guides .guide-card__icon {
+  background: rgba(166,139,58,0.15);
+}
+
+#guides .guide-card__title {
+  color: #ffffff;
+}
+
+#guides .guide-card__excerpt {
+  color: rgba(255,255,255,0.55);
+}
+
+#guides .guide-card__read {
+  color: var(--accent-gold);
+}
+
+/* Desktop: 3-up grid with 4th card centered on second row */
+@media (min-width: 860px) {
+  #guides .guides-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 1.5rem;
+    align-items: stretch;
+    overflow-x: visible;
+    cursor: default;
+    -webkit-mask-image: none;
+    mask-image: none;
+    padding: 0.5rem 2rem 1.25rem;
+  }
+  #guides .guide-card {
+    flex: unset;
+    scroll-snap-align: unset;
+    min-height: 185px;
+  }
+  #guides .guide-card:nth-child(4) {
+    grid-column: auto;
+  }
 }
 
 /* Full-width horizontal scroll track — lives outside the constrained inner */
