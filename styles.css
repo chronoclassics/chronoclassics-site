@@ -4565,7 +4565,7 @@ main {
 /* ── Buying Guides Section ───────────────────────────────────────── */
 .guides-section {
   background: #0a0a0a;
-  padding: 3rem 0;
+  padding: 3rem 0 21rem;
   min-height: 1100px;
   display: flex;
   flex-direction: column;
@@ -4658,6 +4658,18 @@ main {
 
 #guides .guide-card__read {
   color: var(--accent-gold);
+}
+
+/* Mobile: tighten section so no black gap below cards */
+@media (max-width: 859px) {
+  .guides-section {
+    padding: 2.5rem 0 0;
+    min-height: unset;
+    justify-content: flex-start;
+  }
+  .guides-section__img {
+    object-position: center 8%;
+  }
 }
 
 /* Desktop: 3-up grid with 4th card centered on second row */
