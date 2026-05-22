@@ -4565,8 +4565,8 @@ main {
 /* ── Buying Guides Section ───────────────────────────────────────── */
 .guides-section {
   background: #0a0a0a;
-  padding: 3rem 0 21rem;
-  min-height: 1100px;
+  padding: 3rem 0 20rem;
+  min-height: unset;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -4676,7 +4676,7 @@ main {
 @media (min-width: 860px) {
   #guides .guides-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
     row-gap: 1.5rem;
     align-items: stretch;
     overflow-x: visible;
@@ -4684,11 +4684,15 @@ main {
     -webkit-mask-image: none;
     mask-image: none;
     padding: 0.5rem 2rem 1.25rem;
+    max-width: var(--max-content);
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
   }
   #guides .guide-card {
     flex: unset;
     scroll-snap-align: unset;
-    min-height: 185px;
+    min-height: unset;
   }
   #guides .guide-card:nth-child(4) {
     grid-column: auto;
