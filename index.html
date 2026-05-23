@@ -1839,8 +1839,9 @@
     });
   })();
 
-  // ── Guides drag-to-scroll (desktop) ──────────────────────────────
+  // ── Guides drag-to-scroll (mobile horizontal scroll only) ───────
   (function () {
+    if (!window.matchMedia('(max-width: 859px)').matches) return;
     var el = document.getElementById('guidesGrid');
     if (!el) return;
     var isDown = false, startX, scrollLeft;
