@@ -108,6 +108,7 @@
         <nav class="site-nav" aria-label="Primary">
           <a href="#listings">Luxury Watches</a>
           <a href="#services">Services</a>
+          <a href="/about.html">About</a>
         </nav>
       </div>
 
@@ -450,6 +451,11 @@
               <a class="empty-state__contact" href="https://wa.me/19174801080?text=Hi%2C%20I%27m%20looking%20for%20a%20specific%20watch%3A%20" target="_blank" rel="noopener noreferrer">Ask Us on WhatsApp</a>
             </div>
           </div>
+        </div>
+
+        <!-- Load More -->
+        <div id="loadMoreWrap" hidden style="text-align:center;margin-top:2rem;">
+          <button id="loadMoreBtn" class="btn btn--ghost" style="min-width:200px;">Load More Watches</button>
         </div>
 
         <!-- Footer note + eBay link -->
@@ -1426,6 +1432,8 @@
 
   // ── eBay listings ─────────────────────────────────────────────────
   var currentParams  = {};
+  var currentOffset  = 0;    // tracks pagination offset for Load More
+  var totalResults   = 0;    // total listings available from eBay
   var suggestTitles  = [];   // cache of cleaned listing titles for autosuggest
 
   function buildQuery() {
@@ -1488,45 +1496,62 @@
       + '</a>';
   }
 
+  function revealCards(cards) {
+    requestAnimationFrame(function () {
+      var cardObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            cardObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -48px 0px' });
+      cards.forEach(function (card, i) {
+        card.style.setProperty('--reveal-delay', Math.min(i * 0.06, 0.36) + 's');
+        card.classList.add('reveal');
+        cardObserver.observe(card);
+      });
+    });
+  }
+
+  function updateLoadMore() {
+    var wrap = document.getElementById('loadMoreWrap');
+    var btn  = document.getElementById('loadMoreBtn');
+    if (!wrap) return;
+    var hasMore = totalResults > 0 && (currentOffset + 24) < totalResults;
+    wrap.hidden = !hasMore;
+    if (btn) btn.disabled = false;
+  }
+
   function fetchListings(params) {
     var skeleton = document.getElementById('skeletonGrid');
     var grid     = document.getElementById('watchGrid');
     var empty    = document.getElementById('emptyState');
     var footer   = document.getElementById('listingsFooter');
+    var loadWrap = document.getElementById('loadMoreWrap');
+    currentOffset = 0;
     if (skeleton) skeleton.style.display = '';
     grid.innerHTML = '';
     grid.hidden = true;
-    if (empty)  empty.hidden  = true;
-    if (footer) footer.hidden = true;
+    if (empty)    empty.hidden    = true;
+    if (footer)   footer.hidden   = true;
+    if (loadWrap) loadWrap.hidden = true;
 
     var qs = Object.keys(params).map(function (k) { return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]); }).join('&');
     fetch('/api/ebay-listings?' + qs)
       .then(function (r) { return r.json(); })
       .then(function (data) {
         if (skeleton) skeleton.style.display = 'none';
-        var items = (data.itemSummaries) ? data.itemSummaries : [];
+        totalResults = data.total || 0;
+        var items = data.itemSummaries || [];
         if (items.length === 0) {
           if (empty) empty.hidden = false;
         } else {
           grid.innerHTML = items.map(renderCard).join('');
           grid.hidden = false;
           if (footer) footer.hidden = false;
-          // Scroll-reveal for watch cards via IntersectionObserver
-          requestAnimationFrame(function () {
-            var cardObserver = new IntersectionObserver(function (entries) {
-              entries.forEach(function (entry) {
-                if (entry.isIntersecting) {
-                  entry.target.classList.add('is-visible');
-                  cardObserver.unobserve(entry.target);
-                }
-              });
-            }, { threshold: 0.08, rootMargin: '0px 0px -48px 0px' });
-            grid.querySelectorAll('.watch-card').forEach(function (card, i) {
-              card.style.setProperty('--reveal-delay', Math.min(i * 0.06, 0.36) + 's');
-              card.classList.add('reveal');
-              cardObserver.observe(card);
-            });
-          });
+          revealCards(Array.from(grid.querySelectorAll('.watch-card')));
+          updateLoadMore();
         }
       })
       .catch(function () {
@@ -1534,6 +1559,39 @@
         if (empty) empty.hidden = false;
       });
   }
+
+  function loadMoreListings() {
+    var btn  = document.getElementById('loadMoreBtn');
+    var grid = document.getElementById('watchGrid');
+    if (btn) { btn.disabled = true; btn.textContent = 'Loading…'; }
+    currentOffset += 24;
+    var params = Object.assign({}, currentParams, { offset: currentOffset });
+    var qs = Object.keys(params).map(function (k) { return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]); }).join('&');
+    fetch('/api/ebay-listings?' + qs)
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        var items = data.itemSummaries || [];
+        if (items.length > 0) {
+          var frag = document.createDocumentFragment();
+          var newCards = items.map(function (item) {
+            var div = document.createElement('div');
+            div.innerHTML = renderCard(item);
+            return div.firstChild;
+          });
+          newCards.forEach(function (card) { frag.appendChild(card); });
+          grid.appendChild(frag);
+          revealCards(newCards);
+        }
+        if (btn) btn.textContent = 'Load More Watches';
+        updateLoadMore();
+      })
+      .catch(function () {
+        currentOffset -= 24; // roll back on failure
+        if (btn) { btn.disabled = false; btn.textContent = 'Load More Watches'; }
+      });
+  }
+
+  document.getElementById('loadMoreBtn').addEventListener('click', loadMoreListings);
 
   // Brand filter pills — clicking immediately fetches filtered results
   document.getElementById('brandChips').addEventListener('click', function (e) {

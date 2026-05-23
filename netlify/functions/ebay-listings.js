@@ -55,6 +55,8 @@ async function getListings(token, seller, params) {
   const minPrice = params.minPrice;
   const maxPrice = params.maxPrice;
 
+  const offset = Math.max(0, parseInt(params.offset) || 0);
+
   let filters = `sellers%3A%7B${encodeURIComponent(seller)}%7D`;
 
   if (minPrice || maxPrice) {
@@ -64,7 +66,7 @@ async function getListings(token, seller, params) {
   }
 
   const fieldgroups = params.fieldgroups || 'EXTENDED';
-  const qs = `q=${encodeURIComponent(q)}&filter=${filters}&limit=${limit}&sort=${encodeURIComponent(sort)}&fieldgroups=${encodeURIComponent(fieldgroups)}`;
+  const qs = `q=${encodeURIComponent(q)}&filter=${filters}&limit=${limit}&offset=${offset}&sort=${encodeURIComponent(sort)}&fieldgroups=${encodeURIComponent(fieldgroups)}`;
 
   return httpsGet('api.ebay.com', `/buy/browse/v1/item_summary/search?${qs}`, {
     'Authorization':            `Bearer ${token}`,
