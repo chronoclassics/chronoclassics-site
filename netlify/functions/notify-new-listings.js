@@ -269,11 +269,13 @@ exports.handler = async function (event) {
       return { statusCode: 200, body: 'No new listings. Nothing sent.' };
     }
 
-    // ── 5. Get Resend audience ID ──────────────────────────────────
+    // ── 5. Get Resend audience ID (auto-create if missing) ────────
     const audienceRes = await resendRequest('GET', '/audiences', null);
-    const audiences   = (audienceRes.body && audienceRes.body.data) || [];
+    let audiences = (audienceRes.body && audienceRes.body.data) || [];
     if (!audiences.length) {
-      return { statusCode: 500, body: 'No Resend audience found' };
+      const created = await resendRequest('POST', '/audiences', { name: 'ChronoClassics Newsletter' });
+      if (created.body && created.body.id) { audiences = [created.body]; }
+      else { return { statusCode: 500, body: 'No Resend audience found and could not create one' }; }
     }
     const audienceId = audiences[0].id;
 

@@ -77,12 +77,18 @@ exports.handler = async function (event) {
   }
 
   try {
-    // Fetch the first (and only) audience
+    // Fetch audience — auto-create if none exists yet
     const audienceRes = await resendGet('/audiences', KEY);
-    const audiences = (audienceRes.body && audienceRes.body.data) || [];
+    let audiences = (audienceRes.body && audienceRes.body.data) || [];
     if (!audiences.length) {
-      console.error('No Resend audiences found');
-      return { statusCode: 500, headers: CORS, body: JSON.stringify({ error: 'No audience configured' }) };
+      console.log('No audience found — creating one automatically');
+      const created = await resendPost('/audiences', KEY, { name: 'ChronoClassics Newsletter' });
+      if (created.body && created.body.id) {
+        audiences = [created.body];
+      } else {
+        console.error('Failed to create audience:', created.body);
+        return { statusCode: 500, headers: CORS, body: JSON.stringify({ error: 'Could not create audience' }) };
+      }
     }
     const audienceId = audiences[0].id;
 
