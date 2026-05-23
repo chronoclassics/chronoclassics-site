@@ -2077,12 +2077,10 @@
       btn.textContent = 'Subscribing…';
       status.hidden   = true;
 
-      var body = new URLSearchParams({ 'form-name': 'newsletter', email: email }).toString();
-
-      fetch('/', {
+      fetch('/api/subscribe', {
         method:  'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body:    body,
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ email: email }),
       })
         .then(function (r) {
           if (r.ok || r.status === 200) {

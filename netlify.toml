@@ -1,6 +1,10 @@
 [build]
   functions = "netlify/functions"
 
+# Run daily at 10 AM ET (14:00 UTC) — checks eBay for new listings and emails subscribers
+[functions."notify-new-listings"]
+  schedule = "0 14 * * *"
+
 [[redirects]]
   from = "https://www.chrono-classics.com/*"
   to = "https://chrono-classics.com/:splat"
