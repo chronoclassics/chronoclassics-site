@@ -64,12 +64,27 @@
       background: #fff;
       border: 1px solid var(--card-border);
       border-radius: var(--radius-lg);
-      padding: 1.75rem;
+      padding: 0;
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
+      gap: 0;
       text-decoration: none;
       transition: border-color 0.15s, box-shadow 0.15s;
+      overflow: hidden;
+    }
+    .blog-card__img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    .blog-card__body {
+      padding: 1.25rem 1.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      flex: 1;
     }
     .blog-card:hover {
       border-color: var(--accent-gold);
@@ -154,31 +169,63 @@
       <div class="blog-grid">
 
         <a class="blog-card" href="/blog/how-to-buy-pre-owned-rolex-2025.html">
-          <span class="blog-card__tag">Buying Guide · Rolex</span>
-          <h2 class="blog-card__title">How to Buy a Pre-Owned Rolex in 2025</h2>
-          <p class="blog-card__excerpt">Everything you need to know — authentication, popular models, price ranges, red flags, and where to buy safely.</p>
-          <span class="blog-card__read">Read Guide → 8 min</span>
+          <img class="blog-card__img" src="../assets/daytona-newsletter.jpg" alt="Vintage Rolex Daytona" loading="lazy" />
+          <div class="blog-card__body">
+            <span class="blog-card__tag">Buying Guide · Rolex</span>
+            <h2 class="blog-card__title">How to Buy a Pre-Owned Rolex in 2025</h2>
+            <p class="blog-card__excerpt">Everything you need to know — authentication, popular models, price ranges, red flags, and where to buy safely.</p>
+            <span class="blog-card__read">Read Guide → 8 min</span>
+          </div>
         </a>
 
         <a class="blog-card" href="/blog/pre-owned-cartier-santos-guide.html">
-          <span class="blog-card__tag">Buying Guide · Cartier</span>
-          <h2 class="blog-card__title">Pre-Owned Cartier Santos Buyer's Guide</h2>
-          <p class="blog-card__excerpt">References, steel vs. gold, 2025 price ranges, authentication tips, and what separates a genuine Santos from a fake.</p>
-          <span class="blog-card__read">Read Guide → 9 min</span>
+          <img class="blog-card__img" src="../assets/blog-cartier-santos.jpg" alt="Cartier Santos stainless steel" loading="lazy" />
+          <div class="blog-card__body">
+            <span class="blog-card__tag">Buying Guide · Cartier</span>
+            <h2 class="blog-card__title">Pre-Owned Cartier Santos Buyer's Guide</h2>
+            <p class="blog-card__excerpt">References, steel vs. gold, 2025 price ranges, authentication tips, and what separates a genuine Santos from a fake.</p>
+            <span class="blog-card__read">Read Guide → 9 min</span>
+          </div>
         </a>
 
         <a class="blog-card" href="/blog/how-to-spot-a-fake-rolex.html">
-          <span class="blog-card__tag">Authentication · Rolex</span>
-          <h2 class="blog-card__title">How to Spot a Fake Rolex</h2>
-          <p class="blog-card__excerpt">10 hands-on tests every buyer should know — dial, movement, caseback, Cyclops lens, serial numbers, and more.</p>
-          <span class="blog-card__read">Read Guide → 10 min</span>
+          <img class="blog-card__img" src="../assets/blog-spot-fake-rolex.jpg" alt="Rolex GMT-Master II Pepsi" loading="lazy" />
+          <div class="blog-card__body">
+            <span class="blog-card__tag">Authentication · Rolex</span>
+            <h2 class="blog-card__title">How to Spot a Fake Rolex</h2>
+            <p class="blog-card__excerpt">10 hands-on tests every buyer should know — dial, movement, caseback, Cyclops lens, serial numbers, and more.</p>
+            <span class="blog-card__read">Read Guide → 10 min</span>
+          </div>
         </a>
 
         <a class="blog-card" href="/blog/best-entry-level-luxury-watches.html">
-          <span class="blog-card__tag">Buying Guide · All Brands</span>
-          <h2 class="blog-card__title">Best Entry-Level Luxury Watches (2025)</h2>
-          <p class="blog-card__excerpt">Rolex, Omega, Cartier, IWC, Tudor and more — the 10 best first luxury watches to buy pre-owned, with expert picks and 2025 price ranges.</p>
-          <span class="blog-card__read">Read Guide → 12 min</span>
+          <img class="blog-card__img" src="../assets/blog-entry-level.jpg" alt="Omega Observatory on white gloves" loading="lazy" />
+          <div class="blog-card__body">
+            <span class="blog-card__tag">Buying Guide · All Brands</span>
+            <h2 class="blog-card__title">Best Entry-Level Luxury Watches (2025)</h2>
+            <p class="blog-card__excerpt">Rolex, Omega, Cartier, IWC, Tudor and more — the 10 best first luxury watches to buy pre-owned, with expert picks and 2025 price ranges.</p>
+            <span class="blog-card__read">Read Guide → 12 min</span>
+          </div>
+        </a>
+
+        <a class="blog-card" href="/blog/how-to-sell-your-luxury-watch.html">
+          <img class="blog-card__img" src="../assets/Rolex-Datejust.jpg" alt="Rolex Datejust luxury watch" loading="lazy" style="object-position: center 30%;" />
+          <div class="blog-card__body">
+            <span class="blog-card__tag">Selling Guide · All Brands</span>
+            <h2 class="blog-card__title">How to Sell Your Luxury Watch for Maximum Value</h2>
+            <p class="blog-card__excerpt">Timing, documentation, condition prep, where to sell, pricing strategy, and the scams every seller needs to know about.</p>
+            <span class="blog-card__read">Read Guide → 10 min</span>
+          </div>
+        </a>
+
+        <a class="blog-card" href="/blog/are-rolex-watches-a-good-investment.html">
+          <img class="blog-card__img" src="../assets/blog-rolex-investment.jpg" alt="Rolex Sky-Dweller yellow gold green dial" loading="lazy" />
+          <div class="blog-card__body">
+            <span class="blog-card__tag">Investment · Rolex</span>
+            <h2 class="blog-card__title">Are Rolex Watches a Good Investment?</h2>
+            <p class="blog-card__excerpt">Which references actually appreciate, realistic return expectations, the risks nobody talks about, and how to buy smart.</p>
+            <span class="blog-card__read">Read Guide → 11 min</span>
+          </div>
         </a>
 
       </div>
