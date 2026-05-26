@@ -2315,7 +2315,7 @@ main {
   }
 
   .brand__name {
-    font-size: 0.95rem;
+    font-size: clamp(0.95rem, 3.5vw, 1.25rem);
     letter-spacing: 0.1em;
   }
 
