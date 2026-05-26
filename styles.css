@@ -341,13 +341,25 @@ a:hover {
   }
 
   .brand__name {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.1em;
   }
 
   .brand__logo {
     width: 81px;
     height: 81px;
     transform: none;
+  }
+}
+
+@media (max-width: 380px) {
+  .brand__name {
+    font-size: 0.85rem;
+    letter-spacing: 0.07em;
+  }
+  .brand__logo {
+    width: 68px;
+    height: 68px;
   }
 }
 
@@ -2304,6 +2316,7 @@ main {
 
   .brand__name {
     font-size: 0.95rem;
+    letter-spacing: 0.1em;
   }
 
   .brand__tag {
