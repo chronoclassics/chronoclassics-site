@@ -30,7 +30,7 @@
       "logo": { "@type": "ImageObject", "url": "https://chrono-classics.com/assets/new-logo.png" }
     },
     "datePublished": "2025-03-01",
-    "dateModified": "2025-03-01",
+    "dateModified": "2026-05-26",
     "url": "https://chrono-classics.com/blog/how-to-spot-a-fake-rolex.html",
     "image": "https://chrono-classics.com/assets/og-image.jpg",
     "mainEntityOfPage": "https://chrono-classics.com/blog/how-to-spot-a-fake-rolex.html"
@@ -605,6 +605,24 @@
     })();
   </script>
 
+  <!-- Scroll-to-top button -->
+  <button class="scroll-top-btn" id="scrollTopBtn" type="button" aria-label="Scroll to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+  <script>
+    (function () {
+      var btn = document.getElementById('scrollTopBtn');
+      if (!btn) return;
+      window.addEventListener('scroll', function () {
+        if (window.pageYOffset > 400) btn.classList.add('is-visible');
+        else btn.classList.remove('is-visible');
+      }, { passive: true });
+      btn.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    })();
+  </script>
+
   <footer class="site-footer">
     <div class="site-footer__inner">
       <div class="site-footer__grid">
@@ -621,7 +639,7 @@
           <a href="/blog/">Guides</a>
         </nav>
       </div>
-      <p class="site-footer__copy">© 2025 ChronoClassics. All rights reserved.</p>
+      <p class="site-footer__copy">&copy; <script>document.write(new Date().getFullYear())</script> ChronoClassics. All rights reserved.</p>
     </div>
   </footer>
 

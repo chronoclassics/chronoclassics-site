@@ -137,6 +137,12 @@
 </head>
 <body>
 
+  <noscript>
+    <div class="noscript-banner">
+      JavaScript is disabled. Page transitions and some features won't work — please enable JavaScript for the full experience.
+    </div>
+  </noscript>
+
   <header class="site-header">
     <div class="site-header__grid">
       <div class="site-header__left">
@@ -172,7 +178,7 @@
           <img class="blog-card__img" src="../assets/daytona-newsletter.jpg" alt="Vintage Rolex Daytona" loading="lazy" />
           <div class="blog-card__body">
             <span class="blog-card__tag">Buying Guide · Rolex</span>
-            <h2 class="blog-card__title">How to Buy a Pre-Owned Rolex in 2025</h2>
+            <h2 class="blog-card__title">How to Buy a Pre-Owned Rolex in 2026</h2>
             <p class="blog-card__excerpt">Everything you need to know — authentication, popular models, price ranges, red flags, and where to buy safely.</p>
             <span class="blog-card__read">Read Guide → 8 min</span>
           </div>
@@ -183,7 +189,7 @@
           <div class="blog-card__body">
             <span class="blog-card__tag">Buying Guide · Cartier</span>
             <h2 class="blog-card__title">Pre-Owned Cartier Santos Buyer's Guide</h2>
-            <p class="blog-card__excerpt">References, steel vs. gold, 2025 price ranges, authentication tips, and what separates a genuine Santos from a fake.</p>
+            <p class="blog-card__excerpt">References, steel vs. gold, 2026 price ranges, authentication tips, and what separates a genuine Santos from a fake.</p>
             <span class="blog-card__read">Read Guide → 9 min</span>
           </div>
         </a>
@@ -202,8 +208,8 @@
           <img class="blog-card__img" src="../assets/blog-entry-level.jpg" alt="Omega Observatory on white gloves" loading="lazy" />
           <div class="blog-card__body">
             <span class="blog-card__tag">Buying Guide · All Brands</span>
-            <h2 class="blog-card__title">Best Entry-Level Luxury Watches (2025)</h2>
-            <p class="blog-card__excerpt">Rolex, Omega, Cartier, IWC, Tudor and more — the 10 best first luxury watches to buy pre-owned, with expert picks and 2025 price ranges.</p>
+            <h2 class="blog-card__title">Best Entry-Level Luxury Watches (2026)</h2>
+            <p class="blog-card__excerpt">Rolex, Omega, Cartier, IWC, Tudor and more — the 10 best first luxury watches to buy pre-owned, with expert picks and 2026 price ranges.</p>
             <span class="blog-card__read">Read Guide → 12 min</span>
           </div>
         </a>
@@ -263,6 +269,24 @@
             transitionToPage(href);
           }
         });
+      });
+    })();
+  </script>
+
+  <!-- Scroll-to-top button -->
+  <button class="scroll-top-btn" id="scrollTopBtn" type="button" aria-label="Scroll to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+  <script>
+    (function () {
+      var btn = document.getElementById('scrollTopBtn');
+      if (!btn) return;
+      window.addEventListener('scroll', function () {
+        if (window.pageYOffset > 400) btn.classList.add('is-visible');
+        else btn.classList.remove('is-visible');
+      }, { passive: true });
+      btn.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     })();
   </script>
