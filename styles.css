@@ -2300,8 +2300,8 @@ main {
   /* Two-column layout: logo left | all actions right */
   .site-header__grid {
     grid-template-columns: auto 1fr;
-    padding: 0.5rem 0.85rem;
-    gap: 0 0.5rem;
+    padding: 0.5rem 0.75rem 0.5rem 0.35rem;
+    gap: 0 0.25rem;
   }
 
   /* Left col only has the nav (hidden on mobile) — collapse it */
@@ -2316,12 +2316,12 @@ main {
   /* Logo sits in the first column, left-aligned */
   .brand {
     justify-self: start;
-    gap: 0.35rem;
+    gap: 0.25rem;
   }
 
   .brand__logo {
-    width: 78px;
-    height: 78px;
+    width: 64px;
+    height: 64px;
     transform: none;
   }
 
