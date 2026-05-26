@@ -119,7 +119,7 @@
       </div>
 
       <a class="brand" href="/">
-        <img class="brand__logo" src="assets/new-logo.png" alt="ChronoClassics" decoding="async" />
+        <img class="brand__logo" src="assets/new-logo.png" alt="ChronoClassics" width="400" height="307" decoding="async" />
         <span class="brand__text">
           <span class="brand__name">ChronoClassics</span>
           <span class="brand__tag">Luxury Timepieces</span>
@@ -249,6 +249,8 @@
           class="hero__photo"
           src="assets/hero-movement.jpg"
           alt="Watch movement detail"
+          width="1600"
+          height="1200"
           decoding="async"
           fetchpriority="high"
         />
@@ -349,6 +351,8 @@
             class="serial-widget__watch-img"
             src="/assets/daytona-paul-newman.jpg"
             alt=""
+            width="1200"
+            height="600"
             aria-hidden="true"
             draggable="false"
           >
@@ -675,7 +679,7 @@
 
     <!-- Buying Guides -->
     <section class="guides-section" id="guides" aria-labelledby="guides-heading">
-      <img class="guides-section__img" src="assets/guides-rolex.jpg" alt="" aria-hidden="true" draggable="false" loading="lazy" />
+      <img class="guides-section__img" src="assets/guides-rolex.jpg" alt="" width="1265" height="1369" aria-hidden="true" draggable="false" loading="lazy" />
       <div class="guides-section__inner">
         <div class="guides-header reveal">
           <p class="guides-eyebrow">Knowledge Base</p>
@@ -942,7 +946,7 @@
 
     <!-- Newsletter -->
     <section class="newsletter-section" id="newsletter" aria-labelledby="newsletter-heading">
-      <img class="newsletter-section__img" src="assets/daytona-newsletter.jpg" alt="" aria-hidden="true" draggable="false" loading="lazy" />
+      <img class="newsletter-section__img" src="assets/daytona-newsletter.jpg" alt="" width="1320" height="1646" aria-hidden="true" draggable="false" loading="lazy" />
       <div class="newsletter-section__inner reveal">
         <div class="newsletter-section__content">
         <p class="newsletter-eyebrow">Newsletter</p>
@@ -1333,7 +1337,7 @@
       if (!matches.length) { hide(); return; }
       suggestEl.innerHTML = matches.map(function (obj) {
         var imgHtml = obj.image
-          ? '<img class="ss-thumb" src="' + obj.image + '" alt="" aria-hidden="true" />'
+          ? '<img class="ss-thumb" src="' + obj.image + '" alt="" width="80" height="80" aria-hidden="true" />'
           : '<div class="ss-thumb ss-thumb--placeholder"></div>';
         return '<li class="search-suggest__item" role="option">'
           + imgHtml
@@ -1512,7 +1516,7 @@
     var url     = item.itemWebUrl || '#';
     var cond    = item.condition || '';
     return '<a class="watch-card" href="' + url + '" target="_blank" rel="noopener noreferrer" aria-label="' + title.replace(/"/g,'&quot;') + '">'
-      + (img ? '<div class="watch-card__img-wrap"><img class="watch-card__img" src="' + img + '" alt="' + title.replace(/"/g,'&quot;') + '" loading="lazy" decoding="async" /></div>' : '<div class="watch-card__img-wrap"></div>')
+      + (img ? '<div class="watch-card__img-wrap"><img class="watch-card__img" src="' + img + '" alt="' + title.replace(/"/g,'&quot;') + '" width="500" height="500" loading="lazy" decoding="async" /></div>' : '<div class="watch-card__img-wrap"></div>')
       + '<div class="watch-card__body">'
       + '<p class="watch-card__model">' + title + '</p>'
       + (cond ? condPills(cond) : '')
@@ -2208,7 +2212,7 @@
       d.className = 'sold-card';
       if (hidden) d.setAttribute('aria-hidden', 'true');
       var imgHtml = item.image
-        ? '<div class="sold-card__img-wrap"><img class="sold-card__img" src="' + esc(item.image) + '" alt="' + esc(item.brand) + '" loading="lazy" onerror="this.closest(\'.sold-card__img-wrap\').style.display=\'none\'"></div>'
+        ? '<div class="sold-card__img-wrap"><img class="sold-card__img" src="' + esc(item.image) + '" alt="' + esc(item.brand) + '" width="500" height="500" loading="lazy" onerror="this.closest(\'.sold-card__img-wrap\').style.display=\'none\'"></div>'
         : '';
       d.innerHTML = imgHtml
         + '<div class="sold-card__brand">'     + esc(item.brand)     + '</div>'
