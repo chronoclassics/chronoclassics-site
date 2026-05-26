@@ -2860,6 +2860,90 @@ main {
   }
 }
 
+/* ── Editorial Break ─────────────────────────────────────────────── */
+.editorial-break {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 480px;
+  overflow: hidden;
+}
+.editorial-break__img-col {
+  position: relative;
+  overflow: hidden;
+}
+.editorial-break__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.editorial-break__img-col:hover .editorial-break__img {
+  transform: scale(1.03);
+}
+.editorial-break__content-col {
+  background: #0f0f1a;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3.5rem 3.5rem;
+}
+.editorial-break__eyebrow {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  margin: 0 0 1rem;
+}
+.editorial-break__heading {
+  font-family: var(--font-heading);
+  font-size: clamp(2.25rem, 3.5vw, 3.25rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.1;
+  margin: 0 0 1.1rem;
+}
+.editorial-break__sub {
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  color: rgba(255,255,255,0.58);
+  line-height: 1.75;
+  margin: 0 0 2rem;
+  max-width: 38ch;
+}
+.editorial-break__cta {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  text-decoration: none;
+  align-self: flex-start;
+  transition: opacity 0.2s;
+}
+.editorial-break__cta:hover {
+  opacity: 0.7;
+}
+@media (max-width: 768px) {
+  .editorial-break {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  .editorial-break__img-col {
+    height: 300px;
+  }
+  .editorial-break__content-col {
+    padding: 2.5rem 1.5rem;
+  }
+  .editorial-break__sub {
+    max-width: 100%;
+  }
+}
+
 /* ── Reviews Section ─────────────────────────────────────────────── */
 /* ── Reviews Section ──────────────────────────────────────────────── */
 .reviews-section {
