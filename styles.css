@@ -341,25 +341,36 @@ a:hover {
   }
 
   .brand__name {
-    font-size: 0.95rem;
-    letter-spacing: 0.1em;
+    font-size: 1.1rem;
+    letter-spacing: 0.09em;
   }
 
   .brand__logo {
-    width: 81px;
-    height: 81px;
+    width: 72px;
+    height: 72px;
     transform: none;
   }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 400px) {
+  .brand__name {
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+  }
+  .brand__logo {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+@media (max-width: 360px) {
   .brand__name {
     font-size: 0.85rem;
     letter-spacing: 0.07em;
   }
   .brand__logo {
-    width: 68px;
-    height: 68px;
+    width: 58px;
+    height: 58px;
   }
 }
 
@@ -2315,7 +2326,7 @@ main {
   }
 
   .brand__name {
-    font-size: clamp(0.95rem, 3.5vw, 1.25rem);
+    font-size: 1.2rem;
     letter-spacing: 0.1em;
   }
 
