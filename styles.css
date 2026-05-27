@@ -1724,6 +1724,7 @@ main {
   font-weight: 700;
   color: var(--header-text);
   line-height: 1.2;
+  text-align: center;
   transition: color 0.22s ease;
 }
 .watch-card:hover .watch-card__model {
@@ -1737,14 +1738,16 @@ main {
   font-weight: 500;
   color: var(--text-muted);
   letter-spacing: 0.02em;
+  text-align: center;
 }
 
 .watch-card__desc {
   margin: 0 0 0.35rem;
   font-family: var(--font-ui);
-  font-size: 0.73rem;
+  font-size: 0.83rem;
   color: var(--text-muted);
   line-height: 1.45;
+  text-align: center;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
