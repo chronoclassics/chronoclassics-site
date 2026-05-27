@@ -1528,8 +1528,9 @@
   }
 
   // Split a cleaned eBay title into { model, ref, rest }
-  // e.g. "Rolex Submariner 114060 Black Dial" → { model:"Rolex Submariner", ref:"114060", rest:"Black Dial" }
-  // e.g. "Cartier Ballon Bleu 3005 W69011Z4 Men's Watch" → { model:"Cartier Ballon Bleu", ref:"3005 W69011Z4", rest:"Men's Watch" }
+  // Strategy: (1) model = brand + up to 4 "true model name" words (stop at sizes/materials/generic words)
+  //           (2) ref = first ref-like token found anywhere after the brand
+  //           (3) rest = everything not in model or ref (preserves spec words like 36MM, Diamond, etc.)
   function parseWatchTitle(title) {
     var MULTI_BRANDS = ['Patek Philippe', 'Audemars Piguet', 'Vacheron Constantin',
       'A. Lange', 'Jaeger-LeCoultre', 'Jaeger Lecoultre', 'F.P. Journe',
@@ -1551,16 +1552,30 @@
     function looksLikeRef(t) {
       var bare = t.replace(/[()[\]]/g, '');
       if (bare.length < 3) return false;
-      if (/^\d{1,3}$/.test(bare)) return false;           // size: 41, 38
+      if (/^\d{1,3}$/.test(bare)) return false;           // standalone size: 41, 38
       if (/^\d{2,3}[Mm][Mm]?$/.test(bare)) return false;  // 40MM, 42mm
-      // Only treat a pure 4-digit number as a year if it's in plausible year range
-      if (/^\d{4}$/.test(bare) && +bare >= 1950 && +bare <= 2030) return false;
-      if (/\d{4,}/.test(bare)) return true;               // 4+ consecutive digits: 114060, 126610LN, W69011Z4
-      if (/\d{3,}/.test(bare) && /[A-Za-z]/.test(bare)) return true; // 3+ digits + letters: IW371602, PAM01312
-      if (/^\d+([.\-\/]\d+){2,}$/.test(bare)) return true; // dot/slash notation: 311.30.42.30.01.005, 5711/1A-001
+      if (/^\d{1,2}[Kk]$/.test(bare)) return false;       // 18K, 14K gold karat
+      if (/^\d{4}$/.test(bare) && +bare >= 1950 && +bare <= 2030) return false; // year
+      if (/\d{4,}/.test(bare)) return true;               // 4+ consecutive digits
+      if (/\d{3,}/.test(bare) && /[A-Za-z]/.test(bare)) return true; // 3+ digits + letters
+      if (/^\d+([.\-\/]\d+){2,}$/.test(bare)) return true; // dot/slash: 311.30.42..., 5711/1A
       return false;
     }
 
+    // Words that signal the model name has ended — never appear in official watch model names
+    var MODEL_END = /^(\d{2,3}[Mm][Mm]?|\d{1,2}[Kk]|stainless|steel|gold|yellow|white|rose|diamond|titanium|ceramic|platinum|silver|alligator|leather|rubber|sapphire|watch|watches|men|women|ladies|lady|gents|bracelet|strap|band|bezel|factory|set)$/i;
+
+    // Step 1: find where model name ends (brand + up to 4 model-name words)
+    var modelEnd = brandEnd;
+    var wordCount = 0;
+    for (var m = brandEnd; m < tokens.length && wordCount < 4; m++) {
+      if (looksLikeRef(tokens[m])) break;   // ref number = definitely end of model
+      if (MODEL_END.test(tokens[m])) break;  // spec/generic word = end of model
+      modelEnd = m + 1;
+      wordCount++;
+    }
+
+    // Step 2: find ref number anywhere after brand
     var refIdx = -1;
     for (var k = brandEnd; k < tokens.length; k++) {
       if (looksLikeRef(tokens[k])) { refIdx = k; break; }
@@ -1568,23 +1583,18 @@
 
     var model, ref, rest;
     if (refIdx > -1) {
-      // Consume any immediately adjacent tokens that also look like ref components
-      // (handles "3005 W69011Z4" being two-part Cartier refs)
       var refEnd = refIdx + 1;
       while (refEnd < tokens.length && looksLikeRef(tokens[refEnd])) { refEnd++; }
-      model = tokens.slice(0, refIdx).join(' ').replace(/[\s\-–—]+$/, '');
+      model = tokens.slice(0, modelEnd).join(' ');
       ref   = tokens.slice(refIdx, refEnd).join(' ');
-      rest  = tokens.slice(refEnd).join(' ').replace(/^[\s\-–—]+/, '');
+      // Description = spec words between model and ref + words after ref
+      var mid  = tokens.slice(modelEnd, refIdx).join(' ').replace(/^[\s\-–—]+|[\s\-–—]+$/g, '');
+      var tail = tokens.slice(refEnd).join(' ').replace(/^[\s\-–—]+/, '');
+      rest = (mid && tail) ? mid + ' ' + tail : (mid || tail);
     } else {
-      var DESC = /^(men|women|lady|ladies|gents|watch|watches|stainless|titanium|ceramic|rubber|leather|bracelet|strap|dial|bezel|automatic|manual|quartz|pre-owned|pre|used|excellent|very)$/i;
-      var split = -1;
-      for (var m = brandEnd; m < tokens.length; m++) {
-        if (DESC.test(tokens[m]) && m > brandEnd) { split = m; break; }
-      }
-      var end = split > -1 ? split : Math.min(brandEnd + 3, tokens.length);
-      model = tokens.slice(0, end).join(' ');
+      model = tokens.slice(0, modelEnd).join(' ');
       ref   = '';
-      rest  = tokens.slice(end).join(' ');
+      rest  = tokens.slice(modelEnd).join(' ').replace(/^[\s\-–—]+/, '');
     }
     return { model: model, ref: ref, rest: rest };
   }
@@ -1597,12 +1607,12 @@
     var url    = item.itemWebUrl || '#';
     var cond   = item.condition || '';
     return '<a class="watch-card" href="' + url + '" target="_blank" rel="noopener noreferrer" aria-label="' + title.replace(/"/g,'&quot;') + '">'
-      + (img ? '<div class="watch-card__img-wrap"><img class="watch-card__img" src="' + img + '" alt="' + title.replace(/"/g,'&quot;') + '" width="500" height="500" loading="lazy" decoding="async" />' + (cond ? condPills(cond) : '') + '</div>' : '<div class="watch-card__img-wrap">' + (cond ? condPills(cond) : '') + '</div>')
+      + (img ? '<div class="watch-card__img-wrap"><img class="watch-card__img" src="' + img + '" alt="' + title.replace(/"/g,'&quot;') + '" width="500" height="500" loading="lazy" decoding="async" /></div>' : '<div class="watch-card__img-wrap"></div>')
       + '<div class="watch-card__body">'
       + '<p class="watch-card__model">' + parsed.model + '</p>'
       + (parsed.ref  ? '<p class="watch-card__ref">'  + parsed.ref  + '</p>' : '')
       + (parsed.rest ? '<p class="watch-card__desc">' + parsed.rest + '</p>' : '')
-      + (price ? '<p class="watch-card__price">' + price + '</p>' : '')
+      + (price ? '<div class="watch-card__footer"><p class="watch-card__price">' + price + '</p><span class="watch-card__bank-wire">Special Discount<br>via Bank Wire</span></div>' : '')
       + '</div>'
       + '</a>';
   }
