@@ -341,8 +341,8 @@ a:hover {
   }
 
   .brand__name {
-    font-size: 0.86rem;
-    letter-spacing: 0.05em;
+    font-size: 0.96rem;
+    letter-spacing: 0.06em;
   }
 
   .brand__logo {
@@ -354,8 +354,8 @@ a:hover {
 
 @media (max-width: 400px) {
   .brand__name {
-    font-size: 0.78rem;
-    letter-spacing: 0.04em;
+    font-size: 0.88rem;
+    letter-spacing: 0.05em;
   }
   .brand__logo {
     width: 64px;
@@ -365,8 +365,8 @@ a:hover {
 
 @media (max-width: 360px) {
   .brand__name {
-    font-size: 0.72rem;
-    letter-spacing: 0.03em;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
   }
   .brand__logo {
     width: 58px;
@@ -2347,6 +2347,22 @@ main {
   color: #999;
 }
 
+/* Autosuggest dropdown inside the hamburger nav search wrap */
+.nav-search-suggest {
+  /* .mobile-nav__search-wrap is position:relative — drop below the pill input */
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 500; /* above nav links */
+  border-radius: var(--radius-sm, 6px);
+}
+
+/* Ensure the search section creates a stacking context so the suggest floats above links */
+.mobile-nav__search {
+  position: relative;
+  z-index: 10;
+}
+
 /* ── Mobile Header ───────────────────────────────────────────────── */
 @media (max-width: 768px) {
   /* Two-column layout: logo left | all actions right */
@@ -2384,8 +2400,8 @@ main {
   }
 
   .brand__name {
-    font-size: 0.88rem;
-    letter-spacing: 0.06em;
+    font-size: 1.0rem;
+    letter-spacing: 0.07em;
   }
 
   .brand__tag {
@@ -2447,6 +2463,22 @@ main {
     border-color: var(--accent-gold);
     color: var(--accent-gold);
     background: none;
+  }
+}
+
+/* ── Mobile autosuggest dropdown ───────────────────────────────── */
+/* Sits as a sibling of .header-mobile-search inside <header position:sticky>
+   so top:100% places it right below the full header (grid + open search bar) */
+@media (max-width: 768px) {
+  .mobile-search-suggest {
+    /* inherits position:absolute from .search-suggest */
+    top: 100%;          /* bottom edge of the sticky header */
+    left: 0;
+    right: 0;
+    border-radius: 0 0 var(--radius-sm, 6px) var(--radius-sm, 6px);
+    border-top: none;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.14);
+    z-index: 400;
   }
 }
 

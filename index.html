@@ -188,6 +188,8 @@
         />
       </div>
     </div>
+    <!-- Suggest list sits outside the animated bar so it isn't clipped by overflow:hidden -->
+    <ul class="search-suggest mobile-search-suggest" id="mobileSearchSuggest" role="listbox" aria-label="Search suggestions" hidden></ul>
 
     <!-- Hamburger dropdown nav -->
     <nav class="mobile-nav" id="mobileNav" aria-label="Menu" hidden>
@@ -210,6 +212,7 @@
             autocomplete="off"
           />
           <svg class="mobile-nav__search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <ul class="search-suggest nav-search-suggest" id="navSearchSuggest" role="listbox" aria-label="Search suggestions" hidden></ul>
         </div>
       </div>
 
@@ -1312,6 +1315,8 @@
       bar.setAttribute('aria-hidden', 'true');
       btn.setAttribute('aria-expanded', 'false');
     }
+    // Expose so the autosuggest onSelect callback can close the bar
+    window._closeMobileSearch = closeSearch;
 
     btn.addEventListener('click', function (e) {
       e.stopPropagation();
@@ -1321,10 +1326,19 @@
     input.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') { closeSearch(); btn.focus(); }
       if (e.key === 'Enter') {
-        var mainInput = document.getElementById('searchInput');
-        if (mainInput) {
-          mainInput.value = input.value;
-          mainInput.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+        // If a suggestion item is keyboard-active, let attachAutosuggest handle it
+        var suggestEl = document.getElementById('mobileSearchSuggest');
+        if (suggestEl && !suggestEl.hidden && suggestEl.querySelector('.ss-active')) return;
+        var q = input.value.trim();
+        if (q) {
+          document.querySelectorAll('.lf-pill').forEach(function (c) { c.classList.remove('active'); });
+          var allPill = document.querySelector('.lf-pill[data-brand=""]');
+          if (allPill) allPill.classList.add('active');
+          document.getElementById('minPrice').value = '';
+          document.getElementById('maxPrice').value = '';
+          currentParams = { q: q, sort: 'newlyListed', limit: 24, fieldgroups: 'EXTENDED' };
+          fetchListings(currentParams);
+          scrollToWatchGrid();
         }
         closeSearch();
       }
@@ -1508,6 +1522,23 @@
     }
   );
 
+  // ── Mobile header search autosuggest ──────────────────────────────
+  attachAutosuggest(
+    document.getElementById('headerMobileSearchInput'),
+    document.getElementById('mobileSearchSuggest'),
+    function (title) {
+      if (window._closeMobileSearch) window._closeMobileSearch();
+      document.querySelectorAll('.lf-pill').forEach(function (c) { c.classList.remove('active'); });
+      var allPill = document.querySelector('.lf-pill[data-brand=""]');
+      if (allPill) allPill.classList.add('active');
+      document.getElementById('minPrice').value = '';
+      document.getElementById('maxPrice').value = '';
+      currentParams = { q: title, sort: 'newlyListed', limit: 24, fieldgroups: 'EXTENDED' };
+      fetchListings(currentParams);
+      scrollToWatchGrid();
+    }
+  );
+
   // ── Catalogue search autosuggest ──────────────────────────────────
   attachAutosuggest(
     document.getElementById('listingsSearchInput'),
@@ -1519,32 +1550,47 @@
   );
 
   // ── Nav search (hamburger menu) ───────────────────────────────────
-  (function () {
+  function doNavSearch() {
     var navInput = document.getElementById('navSearchInput');
     var mainInput = document.getElementById('searchInput');
     var menuBtn = document.getElementById('menuBtn');
     var nav = document.getElementById('mobileNav');
+    var q = navInput ? navInput.value.trim() : '';
+    if (!q) return;
+    if (mainInput) mainInput.value = q;
+    if (nav) nav.hidden = true;
+    if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
+    document.querySelectorAll('.lf-pill').forEach(function (p) { p.classList.remove('active'); });
+    var allPill = document.querySelector('.lf-pill[data-brand=""]');
+    if (allPill) allPill.classList.add('active');
+    document.getElementById('minPrice').value = '';
+    document.getElementById('maxPrice').value = '';
+    currentParams = { q: q, sort: 'newlyListed', limit: 24, fieldgroups: 'EXTENDED' };
+    fetchListings(currentParams);
+    scrollToWatchGrid();
+  }
+  (function () {
+    var navInput = document.getElementById('navSearchInput');
     if (!navInput) return;
-    function doNavSearch() {
-      var q = navInput.value.trim();
-      if (!q) return;
-      // sync to main search input
-      if (mainInput) mainInput.value = q;
-      // close the menu
-      if (nav) nav.hidden = true;
-      if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
-      // run the search
-      document.querySelectorAll('.lf-pill').forEach(function (p) { p.classList.remove('active'); });
-      var allPill = document.querySelector('.lf-pill[data-brand=""]');
-      if (allPill) allPill.classList.add('active');
-      document.getElementById('minPrice').value = '';
-      document.getElementById('maxPrice').value = '';
-      currentParams = { q: q, sort: 'newlyListed', limit: 24, fieldgroups: 'EXTENDED' };
-      fetchListings(currentParams);
-      scrollToWatchGrid();
-    }
-    navInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') doNavSearch(); });
+    navInput.addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter') return;
+      // If a suggestion is keyboard-active, let attachAutosuggest handle it
+      var suggestEl = document.getElementById('navSearchSuggest');
+      if (suggestEl && !suggestEl.hidden && suggestEl.querySelector('.ss-active')) return;
+      doNavSearch();
+    });
   })();
+
+  // ── Nav search autosuggest ────────────────────────────────────────
+  attachAutosuggest(
+    document.getElementById('navSearchInput'),
+    document.getElementById('navSearchSuggest'),
+    function (title) {
+      var navInput = document.getElementById('navSearchInput');
+      if (navInput) navInput.value = title;
+      doNavSearch();
+    }
+  );
 
   // ── eBay listings ─────────────────────────────────────────────────
   var currentParams  = {};
