@@ -2350,6 +2350,9 @@ main {
   /* Swap visibility: hide desktop set, show mobile set */
   .header-icon-btn--desktop { display: none; }
 
+  /* Hide location icon on mobile — accessible via hamburger menu */
+  .header-icon-btn--mobile[aria-label="Our location"] { display: none; }
+
   /* Mobile icon buttons — subtle circles on white header */
   .header-icon-btn--mobile {
     display: inline-flex;
