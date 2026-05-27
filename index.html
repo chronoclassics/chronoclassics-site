@@ -1529,6 +1529,7 @@
 
   // Split a cleaned eBay title into { model, ref, rest }
   // e.g. "Rolex Submariner 114060 Black Dial" → { model:"Rolex Submariner", ref:"114060", rest:"Black Dial" }
+  // e.g. "Cartier Ballon Bleu 3005 W69011Z4 Men's Watch" → { model:"Cartier Ballon Bleu", ref:"3005 W69011Z4", rest:"Men's Watch" }
   function parseWatchTitle(title) {
     var MULTI_BRANDS = ['Patek Philippe', 'Audemars Piguet', 'Vacheron Constantin',
       'A. Lange', 'Jaeger-LeCoultre', 'Jaeger Lecoultre', 'F.P. Journe',
@@ -1546,20 +1547,34 @@
         if (ok) { brandEnd = b.length; break; }
       }
     }
+
+    function looksLikeRef(t) {
+      var bare = t.replace(/[()[\]]/g, '');
+      if (bare.length < 3) return false;
+      if (/^\d{1,3}$/.test(bare)) return false;           // size: 41, 38
+      if (/^\d{2,3}[Mm][Mm]?$/.test(bare)) return false;  // 40MM, 42mm
+      // Only treat a pure 4-digit number as a year if it's in plausible year range
+      if (/^\d{4}$/.test(bare) && +bare >= 1950 && +bare <= 2030) return false;
+      if (/\d{4,}/.test(bare)) return true;               // 4+ consecutive digits: 114060, 126610LN, W69011Z4
+      if (/\d{3,}/.test(bare) && /[A-Za-z]/.test(bare)) return true; // 3+ digits + letters: IW371602, PAM01312
+      if (/^\d+([.\-\/]\d+){2,}$/.test(bare)) return true; // dot/slash notation: 311.30.42.30.01.005, 5711/1A-001
+      return false;
+    }
+
     var refIdx = -1;
     for (var k = brandEnd; k < tokens.length; k++) {
-      var w = tokens[k].replace(/[()[\]]/g, '');
-      if (/^\d{1,3}$/.test(w)) continue;          // standalone size like 41
-      if (/^\d{2,3}[Mm][Mm]?$/.test(w)) continue; // 40MM, 42mm
-      if (/^\d{4}$/.test(w)) continue;             // bare year like 2024
-      if (/\d{4,}/.test(w)) { refIdx = k; break; } // 4+ consecutive digits = ref
-      if (/\d{3,}/.test(w) && /[A-Za-z]/.test(w)) { refIdx = k; break; } // 3+ digits + letters (IW371…)
+      if (looksLikeRef(tokens[k])) { refIdx = k; break; }
     }
+
     var model, ref, rest;
     if (refIdx > -1) {
-      model = tokens.slice(0, refIdx).join(' ');
-      ref   = tokens[refIdx];
-      rest  = tokens.slice(refIdx + 1).join(' ');
+      // Consume any immediately adjacent tokens that also look like ref components
+      // (handles "3005 W69011Z4" being two-part Cartier refs)
+      var refEnd = refIdx + 1;
+      while (refEnd < tokens.length && looksLikeRef(tokens[refEnd])) { refEnd++; }
+      model = tokens.slice(0, refIdx).join(' ').replace(/[\s\-–—]+$/, '');
+      ref   = tokens.slice(refIdx, refEnd).join(' ');
+      rest  = tokens.slice(refEnd).join(' ').replace(/^[\s\-–—]+/, '');
     } else {
       var DESC = /^(men|women|lady|ladies|gents|watch|watches|stainless|titanium|ceramic|rubber|leather|bracelet|strap|dial|bezel|automatic|manual|quartz|pre-owned|pre|used|excellent|very)$/i;
       var split = -1;
@@ -1582,12 +1597,11 @@
     var url    = item.itemWebUrl || '#';
     var cond   = item.condition || '';
     return '<a class="watch-card" href="' + url + '" target="_blank" rel="noopener noreferrer" aria-label="' + title.replace(/"/g,'&quot;') + '">'
-      + (img ? '<div class="watch-card__img-wrap"><img class="watch-card__img" src="' + img + '" alt="' + title.replace(/"/g,'&quot;') + '" width="500" height="500" loading="lazy" decoding="async" /></div>' : '<div class="watch-card__img-wrap"></div>')
+      + (img ? '<div class="watch-card__img-wrap"><img class="watch-card__img" src="' + img + '" alt="' + title.replace(/"/g,'&quot;') + '" width="500" height="500" loading="lazy" decoding="async" />' + (cond ? condPills(cond) : '') + '</div>' : '<div class="watch-card__img-wrap">' + (cond ? condPills(cond) : '') + '</div>')
       + '<div class="watch-card__body">'
       + '<p class="watch-card__model">' + parsed.model + '</p>'
       + (parsed.ref  ? '<p class="watch-card__ref">'  + parsed.ref  + '</p>' : '')
       + (parsed.rest ? '<p class="watch-card__desc">' + parsed.rest + '</p>' : '')
-      + (cond ? condPills(cond) : '')
       + (price ? '<p class="watch-card__price">' + price + '</p>' : '')
       + '</div>'
       + '</a>';
