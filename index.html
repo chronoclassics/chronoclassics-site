@@ -30,7 +30,7 @@
   <link rel="preload" as="image" href="assets/hero-movement.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 
   <script type="application/ld+json">
@@ -115,7 +115,6 @@
         <nav class="site-nav" aria-label="Primary">
           <a href="#listings">Luxury Watches</a>
           <a href="#services">Services</a>
-          <a href="/about.html">About</a>
         </nav>
       </div>
 
@@ -707,7 +706,7 @@
         </div>
       </div>
       <div class="guides-grid" id="guidesGrid">
-        <a class="guide-card" href="/blog/how-to-buy-pre-owned-rolex-2025.html">
+        <a class="guide-card" href="/blog/how-to-buy-pre-owned-rolex.html">
           <div class="guide-card__icon" aria-hidden="true">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           </div>
@@ -1528,16 +1527,66 @@
     return '<div class="watch-card__condition"><span class="watch-card__cond-pill">' + cond + '</span></div>';
   }
 
+  // Split a cleaned eBay title into { model, ref, rest }
+  // e.g. "Rolex Submariner 114060 Black Dial" → { model:"Rolex Submariner", ref:"114060", rest:"Black Dial" }
+  function parseWatchTitle(title) {
+    var MULTI_BRANDS = ['Patek Philippe', 'Audemars Piguet', 'Vacheron Constantin',
+      'A. Lange', 'Jaeger-LeCoultre', 'Jaeger Lecoultre', 'F.P. Journe',
+      'TAG Heuer', 'Tag Heuer', 'Girard-Perregaux', 'Girard Perregaux',
+      'Ulysse Nardin', 'Maurice Lacroix', 'Bell & Ross', 'Bell Ross'];
+    var tokens = title.split(/\s+/);
+    var brandEnd = 1;
+    for (var i = 0; i < MULTI_BRANDS.length; i++) {
+      var b = MULTI_BRANDS[i].split(/\s+/);
+      if (tokens.length >= b.length) {
+        var ok = true;
+        for (var j = 0; j < b.length; j++) {
+          if (tokens[j].toLowerCase() !== b[j].toLowerCase()) { ok = false; break; }
+        }
+        if (ok) { brandEnd = b.length; break; }
+      }
+    }
+    var refIdx = -1;
+    for (var k = brandEnd; k < tokens.length; k++) {
+      var w = tokens[k].replace(/[()[\]]/g, '');
+      if (/^\d{1,3}$/.test(w)) continue;          // standalone size like 41
+      if (/^\d{2,3}[Mm][Mm]?$/.test(w)) continue; // 40MM, 42mm
+      if (/^\d{4}$/.test(w)) continue;             // bare year like 2024
+      if (/\d{4,}/.test(w)) { refIdx = k; break; } // 4+ consecutive digits = ref
+      if (/\d{3,}/.test(w) && /[A-Za-z]/.test(w)) { refIdx = k; break; } // 3+ digits + letters (IW371…)
+    }
+    var model, ref, rest;
+    if (refIdx > -1) {
+      model = tokens.slice(0, refIdx).join(' ');
+      ref   = tokens[refIdx];
+      rest  = tokens.slice(refIdx + 1).join(' ');
+    } else {
+      var DESC = /^(men|women|lady|ladies|gents|watch|watches|stainless|titanium|ceramic|rubber|leather|bracelet|strap|dial|bezel|automatic|manual|quartz|pre-owned|pre|used|excellent|very)$/i;
+      var split = -1;
+      for (var m = brandEnd; m < tokens.length; m++) {
+        if (DESC.test(tokens[m]) && m > brandEnd) { split = m; break; }
+      }
+      var end = split > -1 ? split : Math.min(brandEnd + 3, tokens.length);
+      model = tokens.slice(0, end).join(' ');
+      ref   = '';
+      rest  = tokens.slice(end).join(' ');
+    }
+    return { model: model, ref: ref, rest: rest };
+  }
+
   function renderCard(item) {
-    var price   = (item.price && item.price.value) ? parseFloat(item.price.value).toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }) : '';
-    var img     = (item.image && item.image.imageUrl) ? item.image.imageUrl.replace(/s-l\d+(\.\w+)$/, 's-l640$1') : '';
-    var title   = cleanTitle(item.title || '');
-    var url     = item.itemWebUrl || '#';
-    var cond    = item.condition || '';
+    var price  = (item.price && item.price.value) ? parseFloat(item.price.value).toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }) : '';
+    var img    = (item.image && item.image.imageUrl) ? item.image.imageUrl.replace(/s-l\d+(\.\w+)$/, 's-l640$1') : '';
+    var title  = cleanTitle(item.title || '');
+    var parsed = parseWatchTitle(title);
+    var url    = item.itemWebUrl || '#';
+    var cond   = item.condition || '';
     return '<a class="watch-card" href="' + url + '" target="_blank" rel="noopener noreferrer" aria-label="' + title.replace(/"/g,'&quot;') + '">'
       + (img ? '<div class="watch-card__img-wrap"><img class="watch-card__img" src="' + img + '" alt="' + title.replace(/"/g,'&quot;') + '" width="500" height="500" loading="lazy" decoding="async" /></div>' : '<div class="watch-card__img-wrap"></div>')
       + '<div class="watch-card__body">'
-      + '<p class="watch-card__model">' + title + '</p>'
+      + '<p class="watch-card__model">' + parsed.model + '</p>'
+      + (parsed.ref  ? '<p class="watch-card__ref">'  + parsed.ref  + '</p>' : '')
+      + (parsed.rest ? '<p class="watch-card__desc">' + parsed.rest + '</p>' : '')
       + (cond ? condPills(cond) : '')
       + (price ? '<p class="watch-card__price">' + price + '</p>' : '')
       + '</div>'
