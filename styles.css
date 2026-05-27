@@ -1814,13 +1814,12 @@ main {
 
 .watch-card__bank-wire {
   font-family: var(--font-ui);
-  font-size: 0.6rem;
-  font-weight: 500;
+  font-size: 0.72rem;
+  font-weight: 700;
   color: var(--accent-gold);
   text-align: right;
   line-height: 1.35;
   font-style: italic;
-  opacity: 0.85;
 }
 
 .watch-card__actions {
