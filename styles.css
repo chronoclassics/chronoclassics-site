@@ -4120,7 +4120,7 @@ main {
 /* ── Mobile Watch Grid — 2-column layout ────────────────────────── */
 @media (max-width: 640px) {
   .watch-grid {
-    display: grid !important;
+    display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 0.75rem;
     overflow: visible;

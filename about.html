@@ -9,6 +9,7 @@
 
   <!-- Open Graph -->
   <meta property="og:type"        content="website" />
+  <meta property="og:site_name"   content="ChronoClassics" />
   <meta property="og:url"         content="https://chrono-classics.com/about.html" />
   <meta property="og:title"       content="About — ChronoClassics" />
   <meta property="og:description" content="Built from a lifelong passion for exceptional timepieces. The story behind ChronoClassics." />
@@ -298,6 +299,11 @@
   </script>
 </head>
 <body class="about-page">
+<noscript>
+  <div class="noscript-banner">
+    JavaScript is disabled. The serial lookup tool requires JavaScript — please enable it or <a href="tel:+19174801080">call us</a>.
+  </div>
+</noscript>
 
   <!-- Top bar -->
   <header class="about-topbar">
@@ -429,6 +435,23 @@
     <script>document.getElementById('footerYear').textContent = new Date().getFullYear();</script>
     <p style="margin:1rem 0 0;font-size:0.65rem;color:rgba(0,0,0,0.3);max-width:52rem;margin-left:auto;margin-right:auto;line-height:1.5;">ChronoClassics is an independent pre-owned watch dealer and is not sponsored by, associated with, or affiliated with Rolex S.A., Rolex USA, Cartier S.A., OMEGA S.A or any other brand listed on its website. All brand names, model names, and reference numbers are the trademarks of their respective manufacturers and are used solely for identification purposes.</p>
   </footer>
+
+<button class="scroll-top-btn" id="scrollTopBtn" type="button" aria-label="Scroll to top">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+<script>
+  (function () {
+    var btn = document.getElementById('scrollTopBtn');
+    if (!btn) return;
+    window.addEventListener('scroll', function () {
+      if (window.pageYOffset > 400) btn.classList.add('is-visible');
+      else btn.classList.remove('is-visible');
+    }, { passive: true });
+    btn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  })();
+</script>
 
 </body>
 </html>
