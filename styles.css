@@ -510,6 +510,12 @@ a:hover {
   color: #999;
 }
 
+/* Desktop — slightly wider header search */
+@media (min-width: 1025px) {
+  .header-search__input { width: 250px; }
+  .header-search__input:focus { width: 290px; }
+}
+
 /* ── Autosuggest dropdown ────────────────────────────────────────── */
 .search-suggest {
   position: absolute;
@@ -627,6 +633,14 @@ a:hover {
     padding-top: 0.5rem;
     border-top: 1px solid var(--header-border);
     width: 100%;
+  }
+}
+
+/* Desktop — slightly tighter header height (logo & text sizes unchanged) */
+@media (min-width: 1025px) {
+  .site-header__grid {
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
   }
 }
 
@@ -872,7 +886,7 @@ a:hover {
 .section {
   max-width: var(--max-content);
   margin: 0 auto;
-  padding: clamp(2.25rem, 5vw, 3.5rem) var(--space-md);
+  padding: clamp(2.75rem, 5.5vw, 4.25rem) var(--space-md);
 }
 
 .section__head {
