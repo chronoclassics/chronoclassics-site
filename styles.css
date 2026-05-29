@@ -1484,31 +1484,6 @@ main {
   padding: 0.65rem 1.25rem;
 }
 
-.watch-card__timeleft {
-  position: absolute;
-  bottom: 0.6rem;
-  left: 0.6rem;
-  background: rgba(0,0,0,0.65);
-  color: #fff;
-  font-family: var(--font-ui);
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 0.25rem 0.55rem;
-  border-radius: 999px;
-}
-
-.watch-card__title-link {
-  color: inherit;
-  text-decoration: none;
-}
-
-.watch-card__title-link:hover {
-  color: var(--accent-gold);
-  text-decoration: underline;
-}
-
 .listings__note {
   font-size: 0.85rem;
   color: var(--text-muted);
@@ -1691,37 +1666,11 @@ main {
   transform: scale(1.06);
 }
 
-.watch-card__badge {
-  position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  font-family: var(--font-ui);
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 0.25rem 0.65rem;
-  border-radius: 999px;
-}
-
-.watch-card__badge--mint     { background: #e8f5e9; color: #2e7d32; }
-.watch-card__badge--excellent { background: #e3f2fd; color: #1565c0; }
-.watch-card__badge--good      { background: #fff8e1; color: #b45309; }
-
 .watch-card__body {
   padding: 1rem;
   flex: 1;
   display: flex;
   flex-direction: column;
-}
-
-.watch-card__brand {
-  font-family: var(--font-ui);
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--accent-gold);
 }
 
 .watch-card__model {
@@ -1761,39 +1710,6 @@ main {
   overflow: hidden;
 }
 
-.watch-card__specs {
-  margin: 0 0 0.2rem;
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-.watch-card__condition {
-  position: absolute;
-  bottom: 0.55rem;
-  left: 0.55rem;
-  z-index: 2;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-}
-.watch-card__cond-pill {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.2rem 0.65rem;
-  border-radius: 100px;
-  font-family: var(--font-ui);
-  font-size: 0.58rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  border: 1px solid rgba(166,139,58,0.45);
-  color: var(--accent-gold);
-  background: rgba(255,255,255,0.88);
-  white-space: nowrap;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-}
-
 .watch-card__footer {
   display: flex;
   align-items: baseline;
@@ -1820,11 +1736,6 @@ main {
   text-align: right;
   line-height: 1.35;
   font-style: italic;
-}
-
-.watch-card__actions {
-  display: flex;
-  gap: 0.5rem;
 }
 
 .btn--sm {
@@ -2663,30 +2574,12 @@ main {
     padding: 0.65rem;
   }
 
-  .watch-card__brand {
-    font-size: 0.6rem;
-  }
-
   .watch-card__model {
     font-size: 0.78rem;
   }
 
   .watch-card__price {
     font-size: 0.95rem;
-  }
-
-  .watch-card__meta {
-    font-size: 0.7rem;
-  }
-
-  .watch-card__actions {
-    gap: 0.35rem;
-  }
-
-  .wc-btn {
-    font-size: 0.7rem;
-    padding: 0.45rem 0.4rem;
-    letter-spacing: 0.04em;
   }
 }
 
@@ -3231,7 +3124,7 @@ main {
   display: flex;
   gap: 1rem;
   width: max-content;
-  animation: marquee-scroll 32s linear infinite;
+  animation: marquee-scroll 64s linear infinite;
 }
 
 .reviews-marquee__track:hover {
@@ -3283,6 +3176,18 @@ main {
   text-transform: uppercase;
   color: var(--text-muted);
   margin: 0;
+}
+
+.review-card__author--google {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.review-card__gicon {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
 }
 
 @media (max-width: 768px) {

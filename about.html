@@ -35,45 +35,6 @@
       flex-direction: column;
       background: #fff;
     }
-    .about-topbar {
-      background: #fff;
-      border-bottom: 1px solid var(--card-border);
-      padding: 0 var(--space-md);
-      height: 56px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .about-topbar__logo {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      text-decoration: none;
-      font-family: var(--font-display);
-      font-size: 1.15rem;
-      font-weight: 600;
-      color: var(--header-text);
-      letter-spacing: 0.02em;
-    }
-    .about-topbar__logo img {
-      height: 36px;
-      width: auto;
-    }
-    .about-topbar__back {
-      font-family: var(--font-ui);
-      font-size: 0.82rem;
-      font-weight: 500;
-      color: var(--text-muted);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      transition: color 0.2s;
-    }
-    .about-topbar__back:hover { color: var(--accent-gold); }
 
     /* Hero */
     .about-hero {
@@ -301,19 +262,31 @@
 <body class="about-page">
 <noscript>
   <div class="noscript-banner">
-    JavaScript is disabled. The serial lookup tool requires JavaScript — please enable it or <a href="tel:+19174801080">call us</a>.
+    JavaScript is disabled. Some features won't work — please enable JavaScript or <a href="tel:+19174801080">call us</a> directly.
   </div>
 </noscript>
 
-  <!-- Top bar -->
-  <header class="about-topbar">
-    <a href="/" class="about-topbar__logo">
-      <img src="assets/new-logo.png" alt="ChronoClassics" width="400" height="307" decoding="async" />
-    </a>
-    <a href="/" class="about-topbar__back">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
-      Back to home
-    </a>
+  <!-- Header — same as blog pages for consistency -->
+  <header class="site-header">
+    <div class="site-header__grid">
+      <div class="site-header__left">
+        <nav class="site-nav" aria-label="Primary">
+          <a href="/#listings">Luxury Watches</a>
+          <a href="/#sell">Sell Your Watch</a>
+          <a href="/blog/">Buying Guides</a>
+        </nav>
+      </div>
+      <a class="brand" href="/">
+        <img class="brand__logo" src="assets/new-logo.png" alt="" width="400" height="307" decoding="async" />
+        <span class="brand__text">
+          <span class="brand__name">ChronoClassics</span>
+          <span class="brand__tag">Luxury Timepieces</span>
+        </span>
+      </a>
+      <div class="site-header__right">
+        <a class="btn btn--primary" href="/#listings" style="font-size:0.7rem;padding:0.6rem 1rem;">Browse Watches</a>
+      </div>
+    </div>
   </header>
 
   <!-- Hero -->
