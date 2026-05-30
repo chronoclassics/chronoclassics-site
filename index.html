@@ -785,7 +785,23 @@
       </div>
     </section>
 
-    <!-- Divider -->
+    <!-- Divider — self-drawing watch line-art (#9) -->
+    <div class="watch-divider" aria-hidden="true">
+      <span class="wd-line wd-line--l"></span>
+      <svg class="watch-divider__svg" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+        <circle class="wd-path" style="--i:0" pathLength="1" cx="50" cy="50" r="34"/>
+        <circle class="wd-path" style="--i:1" pathLength="1" cx="50" cy="50" r="28"/>
+        <line class="wd-path" style="--i:2" pathLength="1" x1="50" y1="22.5" x2="50" y2="26.5"/>
+        <line class="wd-path" style="--i:2" pathLength="1" x1="50" y1="73.5" x2="50" y2="77.5"/>
+        <line class="wd-path" style="--i:2" pathLength="1" x1="73.5" y1="50" x2="77.5" y2="50"/>
+        <line class="wd-path" style="--i:2" pathLength="1" x1="22.5" y1="50" x2="26.5" y2="50"/>
+        <line class="wd-path" style="--i:3" pathLength="1" x1="50" y1="50" x2="70" y2="38"/>
+        <line class="wd-path" style="--i:3" pathLength="1" x1="50" y1="50" x2="38" y2="42"/>
+        <line class="wd-path" style="--i:4" pathLength="1" x1="84" y1="50" x2="88.5" y2="50"/>
+        <circle class="wd-path" style="--i:4" pathLength="1" cx="50" cy="50" r="2"/>
+      </svg>
+      <span class="wd-line wd-line--r"></span>
+    </div>
 
     <!-- Buying Guides -->
     <section class="guides-section" id="guides" aria-labelledby="guides-heading">
@@ -946,7 +962,7 @@
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
               Submit your details and receive a fair, no-obligation offer — usually within the hour.
             </div>
-            <form class="sell-form" name="sell-watch" method="POST" enctype="multipart/form-data" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you.html">
+            <form class="sell-form" name="sell-watch" method="POST" enctype="multipart/form-data" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you.html" novalidate>
               <input type="hidden" name="form-name" value="sell-watch" />
               <input type="text" name="bot-field" class="sell-form__hidden" />
 
@@ -1219,6 +1235,83 @@
   <div class="page-transition-overlay" id="pageTransitionOverlay" aria-hidden="true"></div>
 
   <script>
+  // ── Inline form validation (shared) ───────────────────────────────
+  var CCForms = (function () {
+    function emailValid(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+    function fieldError(field) {
+      var val = (field.value || '').trim();
+      if (field.hasAttribute('required') && !val) return 'This field is required.';
+      if (field.type === 'email' && val && !emailValid(val)) return 'Please enter a valid email address.';
+      return '';
+    }
+
+    function ensureMsgEl(field) {
+      var next = field.nextElementSibling;
+      if (next && next.classList && next.classList.contains('field-error')) return next;
+      var el = document.createElement('p');
+      el.className = 'field-error';
+      el.setAttribute('aria-live', 'polite');
+      field.insertAdjacentElement('afterend', el);
+      return el;
+    }
+
+    function showError(field, msg) {
+      var el = ensureMsgEl(field);
+      el.textContent = msg;
+      el.classList.add('is-visible');
+      field.setAttribute('aria-invalid', 'true');
+      field.classList.add('input-invalid');
+    }
+
+    function clearError(field) {
+      field.removeAttribute('aria-invalid');
+      field.classList.remove('input-invalid');
+      var next = field.nextElementSibling;
+      if (next && next.classList && next.classList.contains('field-error')) {
+        next.textContent = '';
+        next.classList.remove('is-visible');
+      }
+    }
+
+    function validateField(field) {
+      var msg = fieldError(field);
+      if (msg) { showError(field, msg); return false; }
+      clearError(field);
+      return true;
+    }
+
+    function fieldsOf(form) {
+      return Array.prototype.slice.call(
+        form.querySelectorAll('input[required], textarea[required], input[type="email"]')
+      );
+    }
+
+    function validateForm(form) {
+      var ok = true, firstBad = null;
+      fieldsOf(form).forEach(function (f) {
+        if (!validateField(f)) { ok = false; if (!firstBad) firstBad = f; }
+      });
+      if (firstBad) { try { firstBad.focus(); } catch (e) {} }
+      return ok;
+    }
+
+    function attach(form) {
+      if (!form) return;
+      fieldsOf(form).forEach(function (f) {
+        f.addEventListener('blur', function () { validateField(f); });
+        f.addEventListener('input', function () {
+          if (f.getAttribute('aria-invalid') === 'true') validateField(f);
+        });
+      });
+    }
+
+    return { validateForm: validateForm, attach: attach };
+  })();
+
+  // Enable inline validation on the sell form (newsletter handled in its own block)
+  CCForms.attach(document.querySelector('.sell-form'));
+
   // ── Filter toggle (mobile) ────────────────────────────────────────
   (function () {
     var toggle = document.getElementById('filterToggle');
@@ -1257,11 +1350,12 @@
     if (!form) return;
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+      try { if (window.CCForms && !CCForms.validateForm(form)) return; } catch (_) {}
       var btn     = form.querySelector('.sell-form__submit');
       var mode    = (form.querySelector('input[name="purpose"]:checked') || {}).value || 'sell';
       var restore = mode === 'source' ? 'Submit Request →' : 'Get My Offer →';
       btn.disabled = true;
-      btn.textContent = 'Sending…';
+      btn.innerHTML = '<span class="btn-spinner" aria-hidden="true"></span>Sending…';
       if (success) success.hidden = true;
       if (error)   error.hidden   = true;
       fetch(form.action, {
@@ -2080,6 +2174,25 @@
     });
   })();
 
+  // ── Self-drawing watch divider (#9) ───────────────────────────────
+  (function () {
+    var els = document.querySelectorAll('.watch-divider');
+    if (!els.length) return;
+    if (!('IntersectionObserver' in window)) {
+      Array.prototype.forEach.call(els, function (el) { el.classList.add('is-visible'); });
+      return;
+    }
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.35 });
+    Array.prototype.forEach.call(els, function (el) { obs.observe(el); });
+  })();
+
   // ── Active nav link on scroll ─────────────────────────────────────
   (function () {
     if (!('IntersectionObserver' in window)) return;
@@ -2427,11 +2540,19 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var email = input.value.trim();
-      if (!email) return;
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        input.setAttribute('aria-invalid', 'true');
+        input.classList.add('input-invalid');
+        setStatus(email ? 'Please enter a valid email address.' : 'Please enter your email address.', true);
+        try { input.focus(); } catch (e2) {}
+        return;
+      }
+      input.removeAttribute('aria-invalid');
+      input.classList.remove('input-invalid');
 
       var btn = form.querySelector('.newsletter-form__btn');
       btn.disabled    = true;
-      btn.textContent = 'Subscribing…';
+      btn.innerHTML   = '<span class="btn-spinner" aria-hidden="true"></span>Subscribing…';
       status.hidden   = true;
 
       fetch('/api/subscribe', {
@@ -2455,6 +2576,19 @@
           btn.innerHTML = 'Notify Me <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
           setStatus('Network error. Please try again.', true);
         });
+    });
+
+    input.addEventListener('blur', function () {
+      var v = input.value.trim();
+      if (v && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
+        input.setAttribute('aria-invalid', 'true');
+        input.classList.add('input-invalid');
+        setStatus('Please enter a valid email address.', true);
+      } else {
+        input.removeAttribute('aria-invalid');
+        input.classList.remove('input-invalid');
+        if (status.classList.contains('newsletter-form__status--error')) status.hidden = true;
+      }
     });
   })();
 
