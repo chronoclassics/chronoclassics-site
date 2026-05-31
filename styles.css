@@ -5858,7 +5858,6 @@ main {
 }
 
 /* ── Guilloché (engine-turned) texture — dark sections (#3) ───────── */
-.editorial-break__content-col,
 .sell-section,
 .site-footer {
   background-image:
@@ -5982,4 +5981,16 @@ main {
 }
 @media (prefers-reduced-motion: reduce) {
   .editorial-break__gear { animation: none; }
+}
+
+/* Desktop only — anchor both gears to the column center with fixed offsets so they mesh at any width (mobile ≤768px untouched) */
+@media (min-width: 769px) {
+  .editorial-break__gear--lg {
+    top: calc(50% - 7rem);
+    right: -1rem;
+  }
+  .editorial-break__gear--sm {
+    top: calc(50% + 2.4rem);
+    right: 7.9rem;
+  }
 }
