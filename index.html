@@ -567,6 +567,48 @@
         />
       </div>
       <div class="editorial-break__content-col reveal">
+        <svg class="editorial-break__gear editorial-break__gear--lg" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" aria-hidden="true">
+          <circle cx="50" cy="50" r="40"/>
+          <circle cx="50" cy="50" r="34"/>
+          <line x1="50" y1="10" x2="50" y2="6"/>
+          <line x1="70" y1="15.4" x2="72" y2="11.9"/>
+          <line x1="84.6" y1="30" x2="88.1" y2="28"/>
+          <line x1="90" y1="50" x2="94" y2="50"/>
+          <line x1="84.6" y1="70" x2="88.1" y2="72"/>
+          <line x1="70" y1="84.6" x2="72" y2="88.1"/>
+          <line x1="50" y1="90" x2="50" y2="94"/>
+          <line x1="30" y1="84.6" x2="28" y2="88.1"/>
+          <line x1="15.4" y1="70" x2="11.9" y2="72"/>
+          <line x1="10" y1="50" x2="6" y2="50"/>
+          <line x1="15.4" y1="30" x2="11.9" y2="28"/>
+          <line x1="30" y1="15.4" x2="28" y2="11.9"/>
+          <line x1="50" y1="16" x2="50" y2="84"/>
+          <line x1="79.4" y1="33" x2="20.6" y2="67"/>
+          <line x1="79.4" y1="67" x2="20.6" y2="33"/>
+          <circle cx="50" cy="50" r="9"/>
+          <circle cx="50" cy="50" r="3"/>
+        </svg>
+        <svg class="editorial-break__gear editorial-break__gear--sm" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
+          <circle cx="50" cy="50" r="40"/>
+          <circle cx="50" cy="50" r="34"/>
+          <line x1="50" y1="10" x2="50" y2="6"/>
+          <line x1="70" y1="15.4" x2="72" y2="11.9"/>
+          <line x1="84.6" y1="30" x2="88.1" y2="28"/>
+          <line x1="90" y1="50" x2="94" y2="50"/>
+          <line x1="84.6" y1="70" x2="88.1" y2="72"/>
+          <line x1="70" y1="84.6" x2="72" y2="88.1"/>
+          <line x1="50" y1="90" x2="50" y2="94"/>
+          <line x1="30" y1="84.6" x2="28" y2="88.1"/>
+          <line x1="15.4" y1="70" x2="11.9" y2="72"/>
+          <line x1="10" y1="50" x2="6" y2="50"/>
+          <line x1="15.4" y1="30" x2="11.9" y2="28"/>
+          <line x1="30" y1="15.4" x2="28" y2="11.9"/>
+          <line x1="50" y1="16" x2="50" y2="84"/>
+          <line x1="79.4" y1="33" x2="20.6" y2="67"/>
+          <line x1="79.4" y1="67" x2="20.6" y2="33"/>
+          <circle cx="50" cy="50" r="9"/>
+          <circle cx="50" cy="50" r="3"/>
+        </svg>
         <p class="editorial-break__eyebrow">Why ChronoClassics</p>
         <h2 class="editorial-break__heading">Rare pieces.<br>Personal service.</h2>
         <p class="editorial-break__sub">Every timepiece we list has been personally handled and authenticated. No warehouses. No shortcuts — just a team of collectors who care as much about horology as you do.</p>
@@ -1168,6 +1210,24 @@
         </div>
       </div>
     </section>
+
+    <!-- Divider — self-drawing watch line-art (above footer) -->
+    <div class="watch-divider" aria-hidden="true">
+      <span class="wd-line wd-line--l"></span>
+      <svg class="watch-divider__svg" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+        <circle class="wd-path" style="--i:0" pathLength="1" cx="50" cy="50" r="34"/>
+        <circle class="wd-path" style="--i:1" pathLength="1" cx="50" cy="50" r="28"/>
+        <line class="wd-path" style="--i:2" pathLength="1" x1="50" y1="22.5" x2="50" y2="26.5"/>
+        <line class="wd-path" style="--i:2" pathLength="1" x1="50" y1="73.5" x2="50" y2="77.5"/>
+        <line class="wd-path" style="--i:2" pathLength="1" x1="73.5" y1="50" x2="77.5" y2="50"/>
+        <line class="wd-path" style="--i:2" pathLength="1" x1="22.5" y1="50" x2="26.5" y2="50"/>
+        <line class="wd-path" style="--i:3" pathLength="1" x1="50" y1="50" x2="70" y2="38"/>
+        <line class="wd-path" style="--i:3" pathLength="1" x1="50" y1="50" x2="38" y2="42"/>
+        <line class="wd-path" style="--i:4" pathLength="1" x1="84" y1="50" x2="88.5" y2="50"/>
+        <circle class="wd-path" style="--i:4" pathLength="1" cx="50" cy="50" r="2"/>
+      </svg>
+      <span class="wd-line wd-line--r"></span>
+    </div>
 
   </main>
 
@@ -2191,6 +2251,24 @@
       });
     }, { threshold: 0.35 });
     Array.prototype.forEach.call(els, function (el) { obs.observe(el); });
+  })();
+
+  // ── One-time light-catch glint on section titles ──────────────────
+  (function () {
+    if (!('IntersectionObserver' in window)) return;
+    var sel = '.section__title, .listings-hero__title, .reviews-title, .sold-title, .policy-title, .location-title';
+    var heads = document.querySelectorAll(sel);
+    if (!heads.length) return;
+    Array.prototype.forEach.call(heads, function (h) { h.classList.add('shine-on-view'); });
+    var glintObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-shined');
+          glintObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.6 });
+    Array.prototype.forEach.call(heads, function (h) { glintObs.observe(h); });
   })();
 
   // ── Active nav link on scroll ─────────────────────────────────────

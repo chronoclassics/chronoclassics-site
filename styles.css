@@ -639,8 +639,8 @@ a:hover {
 /* Desktop — slightly tighter header height (logo & text sizes unchanged) */
 @media (min-width: 1025px) {
   .site-header__grid {
-    padding-top: 0.2rem;
-    padding-bottom: 0.2rem;
+    padding-top: 0.05rem;
+    padding-bottom: 0.05rem;
   }
 }
 
@@ -1967,7 +1967,6 @@ main {
 .location-section {
   background: var(--card-bg);
   border-top: 1px solid var(--accent-gold);
-  border-bottom: 1px solid var(--accent-gold);
 }
 
 .location-section__inner {
@@ -5860,6 +5859,7 @@ main {
 
 /* ── Guilloché (engine-turned) texture — dark sections (#3) ───────── */
 .editorial-break__content-col,
+.sell-section,
 .site-footer {
   background-image:
     repeating-linear-gradient(45deg,  rgba(212, 185, 106, 0.06) 0, rgba(212, 185, 106, 0.06) 1px, transparent 1px, transparent 9px),
@@ -5869,12 +5869,12 @@ main {
 /* ── Self-drawing watch line-art divider (#9) ─────────────────────── */
 .watch-divider {
   display: flex;
+  width: 100%;
   align-items: center;
   justify-content: center;
   gap: 1.25rem;
-  max-width: 26rem;
-  margin: 1.75rem auto 0.5rem;
-  padding: 0 var(--space-md);
+  padding: 2rem var(--space-md);
+  background: #fff;
   color: var(--accent-gold);
 }
 .watch-divider__svg { width: 58px; height: 58px; flex: 0 0 auto; }
@@ -5897,4 +5897,89 @@ main {
 @media (prefers-reduced-motion: reduce) {
   .wd-path { stroke-dashoffset: 0; animation: none; }
   .wd-line { transform: none; transition: none; }
+}
+
+/* ── Metallic gold foil accents (#5) ──────────────────────────────── */
+:root {
+  --gold-foil: linear-gradient(135deg, #8a6d23 0%, #e2c878 40%, #a6852f 62%, #d8bd72 84%, #856726 100%);
+  --gold-foil-text: linear-gradient(105deg, #8f7a35 0%, #c6a857 48%, #94803a 100%);
+}
+.eyebrow,
+.ebay-store-banner__eyebrow,
+.newsletter-eyebrow,
+.location-eyebrow,
+.editorial-break__eyebrow,
+.sold-eyebrow,
+.sell-eyebrow,
+.policy-eyebrow,
+.guides-eyebrow,
+.serial-eyebrow,
+.serial-widget__eyebrow,
+.about-hero__eyebrow,
+.about-section__heading {
+  background-image: var(--gold-foil-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── One-time "light-catch" glint on section titles (scroll-in) ───── */
+.shine-on-view {
+  background-image: linear-gradient(110deg, currentColor 35%, #fdf0c4 50%, currentColor 65%);
+  background-size: 300% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.shine-on-view.is-shined {
+  animation: heading-glint 1.2s ease-out 0.15s forwards;
+}
+@keyframes heading-glint {
+  from { background-position: 100% 0; }
+  to   { background-position: 0% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shine-on-view { background-image: none; -webkit-text-fill-color: currentColor; }
+  .shine-on-view.is-shined { animation: none; }
+}
+
+/* ── Slow-rotating movement gear — editorial band (faint accent) ──── */
+.editorial-break__content-col {
+  position: relative;
+  overflow: hidden;
+}
+.editorial-break__content-col > :not(.editorial-break__gear) {
+  position: relative;
+  z-index: 1;
+}
+.editorial-break__gear {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  color: rgba(212, 185, 106, 0.11);
+}
+.editorial-break__gear--lg {
+  top: 12%;
+  right: -3rem;
+  width: 225px;
+  height: 225px;
+  animation: gear-spin 55s linear infinite;
+}
+.editorial-break__gear--sm {
+  top: 44%;
+  right: 7.5rem;
+  width: 135px;
+  height: 135px;
+  color: rgba(212, 185, 106, 0.13);
+  animation: gear-spin-rev 38s linear infinite;
+}
+@keyframes gear-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes gear-spin-rev {
+  to { transform: rotate(-360deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .editorial-break__gear { animation: none; }
 }
