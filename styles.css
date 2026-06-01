@@ -248,13 +248,16 @@ a:hover {
   border-bottom-color: rgba(166,139,58,0.3);
 }
 
-/* Frosted glass once scrolled — content softly blurs beneath the bar.
+/* Frosted glass once scrolled — desktop only (≥769px).
+   Mobile keeps the solid header (frosted glass looks off on small screens).
    Wrapped in @supports so browsers without backdrop-filter keep the solid header. */
-@supports ((-webkit-backdrop-filter: blur(2px)) or (backdrop-filter: blur(2px))) {
-  .site-header.scrolled {
-    background: rgba(255, 255, 255, 0.72);
-    -webkit-backdrop-filter: blur(14px) saturate(140%);
-    backdrop-filter: blur(14px) saturate(140%);
+@media (min-width: 769px) {
+  @supports ((-webkit-backdrop-filter: blur(2px)) or (backdrop-filter: blur(2px))) {
+    .site-header.scrolled {
+      background: rgba(255, 255, 255, 0.72);
+      -webkit-backdrop-filter: blur(14px) saturate(140%);
+      backdrop-filter: blur(14px) saturate(140%);
+    }
   }
 }
 
