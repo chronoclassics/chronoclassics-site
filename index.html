@@ -1580,6 +1580,27 @@
     }, { passive: true });
   })();
 
+  // ── Smooth anchor scroll with sticky-header offset ─────────────────
+  // Intercepts every same-page #hash link and replaces the instant jump
+  // with a smooth scroll that clears the header by offsetHeight + 16px.
+  (function () {
+    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('a[href^="#"]');
+      if (!a) return;
+      var hash = a.getAttribute('href');
+      if (!hash || hash === '#') return;
+      var target = document.getElementById(hash.slice(1));
+      if (!target) return;
+      e.preventDefault();
+      var header = document.getElementById('siteHeader');
+      var offset = header ? header.offsetHeight + 16 : 86;
+      var top = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top: Math.max(0, top), behavior: reducedMotion ? 'auto' : 'smooth' });
+      history.pushState(null, '', hash);
+    });
+  })();
+
   // ── Scroll to watch grid (skips serial widget, accounts for sticky header) ──
   function scrollToWatchGrid() {
     var target = document.querySelector('.listings-filters') || document.getElementById('watchGrid');

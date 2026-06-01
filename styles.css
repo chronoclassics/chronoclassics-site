@@ -238,7 +238,7 @@ a:hover {
   background: var(--header-bg);
   border-bottom: 1px solid var(--header-border);
   box-shadow: var(--header-shadow);
-  transition: box-shadow 0.25s ease;
+  transition: box-shadow 0.25s ease, background-color 0.3s ease;
   overflow: visible;
 }
 
@@ -246,6 +246,16 @@ a:hover {
 .site-header.scrolled {
   box-shadow: 0 4px 20px rgba(0,0,0,0.12);
   border-bottom-color: rgba(166,139,58,0.3);
+}
+
+/* Frosted glass once scrolled — content softly blurs beneath the bar.
+   Wrapped in @supports so browsers without backdrop-filter keep the solid header. */
+@supports ((-webkit-backdrop-filter: blur(2px)) or (backdrop-filter: blur(2px))) {
+  .site-header.scrolled {
+    background: rgba(255, 255, 255, 0.72);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    backdrop-filter: blur(14px) saturate(140%);
+  }
 }
 
 .site-header.scrolled .site-header__grid {
@@ -401,7 +411,7 @@ a:hover {
   left: 0;
   width: 0;
   height: 1.5px;
-  background: var(--accent-gold);
+  background: var(--gold-metal);
   transition: width 0.25s ease;
 }
 
@@ -855,7 +865,7 @@ a:hover {
 }
 
 .btn--primary:hover {
-  background: var(--accent-gold);
+  background: var(--gold-metal);
   border-color: var(--accent-gold);
   color: #111;
 }
@@ -879,7 +889,7 @@ a:hover {
 }
 
 .btn--secondary:hover {
-  background: var(--accent-gold);
+  background: var(--gold-metal);
   color: #fff;
 }
 
@@ -1418,7 +1428,7 @@ main {
 }
 
 .ebay-store-banner__btn:hover {
-  background: var(--accent-gold);
+  background: var(--gold-metal);
   border-color: var(--accent-gold);
   color: #fff;
 }
@@ -1918,7 +1928,7 @@ main {
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.4rem;
-  background: var(--accent-gold);
+  background: var(--gold-metal);
   color: #fff;
   border: none;
   border-radius: var(--radius-sm);
@@ -2114,7 +2124,7 @@ main {
 }
 
 .btn--gold {
-  background: var(--accent-gold);
+  background: var(--gold-metal);
   color: #fff;
   border: 2px solid var(--accent-gold);
   white-space: nowrap;
@@ -2366,7 +2376,7 @@ main {
 
   .header-icon-btn--mobile:hover {
     border-color: var(--accent-gold);
-    background: var(--accent-gold);
+    background: var(--gold-metal);
     color: #fff;
   }
 
@@ -2739,7 +2749,7 @@ main {
 }
 
 .lf-pill:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
-.lf-pill.active { background: var(--accent-gold); border-color: var(--accent-gold); color: #fff; }
+.lf-pill.active { background: var(--gold-metal); border-color: var(--accent-gold); color: #fff; }
 
 .lf-price-inputs {
   display: flex;
@@ -2789,7 +2799,7 @@ main {
 
 .lf-apply-btn {
   padding: 0.45rem 1.25rem;
-  background: var(--accent-gold);
+  background: var(--gold-metal);
   color: #fff;
   border: none;
   border-radius: var(--radius-sm);
@@ -3733,7 +3743,7 @@ main {
   height: 26px;
   min-width: 26px; /* prevents shrinking */
   border-radius: 50%;
-  background: var(--accent-gold);
+  background: var(--gold-metal);
   color: #fff;
   font-family: var(--font-ui);
   font-size: 0.72rem;
@@ -4411,7 +4421,7 @@ main {
 }
 
 .empty-state__contact:hover {
-  background: var(--accent-gold);
+  background: var(--gold-metal);
   color: #fff;
 }
 
@@ -4613,7 +4623,7 @@ main {
 }
 
 .policy-cta__btn:hover {
-  background: var(--accent-gold);
+  background: var(--gold-metal);
   color: #fff;
 }
 
@@ -5100,7 +5110,7 @@ main {
   }
   .sticky-cta__btn:active { opacity: 0.8; }
   .sticky-cta__btn--primary {
-    background: var(--accent-gold);
+    background: var(--gold-metal);
     color: #fff;
   }
   .sticky-cta__btn--ghost {
@@ -5189,7 +5199,7 @@ main {
   height: 42px;
   border-radius: 50%;
   border: none;
-  background: var(--accent-gold);
+  background: var(--gold-metal);
   color: #fff;
   display: inline-flex;
   align-items: center;
@@ -5725,7 +5735,7 @@ main {
 .serial-widget__btn {
   flex-shrink: 0;
   padding: 0.75rem 1.4rem;
-  background: var(--accent-gold);
+  background: var(--gold-metal);
   color: #fff;
   border: none;
   font-family: var(--font-ui);
@@ -5902,6 +5912,7 @@ main {
 :root {
   --gold-foil: linear-gradient(135deg, #8a6d23 0%, #e2c878 40%, #a6852f 62%, #d8bd72 84%, #856726 100%);
   --gold-foil-text: linear-gradient(105deg, #8f7a35 0%, #c6a857 48%, #94803a 100%);
+  --gold-metal: linear-gradient(135deg, var(--accent-gold) 0%, #c8a84b 50%, var(--accent-gold) 100%);
 }
 .eyebrow,
 .ebay-store-banner__eyebrow,
@@ -5993,4 +6004,10 @@ main {
     top: calc(50% + 2.4rem);
     right: 7.9rem;
   }
+}
+
+/* Mobile only — shift both gears left so the large one isn't clipped (desktop ≥769px untouched) */
+@media (max-width: 768px) {
+  .editorial-break__gear--lg { right: -1rem; }
+  .editorial-break__gear--sm { right: 9.5rem; }
 }
