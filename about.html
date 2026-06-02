@@ -185,6 +185,50 @@
       border-top: 1px solid var(--card-border);
     }
 
+    /* Pullquote */
+    .about-pullquote {
+      margin: 2.5rem 0;
+      padding: 2rem 2rem 2rem 2.5rem;
+      border-left: 3px solid var(--accent-gold);
+      background: #f9f7f3;
+      border-radius: 0 12px 12px 0;
+    }
+    .about-pullquote__mark {
+      font-family: var(--font-display);
+      font-size: 5rem;
+      line-height: 0.6;
+      color: var(--accent-gold);
+      opacity: 0.35;
+      display: block;
+      margin-bottom: 0.75rem;
+      user-select: none;
+    }
+    .about-pullquote p {
+      font-family: var(--font-display);
+      font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+      font-style: italic;
+      color: var(--header-text);
+      line-height: 1.6;
+      margin: 0;
+      border: none;
+    }
+
+    /* Metallic stat numbers */
+    .about-stat__num {
+      background: linear-gradient(135deg, var(--accent-gold) 0%, #c8a84b 50%, var(--accent-gold) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* Guilloche texture on hero */
+    .about-hero {
+      background-image:
+        repeating-linear-gradient(45deg,  rgba(212,185,106,0.07) 0, rgba(212,185,106,0.07) 1px, transparent 1px, transparent 8px),
+        repeating-linear-gradient(-45deg, rgba(212,185,106,0.07) 0, rgba(212,185,106,0.07) 1px, transparent 1px, transparent 8px),
+        linear-gradient(135deg, #0d0d0d 0%, #1a1510 100%);
+    }
+
     /* Auth steps */
     .about-auth {
       display: flex;
@@ -310,6 +354,11 @@
     <p>
       ChronoClassics was founded because I wanted to do something I love, and do it with integrity. I've spent years studying movements, tracking market values, and building relationships deep in New York's collector community. Every watch I acquire is evaluated personally. Every watch I sell, I stand behind completely.
     </p>
+
+    <blockquote class="about-pullquote">
+      <span class="about-pullquote__mark" aria-hidden="true">"</span>
+      <p>What started as a passion became an obsession, and eventually, a business I'm genuinely proud of.</p>
+    </blockquote>
 
     <!-- Stats -->
     <div class="about-stats">

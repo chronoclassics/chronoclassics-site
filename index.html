@@ -1020,28 +1020,39 @@
                 </label>
               </div>
 
-              <div class="sell-form__group">
+              <div class="sell-form__group sell-form__group--float">
+                <input class="sell-form__input" id="sell-name" name="name" type="text" placeholder=" " required />
                 <label class="sell-form__label" for="sell-name">Your Name</label>
-                <input class="sell-form__input" id="sell-name" name="name" type="text" required />
               </div>
               <div class="sell-form__row">
-                <div class="sell-form__group">
+                <div class="sell-form__group sell-form__group--float">
+                  <input class="sell-form__input" id="sell-email" name="email" type="email" placeholder=" " required />
                   <label class="sell-form__label" for="sell-email">Email Address</label>
-                  <input class="sell-form__input" id="sell-email" name="email" type="email" required />
                 </div>
-                <div class="sell-form__group">
+                <div class="sell-form__group sell-form__group--float">
+                  <input class="sell-form__input" id="sell-phone" name="phone" type="tel" inputmode="tel" placeholder=" " />
                   <label class="sell-form__label" for="sell-phone">Phone (optional)</label>
-                  <input class="sell-form__input" id="sell-phone" name="phone" type="tel" placeholder="e.g. 917-555-0100" />
                 </div>
               </div>
               <div class="sell-form__row">
-                <div class="sell-form__group">
+                <div class="sell-form__group sell-form__group--float">
+                  <input class="sell-form__input" id="sell-brand" name="brand" type="text" placeholder=" " required
+                    list="sell-brand-list" autocomplete="off" />
                   <label class="sell-form__label" for="sell-brand">Watch Brand</label>
-                  <input class="sell-form__input" id="sell-brand" name="brand" type="text" required />
+                  <datalist id="sell-brand-list">
+                    <option value="Rolex"><option value="Cartier"><option value="Omega">
+                    <option value="Patek Philippe"><option value="Audemars Piguet"><option value="IWC">
+                    <option value="Breitling"><option value="Tudor"><option value="TAG Heuer">
+                    <option value="Panerai"><option value="Jaeger-LeCoultre"><option value="Chopard">
+                    <option value="Vacheron Constantin"><option value="A. Lange & Söhne">
+                    <option value="Blancpain"><option value="Hublot"><option value="Richard Mille">
+                    <option value="Grand Seiko"><option value="Longines"><option value="Zenith">
+                    <option value="F.P. Journe"><option value="Ulysse Nardin"><option value="Girard-Perregaux">
+                  </datalist>
                 </div>
-                <div class="sell-form__group">
+                <div class="sell-form__group sell-form__group--float">
+                  <input class="sell-form__input" id="sell-model" name="model" type="text" placeholder=" " required />
                   <label class="sell-form__label" for="sell-model">Model / Reference</label>
-                  <input class="sell-form__input" id="sell-model" name="model" type="text" required />
                 </div>
               </div>
               <div class="sell-form__row">
@@ -1601,6 +1612,25 @@
     });
   })();
 
+  // ── Native share button on watch cards (mobile Web Share API) ──────
+  (function () {
+    if (!navigator.share) return; // unsupported browser — button stays hidden via CSS
+    document.body.classList.add('has-web-share');
+    var grid = document.getElementById('watchGrid');
+    if (!grid) return;
+    grid.addEventListener('click', function (e) {
+      var btn = e.target.closest('.watch-card__share');
+      if (!btn) return;
+      e.preventDefault();
+      e.stopPropagation();
+      var card = btn.closest('.watch-card');
+      if (!card) return;
+      var title = card.getAttribute('aria-label') || 'Luxury watch from ChronoClassics';
+      var url   = card.href || window.location.href;
+      navigator.share({ title: title, text: 'Check out this ' + title, url: url }).catch(function () {});
+    }, true); // capture phase so stopPropagation works before the <a> fires
+  })();
+
   // ── Cursor spotlight on watch listings ─────────────────────────────
   (function () {
     var section = document.querySelector('.listings-section');
@@ -1614,28 +1644,6 @@
       section.style.setProperty('--spotlight-x', '-999px');
       section.style.setProperty('--spotlight-y', '-999px');
     });
-  })();
-
-  // ── Hero content scroll-depth recede ───────────────────────────────
-  // After the reveal transition completes (~900ms), the entire hero
-  // content block scales down (1.0→0.95) and fades (1.0→0.55) as the
-  // user scrolls past it — the page "turns the page" on the hero.
-  (function () {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    var hero    = document.getElementById('hero');
-    var content = document.querySelector('.hero__content');
-    if (!hero || !content) return;
-    // Wait for the reveal transition to settle before taking over transform/opacity
-    setTimeout(function () {
-      content.style.transition = 'none'; // hand off from CSS transition to JS
-      function update() {
-        var progress = Math.min(1, Math.max(0, window.scrollY / hero.offsetHeight));
-        content.style.transform = 'scale(' + (1 - progress * 0.05).toFixed(4) + ')';
-        content.style.opacity   = (1 - progress * 0.45).toFixed(4);
-      }
-      window.addEventListener('scroll', update, { passive: true });
-      update();
-    }, 950);
   })();
 
   // ── Header tagline typewriter on page load ──────────────────────────
@@ -2018,8 +2026,11 @@
     var parsed = parseWatchTitle(title);
     var url    = item.itemWebUrl || '#';
     var cond   = item.condition || '';
+    var shareBtn = '<button class="watch-card__share" aria-label="Share this watch" title="Share this watch" type="button">'
+      + '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>'
+      + '</button>';
     return '<a class="watch-card" href="' + url + '" target="_blank" rel="noopener noreferrer" aria-label="' + title.replace(/"/g,'&quot;') + '">'
-      + (img ? '<div class="watch-card__img-wrap"><img class="watch-card__img" src="' + img + '" alt="' + title.replace(/"/g,'&quot;') + '" width="500" height="500" loading="lazy" decoding="async" /></div>' : '<div class="watch-card__img-wrap"></div>')
+      + (img ? '<div class="watch-card__img-wrap"><img class="watch-card__img" src="' + img + '" alt="' + title.replace(/"/g,'&quot;') + '" width="500" height="500" loading="lazy" decoding="async" />' + shareBtn + '</div>' : '<div class="watch-card__img-wrap">' + shareBtn + '</div>')
       + '<div class="watch-card__body">'
       + '<p class="watch-card__model">' + parsed.model + '</p>'
       + (parsed.ref  ? '<p class="watch-card__ref">'  + parsed.ref  + '</p>' : '')
