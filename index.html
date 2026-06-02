@@ -1601,6 +1601,67 @@
     });
   })();
 
+  // ── Cursor spotlight on watch listings ─────────────────────────────
+  (function () {
+    var section = document.querySelector('.listings-section');
+    if (!section) return;
+    section.addEventListener('mousemove', function (e) {
+      var rect = section.getBoundingClientRect();
+      section.style.setProperty('--spotlight-x', (e.clientX - rect.left) + 'px');
+      section.style.setProperty('--spotlight-y', (e.clientY - rect.top) + 'px');
+    }, { passive: true });
+    section.addEventListener('mouseleave', function () {
+      section.style.setProperty('--spotlight-x', '-999px');
+      section.style.setProperty('--spotlight-y', '-999px');
+    });
+  })();
+
+  // ── Hero content scroll-depth recede ───────────────────────────────
+  // After the reveal transition completes (~900ms), the entire hero
+  // content block scales down (1.0→0.95) and fades (1.0→0.55) as the
+  // user scrolls past it — the page "turns the page" on the hero.
+  (function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var hero    = document.getElementById('hero');
+    var content = document.querySelector('.hero__content');
+    if (!hero || !content) return;
+    // Wait for the reveal transition to settle before taking over transform/opacity
+    setTimeout(function () {
+      content.style.transition = 'none'; // hand off from CSS transition to JS
+      function update() {
+        var progress = Math.min(1, Math.max(0, window.scrollY / hero.offsetHeight));
+        content.style.transform = 'scale(' + (1 - progress * 0.05).toFixed(4) + ')';
+        content.style.opacity   = (1 - progress * 0.45).toFixed(4);
+      }
+      window.addEventListener('scroll', update, { passive: true });
+      update();
+    }, 950);
+  })();
+
+  // ── Header tagline typewriter on page load ──────────────────────────
+  (function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var el = document.querySelector('.brand__tag');
+    if (!el) return;
+    var full = el.textContent.trim();
+    el.textContent = '';
+    var cursor = document.createElement('span');
+    cursor.setAttribute('aria-hidden', 'true');
+    cursor.style.cssText = 'animation:tag-blink 0.65s step-end infinite;margin-left:1px;font-weight:300;';
+    cursor.textContent = '|';
+    el.appendChild(cursor);
+    var i = 0;
+    var t = setInterval(function () {
+      if (i < full.length) {
+        el.insertBefore(document.createTextNode(full[i]), cursor);
+        i++;
+      } else {
+        clearInterval(t);
+        if (cursor.parentNode) cursor.parentNode.removeChild(cursor);
+      }
+    }, 60);
+  })();
+
   // ── Scroll to watch grid (skips serial widget, accounts for sticky header) ──
   function scrollToWatchGrid() {
     var target = document.querySelector('.listings-filters') || document.getElementById('watchGrid');
@@ -2255,7 +2316,7 @@
     });
   })();
 
-  // ── Self-drawing watch divider (#9) ───────────────────────────────
+  // ── Self-drawing watch divider — re-draws on every scroll-into-view ─
   (function () {
     var els = document.querySelectorAll('.watch-divider');
     if (!els.length) return;
@@ -2266,8 +2327,12 @@
     var obs = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
+          // Remove, force reflow, re-add to restart the draw animation
+          entry.target.classList.remove('is-visible');
+          void entry.target.offsetWidth;
           entry.target.classList.add('is-visible');
-          obs.unobserve(entry.target);
+        } else {
+          entry.target.classList.remove('is-visible');
         }
       });
     }, { threshold: 0.35 });
@@ -2277,7 +2342,7 @@
   // ── One-time light-catch glint on section titles ──────────────────
   (function () {
     if (!('IntersectionObserver' in window)) return;
-    var sel = '.section__title, .listings-hero__title, .reviews-title, .sold-title, .policy-title, .location-title';
+    var sel = '.hero__title, .section__title, .listings-hero__title, .reviews-title, .sold-title, .policy-title, .location-title';
     var heads = document.querySelectorAll(sel);
     if (!heads.length) return;
     Array.prototype.forEach.call(heads, function (h) { h.classList.add('shine-on-view'); });
