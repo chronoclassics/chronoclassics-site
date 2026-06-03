@@ -6162,13 +6162,17 @@ main {
   position: fixed;
   bottom: 1.5rem;
   left: 1.5rem;
-  z-index: 500;
+  z-index: 950; /* above sticky-cta (900) and WhatsApp */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 0.5rem;
 }
 .fav-tray[hidden] { display: none !important; }
+@media (max-width: 768px) {
+  /* Lift above the sticky mobile CTA bar (~68px) + safe-area inset */
+  .fav-tray { bottom: calc(5rem + env(safe-area-inset-bottom, 0px)); }
+}
 .fav-tray__toggle {
   width: 52px;
   height: 52px;
