@@ -37,6 +37,14 @@ function extractBrand(title) {
 const STATIC_LISTINGS = [
   {
     brand: 'Rolex',
+    model: 'Cosmograph Daytona · Ref. 116523 Gold & Steel',
+    condition: 'Excellent — Verified Authentic',
+    price: '$18,495',
+    url: 'https://www.ebay.com/itm/800037944526',
+    image: 'https://i.ebayimg.com/images/g/HQUAAeSw6YZqC4NR/s-l500.jpg',
+  },
+  {
+    brand: 'Rolex',
     model: 'ROLEX COSMOGRAPH DAYTONA 116520 White Dial 40mm · Full Set B&P',
     condition: 'Pre-Owned',
     price: '$22,000',

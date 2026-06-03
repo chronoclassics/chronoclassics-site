@@ -6219,7 +6219,6 @@ main {
   border-radius: 14px;
   box-shadow: 0 8px 36px rgba(0,0,0,0.14), 0 0 0 1px rgba(212,175,55,0.18);
   width: 300px;
-  max-height: 420px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -6263,7 +6262,7 @@ main {
   margin: 0;
   padding: 0.4rem 0;
   overflow-y: auto;
-  flex: 1;
+  max-height: 300px;
 }
 .fav-tray__empty {
   padding: 1.5rem 1rem;
