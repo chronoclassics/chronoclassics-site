@@ -3049,14 +3049,20 @@
       });
     }
 
+    // Remove any base items whose URL matches a pinned entry (prevents duplicates)
+    function dedupe(base) {
+      var pinnedUrls = PINNED.map(function(p) { return p.url; }).filter(Boolean);
+      return base.filter(function(item) { return pinnedUrls.indexOf(item.url) === -1; });
+    }
+
     fetch('/api/ebay-sold')
       .then(function (r) { return r.json(); })
       .then(function (data) {
         var items = data.listings;
         var base  = (items && items.length) ? items : FALLBACK;
-        render(PINNED.concat(base));
+        render(PINNED.concat(dedupe(base)));
       })
-      .catch(function () { render(PINNED.concat(FALLBACK)); });
+      .catch(function () { render(PINNED.concat(dedupe(FALLBACK))); });
   })();
 
   // ── Serial Lookup Widget ──────────────────────────────────────
