@@ -3256,27 +3256,38 @@
     }
 
     // ── Render saved list in panel ──
+    function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
     function renderPanel() {
       var favs = load();
+      if (clearBtn) clearBtn.hidden = (favs.length === 0);
       if (favs.length === 0) {
         list.innerHTML = '<li class="fav-tray__empty">No saved watches yet.<br>Tap the heart on any listing to save it.</li>';
-        if (clearBtn) clearBtn.hidden = true;
         return;
       }
-      if (clearBtn) clearBtn.hidden = false;
-      list.innerHTML = favs.map(function (f) {
-        var thumb = f.img ? '<img class="fav-tray__thumb" src="' + f.img + '" alt="" width="48" height="48" loading="lazy" />' : '<div class="fav-tray__thumb fav-tray__thumb--empty"></div>';
-        return '<li class="fav-tray__item" data-fav-id="' + f.id.replace(/"/g,'&quot;') + '">'
-          + '<a class="fav-tray__item-link" href="' + f.url + '" target="_blank" rel="noopener noreferrer">'
+      var html = '';
+      for (var i = 0; i < favs.length; i++) {
+        var f     = favs[i];
+        var fid   = esc(f.id   || '');
+        var ftitle= esc(f.title|| 'Watch');
+        var fprice= esc(f.price|| '');
+        var furl  = esc(f.url  || '#');
+        var thumb = f.img
+          ? '<img class="fav-tray__thumb" src="' + esc(f.img) + '" alt="" width="48" height="48" loading="lazy" />'
+          : '<div class="fav-tray__thumb fav-tray__thumb--empty"></div>';
+        html += '<li class="fav-tray__item">'
+          + '<a class="fav-tray__item-link" href="' + furl + '" target="_blank" rel="noopener noreferrer">'
           + thumb
-          + '<div class="fav-tray__item-info"><span class="fav-tray__item-title">' + f.title + '</span>'
-          + (f.price ? '<span class="fav-tray__item-price">' + f.price + '</span>' : '')
+          + '<div class="fav-tray__item-info">'
+          + '<span class="fav-tray__item-title">' + ftitle + '</span>'
+          + (fprice ? '<span class="fav-tray__item-price">' + fprice + '</span>' : '')
           + '</div></a>'
-          + '<button class="fav-tray__remove" data-fav-id="' + f.id.replace(/"/g,'&quot;') + '" aria-label="Remove" type="button">'
+          + '<button class="fav-tray__remove" data-fav-id="' + fid + '" aria-label="Remove" type="button">'
           + '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
           + '</button>'
           + '</li>';
-      }).join('');
+      }
+      list.innerHTML = html;
     }
 
     // ── Toggle panel open/close ──
