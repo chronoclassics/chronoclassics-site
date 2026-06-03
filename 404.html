@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Page Not Found — ChronoClassics</title>
+  <meta name="description" content="The page you're looking for doesn't exist. Browse our current luxury watch collection." />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .nf-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: var(--page-bg);
+    }
+    .nf-body {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5rem var(--space-md) 4rem;
+    }
+    .nf-card {
+      max-width: 560px;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Animated watch icon */
+    .nf-icon {
+      width: 88px;
+      height: 88px;
+      margin: 0 auto 2.25rem;
+      position: relative;
+    }
+    .nf-icon__dial {
+      width: 88px;
+      height: 88px;
+    }
+    .nf-icon__circle {
+      fill: none;
+      stroke: rgba(212,175,55,0.2);
+      stroke-width: 2;
+    }
+    .nf-icon__ring {
+      fill: none;
+      stroke: var(--accent-gold);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: nf-draw-ring 1s ease-out 0.2s forwards;
+    }
+    .nf-icon__hand-hour {
+      stroke: var(--accent-gold);
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      transform-origin: 44px 44px;
+      animation: nf-spin-hour 12s linear infinite;
+    }
+    .nf-icon__hand-min {
+      stroke: var(--accent-gold);
+      stroke-width: 2;
+      stroke-linecap: round;
+      transform-origin: 44px 44px;
+      animation: nf-spin-min 2s linear infinite;
+    }
+    .nf-icon__dot {
+      fill: var(--accent-gold);
+    }
+    @keyframes nf-draw-ring {
+      to { stroke-dashoffset: 0; }
+    }
+    @keyframes nf-spin-hour {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    @keyframes nf-spin-min {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .nf-icon__ring        { stroke-dashoffset: 0; animation: none; }
+      .nf-icon__hand-hour,
+      .nf-icon__hand-min    { animation: none; }
+    }
+
+    .nf-code {
+      font-family: var(--font-ui);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-bottom: 0.9rem;
+    }
+    .nf-heading {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 5vw, 2.75rem);
+      font-weight: 600;
+      color: var(--header-text);
+      line-height: 1.15;
+      margin-bottom: 1.1rem;
+    }
+    .nf-heading em {
+      font-style: italic;
+      color: var(--accent-gold);
+    }
+    .nf-sub {
+      font-family: var(--font-ui);
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      max-width: 42ch;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .nf-actions {
+      display: flex;
+      gap: 0.9rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+    .nf-divider {
+      border: none;
+      border-top: 1px solid rgba(212,175,55,0.18);
+      margin: 0 0 2rem;
+    }
+    .nf-links {
+      display: flex;
+      gap: 1.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .nf-links a {
+      font-family: var(--font-ui);
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.18s ease;
+    }
+    .nf-links a:hover { color: var(--accent-gold); }
+    .nf-footer {
+      padding: 1.5rem var(--space-md);
+      text-align: center;
+      font-family: var(--font-ui);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--card-border);
+    }
+  </style>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TN8J21XFYQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TN8J21XFYQ');
+  </script>
+</head>
+<body class="nf-page">
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="site-header__grid">
+      <div class="site-header__left">
+        <nav class="site-nav" aria-label="Primary">
+          <a href="/#listings">Luxury Watches</a>
+          <a href="/#sell">Sell Your Watch</a>
+          <a href="/blog/">Buying Guides</a>
+        </nav>
+      </div>
+      <a class="brand" href="/">
+        <img class="brand__logo" src="assets/new-logo.png" alt="" width="400" height="307" decoding="async" />
+        <span class="brand__text">
+          <span class="brand__name">ChronoClassics</span>
+          <span class="brand__tag">Luxury Timepieces</span>
+        </span>
+      </a>
+      <div class="site-header__right">
+        <a class="btn btn--primary" href="/#listings" style="font-size:0.7rem;padding:0.6rem 1rem;">Browse Watches</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="nf-body">
+    <div class="nf-card">
+
+      <!-- Animated watch dial icon -->
+      <div class="nf-icon" aria-hidden="true">
+        <svg class="nf-icon__dial" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Outer ghost ring -->
+          <circle class="nf-icon__circle" cx="44" cy="44" r="40"/>
+          <!-- Drawing ring -->
+          <circle class="nf-icon__ring" cx="44" cy="44" r="40" pathLength="1"
+            stroke-dasharray="0.72 0.28" />
+          <!-- Hour markers -->
+          <line x1="44" y1="8"  x2="44" y2="14" stroke="rgba(212,175,55,0.4)" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="44" y1="74" x2="44" y2="80" stroke="rgba(212,175,55,0.4)" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="8"  y1="44" x2="14" y2="44" stroke="rgba(212,175,55,0.4)" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="74" y1="44" x2="80" y2="44" stroke="rgba(212,175,55,0.4)" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- Hour hand -->
+          <line class="nf-icon__hand-hour" x1="44" y1="44" x2="44" y2="24"/>
+          <!-- Minute hand -->
+          <line class="nf-icon__hand-min" x1="44" y1="44" x2="44" y2="16"/>
+          <!-- Center dot -->
+          <circle class="nf-icon__dot" cx="44" cy="44" r="3"/>
+        </svg>
+      </div>
+
+      <p class="nf-code">Error 404</p>
+      <h1 class="nf-heading">This watch has already<br>found its <em>owner.</em></h1>
+      <p class="nf-sub">
+        The page you're looking for no longer exists — but our collection of exceptional pre-owned timepieces is always waiting.
+      </p>
+
+      <div class="nf-actions">
+        <a href="/#listings" class="btn btn--primary">Browse Current Listings</a>
+        <a href="/#sell" class="btn btn--secondary">Sell Your Watch</a>
+      </div>
+
+      <hr class="nf-divider" />
+
+      <nav class="nf-links" aria-label="Quick links">
+        <a href="/">Home</a>
+        <a href="/#valuation">What's Your Watch Worth?</a>
+        <a href="/blog/">Buying Guides</a>
+        <a href="https://wa.me/19174801080" target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
+        <a href="/#reviews">Reviews</a>
+      </nav>
+
+    </div>
+  </main>
+
+  <footer class="nf-footer">
+    © <span id="footerYear"></span> ChronoClassics ·
+    <a href="mailto:sales@chrono-classics.com" style="color:inherit;">sales@chrono-classics.com</a> ·
+    <a href="tel:+19174801080" style="color:inherit;">(917) 480-1080</a>
+    <script>document.getElementById('footerYear').textContent = new Date().getFullYear();</script>
+  </footer>
+
+</body>
+</html>

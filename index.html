@@ -676,6 +676,17 @@
                 Ekta C. · Google Review
               </p>
             </article>
+            <article class="review-card">
+              <div class="review-card__stars" aria-label="5 stars">
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1l2.39 4.84 5.34.78-3.86 3.76.91 5.32L10 13.27l-4.78 2.51.91-5.32L2.27 6.62l5.34-.78z"/></svg>
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1l2.39 4.84 5.34.78-3.86 3.76.91 5.32L10 13.27l-4.78 2.51.91-5.32L2.27 6.62l5.34-.78z"/></svg>
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1l2.39 4.84 5.34.78-3.86 3.76.91 5.32L10 13.27l-4.78 2.51.91-5.32L2.27 6.62l5.34-.78z"/></svg>
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1l2.39 4.84 5.34.78-3.86 3.76.91 5.32L10 13.27l-4.78 2.51.91-5.32L2.27 6.62l5.34-.78z"/></svg>
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1l2.39 4.84 5.34.78-3.86 3.76.91 5.32L10 13.27l-4.78 2.51.91-5.32L2.27 6.62l5.34-.78z"/></svg>
+              </div>
+              <p class="review-card__text">"A1 seller with excellent communication and extremely responsive to my messages and honest. I was a little worried purchasing my first luxury watch online but the eBay authentication and this seller made it easy. 100% authentic and beautiful. I would not hesitate to buy a watch from this seller again and in fact probably will."</p>
+              <p class="review-card__author">eBay Buyer · Verified Purchase · Rolex Daytona</p>
+            </article>
             <!-- Duplicate set for seamless loop -->
             <article class="review-card" aria-hidden="true">
               <div class="review-card__stars" aria-label="5 stars">
@@ -759,6 +770,17 @@
                 <svg class="review-card__gicon" viewBox="0 0 24 24" role="img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
                 Ekta C. · Google Review
               </p>
+            </article>
+            <article class="review-card" aria-hidden="true">
+              <div class="review-card__stars" aria-label="5 stars">
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1l2.39 4.84 5.34.78-3.86 3.76.91 5.32L10 13.27l-4.78 2.51.91-5.32L2.27 6.62l5.34-.78z"/></svg>
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1l2.39 4.84 5.34.78-3.86 3.76.91 5.32L10 13.27l-4.78 2.51.91-5.32L2.27 6.62l5.34-.78z"/></svg>
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1l2.39 4.84 5.34.78-3.86 3.76.91 5.32L10 13.27l-4.78 2.51.91-5.32L2.27 6.62l5.34-.78z"/></svg>
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1l2.39 4.84 5.34.78-3.86 3.76.91 5.32L10 13.27l-4.78 2.51.91-5.32L2.27 6.62l5.34-.78z"/></svg>
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1l2.39 4.84 5.34.78-3.86 3.76.91 5.32L10 13.27l-4.78 2.51.91-5.32L2.27 6.62l5.34-.78z"/></svg>
+              </div>
+              <p class="review-card__text">"A1 seller with excellent communication and extremely responsive to my messages and honest. I was a little worried purchasing my first luxury watch online but the eBay authentication and this seller made it easy. 100% authentic and beautiful. I would not hesitate to buy a watch from this seller again and in fact probably will."</p>
+              <p class="review-card__author">eBay Buyer · Verified Purchase · Rolex Daytona</p>
             </article>
           </div>
         </div>
@@ -1768,6 +1790,25 @@
 
     function fmt(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
 
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Odometer-style count-up of the estimate range
+    function countUpRange(lowT, highT) {
+      var finalText = fmt(lowT) + ' – ' + fmt(highT);
+      if (reduceMotion) { rangeEl.textContent = finalText; return; }
+      setTimeout(function () { rangeEl.textContent = finalText; }, 1300); // safety net if rAF is throttled
+      var dur = 1100, start = null;
+      function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+      function tick(ts) {
+        if (start === null) start = ts;
+        var p = Math.min(1, (ts - start) / dur);
+        var e = easeOut(p);
+        rangeEl.textContent = fmt(lowT * e) + ' – ' + fmt(highT * e);
+        if (p < 1) requestAnimationFrame(tick);
+        else rangeEl.textContent = finalText;
+      }
+      requestAnimationFrame(tick);
+    }
+
     btn.addEventListener('click', function () {
       var b = brandSel.value, m = modelSel.value, c = condSel.value;
       if (!b || !m || !c) { hint.hidden = false; return; }
@@ -1778,14 +1819,37 @@
       var step = high < 10000 ? 250 : 1000;
       low  = Math.max(step, Math.floor(low / step) * step);
       high = Math.ceil(high / step) * step;
-      rangeEl.textContent = fmt(low) + ' – ' + fmt(high);
       var msg = "Hi, I'd like a firm offer on my " + b + " " + m + " — condition: " + CONDLABEL[c]
               + ", box: " + (boxChk.checked ? 'yes' : 'no') + ", papers: " + (papChk.checked ? 'yes' : 'no')
               + ". Your estimate tool showed " + fmt(low) + "–" + fmt(high) + ".";
       cta.href = 'https://wa.me/19174801080?text=' + encodeURIComponent(msg);
       result.hidden = false;
+      result.classList.remove('is-revealed');
+      void result.offsetWidth;
+      result.classList.add('is-revealed');
+      countUpRange(low, high);
       result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
+  })();
+
+  // ── Brand ticker: ease to a slow drift on hover (jump-free via playbackRate) ──
+  (function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var track = document.getElementById('brandsTrack');
+    var strip = track && (track.closest('.brands-strip') || track.parentElement);
+    if (!track || !strip || !track.getAnimations) return;
+    var anim = track.getAnimations()[0];
+    if (!anim) return;
+    var SLOW = 0.16, FULL = 1, target = FULL, cur = FULL, raf = null;
+    function ease() {
+      cur += (target - cur) * 0.09;
+      if (Math.abs(target - cur) < 0.004) { cur = target; anim.playbackRate = cur; raf = null; return; }
+      anim.playbackRate = cur;
+      raf = requestAnimationFrame(ease);
+    }
+    function go(t) { target = t; if (raf === null) raf = requestAnimationFrame(ease); }
+    strip.addEventListener('mouseenter', function () { go(SLOW); });
+    strip.addEventListener('mouseleave', function () { go(FULL); });
   })();
 
   // ── Scroll to watch grid (skips serial widget, accounts for sticky header) ──
@@ -2144,11 +2208,16 @@
     var parsed = parseWatchTitle(title);
     var url    = item.itemWebUrl || '#';
     var cond   = item.condition || '';
+    var itemId  = item.itemId || url;
+    var favData = encodeURIComponent(JSON.stringify({ id: itemId, title: title, url: url, img: img || '', price: price || '' }));
     var shareBtn = '<button class="watch-card__share" aria-label="Share this watch" title="Share this watch" type="button">'
       + '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>'
       + '</button>';
-    return '<a class="watch-card" href="' + url + '" target="_blank" rel="noopener noreferrer" aria-label="' + title.replace(/"/g,'&quot;') + '">'
-      + (img ? '<div class="watch-card__img-wrap"><img class="watch-card__img" src="' + img + '" alt="' + title.replace(/"/g,'&quot;') + '" width="500" height="500" loading="lazy" decoding="async" />' + shareBtn + '</div>' : '<div class="watch-card__img-wrap">' + shareBtn + '</div>')
+    var favBtn = '<button class="watch-card__fav" aria-label="Save watch" title="Save watch" type="button" data-fav="' + favData + '">'
+      + '<svg class="watch-card__fav-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>'
+      + '</button>';
+    return '<a class="watch-card" href="' + url + '" target="_blank" rel="noopener noreferrer" aria-label="' + title.replace(/"/g,'&quot;') + '" data-item-id="' + itemId.replace(/"/g,'&quot;') + '">'
+      + (img ? '<div class="watch-card__img-wrap"><img class="watch-card__img" src="' + img + '" alt="' + title.replace(/"/g,'&quot;') + '" width="500" height="500" loading="lazy" decoding="async" />' + favBtn + shareBtn + '</div>' : '<div class="watch-card__img-wrap">' + favBtn + shareBtn + '</div>')
       + '<div class="watch-card__body">'
       + '<p class="watch-card__model">' + parsed.model + '</p>'
       + (parsed.ref  ? '<p class="watch-card__ref">'  + parsed.ref  + '</p>' : '')
@@ -2866,6 +2935,11 @@
           if (r.ok || r.status === 200) {
             input.value  = '';
             btn.textContent = 'Subscribed ✓';
+            if (!form.querySelector('.success-check')) {
+              var wrap = document.createElement('div');
+              wrap.innerHTML = '<svg class="success-check" viewBox="0 0 52 52" aria-hidden="true"><circle class="success-check__circle" cx="26" cy="26" r="23" pathLength="1"/><path class="success-check__tick" d="M16 27 l7 7 l14 -16" pathLength="1"/></svg>';
+              status.parentNode.insertBefore(wrap.firstChild, status);
+            }
             setStatus('You\'re in! We\'ll notify you when new watches arrive.', false);
           } else {
             btn.disabled  = false;
@@ -2897,6 +2971,7 @@
   // ── Recently Sold — live from eBay completed listings ─────────────
   (function () {
     var FALLBACK = [
+      { brand:'Rolex',  model:'Cosmograph Daytona · Ref. 116523 Gold & Steel', condition:'Excellent — Verified Authentic', price:'$18,495', image:'', url:'https://www.ebay.com/itm/800037944526' },
       { brand:'Rolex',  model:'Daytona · Ref. 16520 Zenith',            condition:'Excellent — Box & Papers', price:'$36,995', image:'', url:'' },
       { brand:'Rolex',  model:'Datejust II · Ref. 116333 Wimbledon',    condition:'Excellent — Full Set',     price:'$13,995', image:'', url:'' },
       { brand:'Omega',  model:'De Ville Hour Vision · 18K Rose Gold',   condition:'Excellent — Box & Papers', price:'$12,950', image:'', url:'' },
@@ -3103,6 +3178,183 @@
     els.forEach(function (el) { io.observe(el); });
   })();
 
+  </script>
+
+  <!-- ── Saved Watches tray ───────────────────────────────────────── -->
+  <div class="fav-tray" id="favTray" hidden aria-label="Saved watches">
+    <div class="fav-tray__panel" id="favPanel" hidden role="dialog" aria-modal="true" aria-label="Saved watches">
+      <div class="fav-tray__header">
+        <span class="fav-tray__heading">Saved Watches</span>
+        <button class="fav-tray__close" id="favPanelClose" aria-label="Close saved watches" type="button">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <ul class="fav-tray__list" id="favList"></ul>
+      <div class="fav-tray__footer">
+        <button class="fav-tray__clear" id="favClearAll" type="button">Clear all</button>
+        <span class="fav-tray__note">Saved locally on this device</span>
+      </div>
+    </div>
+    <button class="fav-tray__toggle" id="favTrayToggle" aria-label="View saved watches" type="button">
+      <svg class="fav-tray__heart" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      <span class="fav-tray__count" id="favCount" aria-live="polite">0</span>
+    </button>
+  </div>
+
+  <script>
+  // ── Saved Watches: localStorage favorites ────────────────────────────
+  (function () {
+    var LS_KEY = 'cc_favorites';
+    var favEverClicked = false; // tray stays hidden until a heart is clicked this session
+    var grid       = document.getElementById('watchGrid');
+    var tray       = document.getElementById('favTray');
+    var toggleBtn  = document.getElementById('favTrayToggle');
+    var panel      = document.getElementById('favPanel');
+    var closeBtn   = document.getElementById('favPanelClose');
+    var list       = document.getElementById('favList');
+    var countEl    = document.getElementById('favCount');
+    var clearBtn   = document.getElementById('favClearAll');
+    if (!grid || !tray) return;
+
+    // ── Storage helpers ──
+    function load() {
+      try { return JSON.parse(localStorage.getItem(LS_KEY) || '[]'); } catch (e) { return []; }
+    }
+    function save(favs) {
+      try { localStorage.setItem(LS_KEY, JSON.stringify(favs)); } catch (e) {}
+    }
+    function isSaved(id) {
+      return load().some(function (f) { return f.id === id; });
+    }
+
+    // ── Sync heart states for all currently rendered cards ──
+    function syncHearts() {
+      var favs = load();
+      var ids  = {};
+      favs.forEach(function (f) { ids[f.id] = true; });
+      grid.querySelectorAll('.watch-card').forEach(function (card) {
+        var id  = card.getAttribute('data-item-id');
+        var btn = card.querySelector('.watch-card__fav');
+        if (!btn) return;
+        var saved = !!ids[id];
+        btn.classList.toggle('is-saved', saved);
+        btn.setAttribute('aria-label', saved ? 'Remove from saved' : 'Save watch');
+        btn.setAttribute('title',      saved ? 'Remove from saved' : 'Save watch');
+      });
+    }
+
+    // ── Update counter badge ──
+    function updateCount() {
+      var n = load().length;
+      countEl.textContent = n;
+      if (favEverClicked) tray.hidden = false; // only reveal after first heart click
+      tray.classList.toggle('has-saves', n > 0);
+    }
+
+    // ── Render saved list in panel ──
+    function renderPanel() {
+      var favs = load();
+      if (favs.length === 0) {
+        list.innerHTML = '<li class="fav-tray__empty">No saved watches yet.<br>Tap the heart on any listing to save it.</li>';
+        if (clearBtn) clearBtn.hidden = true;
+        return;
+      }
+      if (clearBtn) clearBtn.hidden = false;
+      list.innerHTML = favs.map(function (f) {
+        var thumb = f.img ? '<img class="fav-tray__thumb" src="' + f.img + '" alt="" width="48" height="48" loading="lazy" />' : '<div class="fav-tray__thumb fav-tray__thumb--empty"></div>';
+        return '<li class="fav-tray__item" data-fav-id="' + f.id.replace(/"/g,'&quot;') + '">'
+          + '<a class="fav-tray__item-link" href="' + f.url + '" target="_blank" rel="noopener noreferrer">'
+          + thumb
+          + '<div class="fav-tray__item-info"><span class="fav-tray__item-title">' + f.title + '</span>'
+          + (f.price ? '<span class="fav-tray__item-price">' + f.price + '</span>' : '')
+          + '</div></a>'
+          + '<button class="fav-tray__remove" data-fav-id="' + f.id.replace(/"/g,'&quot;') + '" aria-label="Remove" type="button">'
+          + '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
+          + '</button>'
+          + '</li>';
+      }).join('');
+    }
+
+    // ── Toggle panel open/close ──
+    function openPanel()  { panel.hidden = false; renderPanel(); toggleBtn.classList.add('is-open'); }
+    function closePanel() { panel.hidden = true;  toggleBtn.classList.remove('is-open'); }
+
+    toggleBtn.addEventListener('click', function () {
+      panel.hidden ? openPanel() : closePanel();
+    });
+    closeBtn.addEventListener('click', closePanel);
+
+    // ── Close on outside click ──
+    document.addEventListener('click', function (e) {
+      if (!panel.hidden && !tray.contains(e.target)) closePanel();
+    });
+
+    // ── Remove individual ──
+    list.addEventListener('click', function (e) {
+      var btn = e.target.closest('.fav-tray__remove');
+      if (!btn) return;
+      var id   = btn.getAttribute('data-fav-id');
+      var favs = load().filter(function (f) { return f.id !== id; });
+      save(favs);
+      syncHearts();
+      updateCount();
+      renderPanel();
+    });
+
+    // ── Clear all ──
+    if (clearBtn) {
+      clearBtn.addEventListener('click', function () {
+        save([]);
+        syncHearts();
+        updateCount();
+        renderPanel();
+      });
+    }
+
+    // ── Heart click on watch cards (event delegation, capture phase) ──
+    grid.addEventListener('click', function (e) {
+      var btn = e.target.closest('.watch-card__fav');
+      if (!btn) return;
+      e.preventDefault();
+      e.stopPropagation();
+      favEverClicked = true; // first heart click reveals the tray
+      var raw;
+      try { raw = JSON.parse(decodeURIComponent(btn.getAttribute('data-fav') || '{}')); } catch (ex) { return; }
+      if (!raw.id) return;
+      var favs = load();
+      var idx  = favs.findIndex ? favs.findIndex(function (f) { return f.id === raw.id; }) : -1;
+      if (idx === -1) {
+        // Not yet present — findIndex polyfill fallback
+        for (var i = 0; i < favs.length; i++) { if (favs[i].id === raw.id) { idx = i; break; } }
+      }
+      if (idx >= 0) {
+        favs.splice(idx, 1);
+        btn.classList.remove('is-saved');
+        btn.setAttribute('aria-label', 'Save watch');
+        btn.setAttribute('title',      'Save watch');
+      } else {
+        favs.push(raw);
+        btn.classList.add('is-saved');
+        btn.setAttribute('aria-label', 'Remove from saved');
+        btn.setAttribute('title',      'Remove from saved');
+        // pop animation
+        btn.classList.remove('fav-pop');
+        void btn.offsetWidth;
+        btn.classList.add('fav-pop');
+      }
+      save(favs);
+      updateCount();
+      if (!panel.hidden) renderPanel();
+    }, true);
+
+    // ── Init on page load + after each fetch ──
+    updateCount();
+    syncHearts();
+
+    // Re-sync after eBay cards load (MutationObserver on the grid)
+    var mo = new MutationObserver(function () { syncHearts(); });
+    mo.observe(grid, { childList: true, subtree: false });
+  })();
   </script>
 
 </body>

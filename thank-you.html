@@ -78,6 +78,18 @@
       height: 36px;
       color: var(--accent-gold);
     }
+    .ty-check-circle,
+    .ty-check-tick {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+    }
+    .ty-check-circle { animation: ty-draw 0.5s ease-out 0.15s forwards; }
+    .ty-check-tick   { animation: ty-draw 0.35s ease-out 0.6s forwards; }
+    @keyframes ty-draw { to { stroke-dashoffset: 0; } }
+    @media (prefers-reduced-motion: reduce) {
+      .ty-check-circle,
+      .ty-check-tick { stroke-dashoffset: 0; animation: none; }
+    }
     .ty-eyebrow {
       font-family: var(--font-ui);
       font-size: 0.7rem;
@@ -204,8 +216,8 @@
 
       <div class="ty-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="10"/>
-          <polyline points="7 12 10.5 15.5 17 9"/>
+          <circle class="ty-check-circle" cx="12" cy="12" r="10" pathLength="1"/>
+          <polyline class="ty-check-tick" points="7 12 10.5 15.5 17 9" pathLength="1"/>
         </svg>
       </div>
 
