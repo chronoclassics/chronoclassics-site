@@ -6215,13 +6215,16 @@ main {
 .fav-tray.has-saves .fav-tray__count { opacity: 1; }
 
 .fav-tray__panel {
+  display: none; /* shown via .is-open class only */
   background: #fff;
   border-radius: 14px;
   box-shadow: 0 8px 36px rgba(0,0,0,0.14), 0 0 0 1px rgba(212,175,55,0.18);
   width: 300px;
-  display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+.fav-tray__panel.is-open {
+  display: flex;
   animation: fav-panel-in 0.22s ease-out;
 }
 @keyframes fav-panel-in {

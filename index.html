@@ -3186,7 +3186,7 @@
 
   <!-- ── Saved Watches tray ───────────────────────────────────────── -->
   <div class="fav-tray" id="favTray" hidden aria-label="Saved watches">
-    <div class="fav-tray__panel" id="favPanel" hidden role="dialog" aria-modal="true" aria-label="Saved watches">
+    <div class="fav-tray__panel" id="favPanel" role="dialog" aria-modal="true" aria-label="Saved watches">
       <div class="fav-tray__header">
         <span class="fav-tray__heading">Saved Watches</span>
         <button class="fav-tray__close" id="favPanelClose" aria-label="Close saved watches" type="button">
@@ -3290,18 +3290,19 @@
       list.innerHTML = html;
     }
 
-    // ── Toggle panel open/close ──
-    function openPanel()  { panel.hidden = false; renderPanel(); toggleBtn.classList.add('is-open'); }
-    function closePanel() { panel.hidden = true;  toggleBtn.classList.remove('is-open'); }
+    // ── Toggle panel open/close (class-based, avoids CSS/hidden conflicts) ──
+    function panelIsOpen() { return panel.classList.contains('is-open'); }
+    function openPanel()   { panel.classList.add('is-open');    renderPanel(); toggleBtn.classList.add('is-open'); }
+    function closePanel()  { panel.classList.remove('is-open'); toggleBtn.classList.remove('is-open'); }
 
     toggleBtn.addEventListener('click', function () {
-      panel.hidden ? openPanel() : closePanel();
+      panelIsOpen() ? closePanel() : openPanel();
     });
     closeBtn.addEventListener('click', closePanel);
 
     // ── Close on outside click ──
     document.addEventListener('click', function (e) {
-      if (!panel.hidden && !tray.contains(e.target)) closePanel();
+      if (panelIsOpen() && !tray.contains(e.target)) closePanel();
     });
 
     // ── Remove individual ──
@@ -3359,7 +3360,7 @@
       }
       save(favs);
       updateCount();
-      if (!panel.hidden) renderPanel();
+      if (panelIsOpen()) renderPanel();
     }, true);
 
     // ── Init on page load + after each fetch ──
