@@ -2970,8 +2970,11 @@
 
   // ── Recently Sold — live from eBay completed listings ─────────────
   (function () {
-    var FALLBACK = [
+    // Manually pinned entries — always shown first regardless of API data
+    var PINNED = [
       { brand:'Rolex',  model:'Cosmograph Daytona · Ref. 116523 Gold & Steel', condition:'Excellent — Verified Authentic', price:'$18,495', image:'', url:'https://www.ebay.com/itm/800037944526' },
+    ];
+    var FALLBACK = [
       { brand:'Rolex',  model:'Daytona · Ref. 16520 Zenith',            condition:'Excellent — Box & Papers', price:'$36,995', image:'', url:'' },
       { brand:'Rolex',  model:'Datejust II · Ref. 116333 Wimbledon',    condition:'Excellent — Full Set',     price:'$13,995', image:'', url:'' },
       { brand:'Omega',  model:'De Ville Hour Vision · 18K Rose Gold',   condition:'Excellent — Box & Papers', price:'$12,950', image:'', url:'' },
@@ -3050,9 +3053,10 @@
       .then(function (r) { return r.json(); })
       .then(function (data) {
         var items = data.listings;
-        render(items && items.length ? items : FALLBACK);
+        var base  = (items && items.length) ? items : FALLBACK;
+        render(PINNED.concat(base));
       })
-      .catch(function () { render(FALLBACK); });
+      .catch(function () { render(PINNED.concat(FALLBACK)); });
   })();
 
   // ── Serial Lookup Widget ──────────────────────────────────────
