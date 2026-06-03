@@ -6161,11 +6161,11 @@ main {
 .fav-tray {
   position: fixed;
   bottom: 1.5rem;
-  right: 1.5rem;
+  left: 1.5rem;
   z-index: 500;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
   gap: 0.5rem;
 }
 .fav-tray[hidden] { display: none !important; }
