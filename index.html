@@ -27,6 +27,15 @@
   <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <!-- PWA: installable app -->
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <meta name="theme-color" content="#1a1a1a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="ChronoClassics" />
+  <script src="/assets/pwa.js" defer></script>
+  <script src="/assets/tracking.js" defer></script>
   <link rel="preload" as="image" href="assets/hero-movement.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -49,10 +58,30 @@
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "5",
-      "reviewCount": "2",
+      "reviewCount": "170",
       "bestRating": "5",
       "worstRating": "1"
-    }
+    },
+    "review": [
+      {
+        "@type": "Review",
+        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+        "author": { "@type": "Person", "name": "Verified eBay Buyer" },
+        "reviewBody": "A1 seller with excellent communication and extremely responsive to my messages and honest. I was a little worried purchasing my first luxury watch online but the eBay authentication and this seller made it easy. 100% authentic and beautiful. I would not hesitate to buy a watch from this seller again."
+      },
+      {
+        "@type": "Review",
+        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+        "author": { "@type": "Person", "name": "Mike K." },
+        "reviewBody": "Very happy with the service I received dealing with ChronoClassics. This was my first Rolex watch purchase, the transaction went very smooth, with good communication throughout. Highly recommend this seller."
+      },
+      {
+        "@type": "Review",
+        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+        "author": { "@type": "Person", "name": "Ekta C." },
+        "reviewBody": "Highly recommended seller!"
+      }
+    ]
   }
   </script>
   <!-- Google Analytics -->
@@ -1331,6 +1360,7 @@
           <a href="#sold">Recently Sold</a>
           <a href="#reviews">Reviews</a>
           <a href="/blog/">Buying Guides</a>
+          <a href="/glossary.html">Watch Glossary</a>
         </div>
         <div class="site-footer__col">
           <span class="site-footer__label">Information</span>

@@ -30,6 +30,13 @@
   </url>
 
   <url>
+    <loc>https://chrono-classics.com/glossary.html</loc>
+    <lastmod>2026-06-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
     <loc>https://chrono-classics.com/blog/</loc>
     <lastmod>2026-05-28</lastmod>
     <changefreq>weekly</changefreq>

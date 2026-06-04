@@ -1,0 +1,18 @@
+{
+  "id": "/",
+  "name": "ChronoClassics — Pre-Owned Luxury Watches",
+  "short_name": "ChronoClassics",
+  "description": "Buy, sell, and source pre-owned luxury timepieces — Rolex, Cartier, Omega and more.",
+  "start_url": "/?utm_source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#faf8f5",
+  "theme_color": "#1a1a1a",
+  "categories": ["shopping", "business", "lifestyle"],
+  "icons": [
+    { "src": "/assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
