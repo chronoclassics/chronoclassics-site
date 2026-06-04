@@ -71,6 +71,25 @@ function extractBrand(title) {
   return BRANDS.find((b) => t.includes(b.toLowerCase())) || 'Luxury Watch';
 }
 
+function detectGender(title) {
+  const t = (title || '').toLowerCase();
+  if (/\b(lad(y|ies)|wom[ae]n'?s?|female)\b/.test(t)) return 'female';
+  if (/\b(men'?s?|gents?|male)\b/.test(t)) return 'male';
+  return 'unisex';
+}
+
+const COLOR_TERMS = [
+  'rose gold', 'yellow gold', 'white gold', 'two-tone', 'two tone',
+  'mother of pearl', 'gold', 'silver', 'steel', 'black', 'white',
+  'blue', 'green', 'brown', 'grey', 'gray', 'champagne', 'salmon',
+  'bronze', 'platinum', 'pink', 'meteorite',
+];
+function detectColor(title) {
+  const t = (title || '').toLowerCase();
+  const hit = COLOR_TERMS.find((c) => t.indexOf(c) >= 0);
+  return hit ? hit.replace(/\b\w/g, (c) => c.toUpperCase()) : '';
+}
+
 function xmlEscape(s) {
   return String(s == null ? '' : s)
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -108,6 +127,8 @@ exports.handler = async function () {
     const priceVal = item.price && item.price.value ? parseFloat(item.price.value).toFixed(2) : '';
     const currency = (item.price && item.price.currency) || 'USD';
     const brand = extractBrand(item.title);
+    const gender = detectGender(item.title);
+    const color = detectColor(item.title);
     if (!id || !priceVal || !img) return ''; // skip incomplete items
 
     return [
@@ -121,10 +142,13 @@ exports.handler = async function () {
       '      <g:availability>in_stock</g:availability>',
       '      <g:condition>used</g:condition>',
       `      <g:brand>${xmlEscape(brand)}</g:brand>`,
+      '      <g:age_group>adult</g:age_group>',
+      `      <g:gender>${gender}</g:gender>`,
+      color ? `      <g:color>${xmlEscape(color)}</g:color>` : '',
       '      <g:google_product_category>Apparel &amp; Accessories &gt; Jewelry &gt; Watches</g:google_product_category>',
       '      <g:identifier_exists>no</g:identifier_exists>',
       '    </item>',
-    ].join('\n');
+    ].filter(Boolean).join('\n');
   }).filter(Boolean);
 
   const xml =
